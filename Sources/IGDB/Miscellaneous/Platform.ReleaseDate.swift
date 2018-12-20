@@ -44,16 +44,7 @@ public extension Platform.ReleaseDate {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         region = try container.decode(Region.self, forKey: .region)
-
-        // Date is actually a an unsigned 64-bit integer unix timestamp in milliseconds.
-        // Conversion requires:
-        //      1) Decoding as `UInt64`, conversion to `TimeInterval`
-        //      2) Milliseconds to seconds conversion (`/ 1000.0`)
-        //      3) Date initializer from unix epoch (1970)
-        let timeInterval = try container.decode(UInt64.self, forKey: .date)
-        let timeIntervalInMilliSeconds = TimeInterval(timeInterval)
-        let timeIntervalInSeconds = timeIntervalInMilliSeconds / 1000.0
-        date = Date(timeIntervalSince1970: timeIntervalInSeconds)
+        date = try container.decode(unixEpoch: Date.self, forKey: .date)
     }
 
     /// Encodes this value into the given encoder.
@@ -68,10 +59,6 @@ public extension Platform.ReleaseDate {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(region, forKey: .region)
-
-        // Date is actually a an unsigned 64-bit integer unix timestamp in milliseconds.
-        // See `init(from decoder:)` implementation for details.
-        let timeInterval = date.timeIntervalSince1970 * 1000.0 // Seconds to milli-seconds
-        try container.encode(UInt64(timeInterval), forKey: .date)
+        try container.encode(unixEpoch: date, forKey: .date)
     }
 }
