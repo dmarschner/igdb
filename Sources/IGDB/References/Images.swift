@@ -1,6 +1,6 @@
 import Foundation
 
-/// [ImageFormatter](https://igdb.github.io/api/references/images/) may be used to get URLs of different sized images.
+/// [Images](https://igdb.github.io/api/references/images/) may be used to get URLs of different sized images.
 ///
 /// Images are composable by a fixed set of different named sizes and the retina equivalent.
 /// Non-IGDB images are not composable therefore the initializer does throw on initialization.
