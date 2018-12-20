@@ -43,6 +43,9 @@ import Foundation
 ///     }
 public protocol Endpoint: Codable {
 
+    /// A type that can be used as keys for encoding and decoding as well as for expressing required fields.
+    associatedtype CodingKeys: EndpointKeys & Fields
+
     /// The identifier value type
     associatedtype Identifier: Codable
 
