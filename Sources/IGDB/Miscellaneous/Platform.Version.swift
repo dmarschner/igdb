@@ -44,25 +44,25 @@ public extension Platform {
     ///     }
     public struct Version: Miscellaneous {
 
-        /// <#Description#>
+        /// The URL to the platform site, of this version
         public let url: String
 
-        /// <#Description#>
+        /// A descriptive version name
         public let name: String
 
-        /// <#Description#>
+        /// The version slug
         public let slug: String
 
-        /// <#Description#>
+        /// The CPU description
         public let cpu: String?
 
-        /// <#Description#>
+        /// The operation system name
         public let operationSystem: String?
 
         /// <#Description#>
         public let media: String?
 
-        /// <#Description#>
+        /// The memory description
         public let memory: String?
 
         /// <#Description#>
@@ -71,22 +71,22 @@ public extension Platform {
         /// <#Description#>
         public let output: String?
 
-        /// <#Description#>
+        /// The storage description
         public let storage: String?
 
-        /// <#Description#>
+        /// The graphics description
         public let graphics: String?
 
-        /// <#Description#>
+        /// The resolution description
         public let resolutions: String?
 
-        /// <#Description#>
+        /// The hardware connectivity description
         public let connectivity: String?
 
         /// See the [Image](Image.swift) object reference
         public let logo: Image?
 
-        /// <#Description#>
+        /// A brief summary of the platform in this version
         public let summary: String?
 
         /// See the [release date](Platform.Version.ReleaseDate.swift) object reference

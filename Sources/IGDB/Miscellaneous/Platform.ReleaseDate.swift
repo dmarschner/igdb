@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Platform.Version {
+public extension Platform {
 
     /// The [Platform version release date](https://igdb.github.io/api/misc-objects/platform-version-release-date/) at a specific region.
     ///
@@ -27,7 +27,7 @@ public extension Platform.Version {
 
 // MARK: -
 
-public extension Platform.Version.ReleaseDate {
+public extension Platform.ReleaseDate {
 
     /// A type that can be used as keys for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
