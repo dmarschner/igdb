@@ -44,7 +44,7 @@ import Foundation
 public protocol Endpoint: Codable {
 
     /// The identifier value type
-    associatedtype Identifier
+    associatedtype Identifier: Codable
 
     /// The unique resource identifier to this specific entry
     var identifier: Identifier { get }
