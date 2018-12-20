@@ -1,0 +1,4 @@
+line_length: 140
+force_cast: error
+excluded:
+  - .build
