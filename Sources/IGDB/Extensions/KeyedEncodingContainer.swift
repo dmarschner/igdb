@@ -12,11 +12,7 @@ public extension KeyedEncodingContainer {
     ///
     /// - Parameter encoder: The encoder to write data to.
     mutating func encode(unixEpoch date: Date, forKey key: Key) throws {
-
-        // Date is actually a an unsigned 64-bit integer unix timestamp in milliseconds.
-        // See `init(from decoder:)` on `KeyedDecodingContainer` extension for details.
-        let timeInterval = date.timeIntervalSince1970 * 1000.0 // Seconds to milli-seconds
-        try encode(UInt64(timeInterval), forKey: key)
+        try encode(UInt64(date.timeIntervalSince1970), forKey: key)
     }
 
     /// Encodes this value into the given encoder.
