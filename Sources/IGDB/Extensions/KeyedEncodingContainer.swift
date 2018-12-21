@@ -11,7 +11,7 @@ public extension KeyedEncodingContainer {
     /// encoder's format.
     ///
     /// - Parameter encoder: The encoder to write data to.
-    mutating func encode(unixEpoch date: Date, forKey key: Key) throws {
+    mutating func encode(timeIntervalSince1970 date: Date, forKey key: Key) throws {
         try encode(UInt64(date.timeIntervalSince1970), forKey: key)
     }
 

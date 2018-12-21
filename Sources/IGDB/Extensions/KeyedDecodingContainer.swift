@@ -10,7 +10,7 @@ public extension KeyedDecodingContainer {
     /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
     /// - throws: `DecodingError.keyNotFound` if `self` does not have an entry for the given key.
     /// - throws: `DecodingError.valueNotFound` if `self` has a null entry for the given key.
-    public func decode(unix type: Date.Type, forKey key: Key) throws -> Date {
+    public func decode(timeIntervalSince1970 type: Date.Type, forKey key: Key) throws -> Date {
         return try Date(timeIntervalSince1970: TimeInterval(decode(UInt64.self, forKey: key)))
     }
 
