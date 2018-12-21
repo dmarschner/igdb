@@ -43,8 +43,8 @@ import Foundation
 ///     }
 public protocol Endpoint: Codable {
 
-    /// A type that can be used as keys for encoding and decoding as well as for expressing required fields.
-    associatedtype CodingKeys: EndpointKeys & Fields
+    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
+    associatedtype CodingKeys: CodingKey & Fields
 
     /// The identifier value type
     associatedtype Identifier: Codable
@@ -57,7 +57,4 @@ public protocol Endpoint: Codable {
 
     /// The last resource update timestamp
     var updatedAt: Date { get }
-
-    /// TODO: What exactly is this?
-    var score: Float? { get }
 }

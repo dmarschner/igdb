@@ -10,7 +10,7 @@ public extension Achievement {
     ///     | 2     | Silver    |
     ///     | 3     | Gold      |
     ///     | 4     | Platinum  |
-    public enum Rank: Int, Enumeration {
+    public enum Rank: Int, Codable {
         case bronze = 1
         case silver
         case gold

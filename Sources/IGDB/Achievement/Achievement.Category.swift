@@ -9,7 +9,7 @@ public extension Achievement {
     ///     | 1     | Playstation  |
     ///     | 2     | Xbox         |
     ///     | 3     | Steam        |
-    public enum Category: Int, Enumeration {
+    public enum Category: Int, Codable {
         case playstation = 1
         case xbox
         case steam
