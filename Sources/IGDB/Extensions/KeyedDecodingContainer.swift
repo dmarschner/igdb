@@ -28,4 +28,25 @@ public extension KeyedDecodingContainer {
         }
         return .expanded(object)
     }
+
+    /// Decodes a value of the given type for the given key, if present.
+    ///
+    /// This method returns `nil` if the container does not have a value
+    /// associated with `key`, or if the value is null. The difference between
+    /// these states can be distinguished with a `contains(_:)` call.
+    ///
+    /// - parameter type: The type of value to decode.
+    /// - parameter key: The key that the decoded value is associated with.
+    /// - returns: A decoded value of the requested type, or `nil` if the `Decoder` does not have
+    ///            an entry associated with the given key, or if the value is a null value.
+    /// - throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
+    public func decodeIfPresent<E>(_ type: Expander<E>.Type, forKey key: Key) throws -> Expander<E>? where E: IGDB.Endpoint {
+        guard let object = try? decodeIfPresent(E.self, forKey: key), let unwrapped = object else { // Check if expandend, allow failure
+            guard let identifier = try decodeIfPresent(E.Identifier.self, forKey: key) else { // Check if identifier, do not allow failure
+                return nil
+            }
+            return .identifier(identifier)
+        }
+        return .expanded(unwrapped)
+    }
 }
