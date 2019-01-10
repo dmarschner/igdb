@@ -1,13 +1,13 @@
 import Foundation
 
-public extension Achievement {
+public extension Pulse {
 
-    /// [Achievement Icon](https://api-docs.igdb.com/?swift#achievement-icon)
+    /// [Pulse Website](https://api-docs.igdb.com/#pulse-url)
     ///
-    /// An icon for a specific achievement
+    /// A URL linking to the article
     ///
-    /// Request Path: https://api-v3.igdb.com/achievement_icons
-    public final class Icon: Image, Identifiable, Composable {
+    /// Request Path: https://api-v3.igdb.com/pulse_urls
+    public final class Website: IGDB.Website, Identifiable, Composable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -31,7 +31,7 @@ public extension Achievement {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-            try encodeIdentifier(to: encoder)
+try encodeIdentifier(to: encoder)
             try super.encode(to: encoder)
         }
     }

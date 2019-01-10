@@ -1,13 +1,13 @@
 import Foundation
 
-public extension Achievement {
+public extension Game {
 
-    /// [Achievement Icon](https://api-docs.igdb.com/?swift#achievement-icon)
+    /// [Game Website](https://api-docs.igdb.com/#website)
     ///
-    /// An icon for a specific achievement
+    /// A website url, usually associated with a game
     ///
-    /// Request Path: https://api-v3.igdb.com/achievement_icons
-    public final class Icon: Image, Identifiable, Composable {
+    /// Request Path: https://api-v3.igdb.com/websites
+    public final class Website: IGDB.Website, Identifiable, Composable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -31,7 +31,7 @@ public extension Achievement {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-            try encodeIdentifier(to: encoder)
+try encodeIdentifier(to: encoder)
             try super.encode(to: encoder)
         }
     }

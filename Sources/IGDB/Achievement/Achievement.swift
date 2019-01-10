@@ -1,49 +1,26 @@
 import Foundation
 
-/// [Achievement](https://api-docs.igdb.com/?swift#achievement)
+// TODO: 401 Unauthorized
+
+/// [Achievement](https://api-docs.igdb.com/?swift#achievement) data for specific games for
+/// specific platforms (currently limited to achievements from steam, playstation and Xbox)
 ///
-/// Request path: https://api-v3.igdb.com/achievements
-///
-/// Representation:
-///
-///     {
-///         "id": 1234,
-///         "name": "Boss Killer",
-///         "category": 1,
-///         "created_at": 1529500723000,
-///         "updated_at": 1529500723000,
-///         "icon": {
-///             "url": "https://images.igdb.com/igdb/uploads/t_thumb/dadsajj2jdda2.jpg",
-///             "cloudinary_id": "dadsajj2jdda2",
-///             "width": 1240,
-///             "height": 768
-///         },
-///         "locked_icon": {
-///             "url": "https://images.igdb.com/igdb/uploads/t_thumb/dadsajj2jdda2.jpg",
-///             "cloudinary_id": "dadsajj2jdda2",
-///             "width": 1240,
-///             "height": 768
-///         },
-///         "game": 41233,
-///         "rank": 3,
-///         "external_id": "AKM_E123DDD",
-///         "description": "Defeat the end boss!",
-///         "owners": 32321,
-///         "owners_percentage": 42.31233,
-///         "tags": ["Tag1", "Tag2", "Tag3"],
-///         "language": 1
-///     }
-public final class Achievement: BaseEndpoint, Endpoint {
+/// API path: [/achievements](https://api-v3.igdb.com/achievements)
+public final class Achievement: Endpoint, Composable, Updatable {
 
     /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum CodingKeys: String, CodingKey, Fields {
+    public enum Fields: String, CodingKey, Field {
         case icon = "achievement_icon"
-        case category, description
-        case externalId = "external_id"
-        case game, language, name
-        case ownersPercentage = "owners_percentage"
-        case rank, slug, tags
+        case createdAt, updatedAt // Updatable
+        case category, description, externalId, game, language
+        case name, ownersPercentage, rank, slug, tags
     }
+
+    /// Date this was initially added to the IGDB database
+    public let createdAt: Date?
+
+    /// The last date this entry was updated in the IGDB database
+    public let updatedAt: Date?
 
     /// The icon of a specific achievement
     public let icon: Expander<Icon>?
@@ -77,26 +54,4 @@ public final class Achievement: BaseEndpoint, Endpoint {
 
     /// Related entities in the IGDB API
     public let tags: [Tag]?
-
-    /// Creates a new instance by decoding from the given decoder.
-    ///
-    /// This initializer throws an error if reading from the decoder fails, or
-    /// if the data read is corrupted or otherwise invalid.
-    ///
-    /// - Parameter decoder: The decoder to read data from.
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        icon = try container.decodeIfPresent(Expander<Icon>.self, forKey: .icon)
-        category = try container.decodeIfPresent(Category.self, forKey: .category)
-        description = try container.decodeIfPresent(String.self, forKey: .description)
-        externalId = try container.decodeIfPresent(String.self, forKey: .externalId)
-        game = try container.decodeIfPresent(Expander<Game>.self, forKey: .game)
-        language = try container.decodeIfPresent(Region.self, forKey: .language)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
-        ownersPercentage = try container.decodeIfPresent(Double.self, forKey: .ownersPercentage)
-        rank = try container.decodeIfPresent(Rank.self, forKey: .rank)
-        slug = try container.decodeIfPresent(String.self, forKey: .slug)
-        tags = try container.decodeIfPresent([Tag].self, forKey: .tags)
-    }
 }

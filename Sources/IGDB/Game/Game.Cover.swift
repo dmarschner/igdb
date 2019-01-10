@@ -1,13 +1,11 @@
 import Foundation
 
-public extension Achievement {
+public extension Game {
 
-    /// [Achievement Icon](https://api-docs.igdb.com/?swift#achievement-icon)
+    /// [Cover](https://api-docs.igdb.com/#cover)
     ///
-    /// An icon for a specific achievement
-    ///
-    /// Request Path: https://api-v3.igdb.com/achievement_icons
-    public final class Icon: Image, Identifiable, Composable {
+    /// API path: [/covers](https://api-v3.igdb.com/covers)
+    public final class Cover: Image, Identifiable, Composable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -19,7 +17,8 @@ public extension Achievement {
         ///
         /// - Parameter decoder: The decoder to read data from.
         public required init(from decoder: Decoder) throws {
-            identifier = try type(of: self).decodeIdentifier(from: decoder)
+            let container = try decoder.container(keyedBy: IdentifierKey.self)
+            id = try container.decode(Identifier.self, forKey: .identifier)
             try super.init(from: decoder)
         }
 
@@ -31,7 +30,8 @@ public extension Achievement {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-            try encodeIdentifier(to: encoder)
+            var container = encoder.container(keyedBy: IdentifierKey.self)
+            try container.encode(id, forKey: .identifier)
             try super.encode(to: encoder)
         }
     }
