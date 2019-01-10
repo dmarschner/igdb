@@ -5,6 +5,30 @@ import Foundation
 /// API path: [/characters](https://api-v3.igdb.com/characters)
 public struct Character: Codable, Identifiable, Composable, Updatable {
 
+    // sourcery:inline:Character.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case akas
+        case countryName = "country_name"
+        case description
+        case games
+        case gender
+        case mugShot = "mug_shot"
+        case name
+        case people
+        case slug
+        case species
+        case url
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
+
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
 
@@ -43,10 +67,4 @@ public struct Character: Codable, Identifiable, Composable, Updatable {
 
     /// The website address (URL) of the item
     public let url: String?
-}
-
-extension Character {
-}
-
-extension Character  {
 }

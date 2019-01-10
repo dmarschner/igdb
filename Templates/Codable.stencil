@@ -1,3 +1,0 @@
-{% for type in types.all|struct %}
-    {{ type.name }}
-{% endfor %}

@@ -9,6 +9,22 @@ public extension Game {
     /// API path: [/themes](https://api-v3.igdb.com/themes)
     public struct Theme: Codable, Identifiable, Composable, Updatable {
 
+        // sourcery:inline:Game.Theme.CodingKeys
+
+        /// A type that can be used as a key for encoding and decoding.
+        public enum CodingKeys: String, CodingKey, Field {
+            case identifier = "id"
+            case createdAt = "created_at"
+            case updatedAt = "updated_at"
+            case name
+            case slug
+            case url
+        }
+        // sourcery:end
+
+        /// The unique resource identifier to this specific entry
+        public let identifier: UInt64
+
         /// Date this was initially added to the IGDB database
         public let createdAt: Date?
 
@@ -24,10 +40,4 @@ public extension Game {
         /// The website address (URL) of the item
         public let url: String?
     }
-}
-
-extension Theme {
-}
-
-extension Theme  {
 }

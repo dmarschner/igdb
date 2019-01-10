@@ -10,6 +10,12 @@ public extension Game {
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
 
+        // sourcery:inline:Game.Artwork.IdentifierKey
+
+        /// A type that can be used as a key for identifier encoding
+        private enum IdentifierKey: String, CodingKey {
+            case identifier = "id"
+        }
         /// Creates a new instance by decoding from the given decoder.
         ///
         /// This initializer throws an error if reading from the decoder fails, or
@@ -17,10 +23,10 @@ public extension Game {
         ///
         /// - Parameter decoder: The decoder to read data from.
         public required init(from decoder: Decoder) throws {
-            identifier = try type(of: self).decodeIdentifier(from: decoder)
+            let container = try decoder.container(keyedBy: IdentifierKey.self)
+            identifier = try container.decode(Identifier.self, forKey: .identifier)
             try super.init(from: decoder)
         }
-
         /// Encodes this value into the given encoder.
         ///
         /// If the value fails to encode anything, `encoder` will encode an empty keyed container in its place.
@@ -29,8 +35,10 @@ public extension Game {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-            try encodeIdentifier(to: encoder)
+            var container = encoder.container(keyedBy: IdentifierKey.self)
+            try container.encode(identifier, forKey: .identifier)
             try super.encode(to: encoder)
         }
+        // sourcery:end
     }
 }

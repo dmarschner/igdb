@@ -1,0 +1,25 @@
+{% for type in types.all %}
+{% if type.initializers.count == 0 %}
+{% set spacing %}{% if type.parentName %}    {% endif %}{% endset %}
+// sourcery:inline:{{ type.name }}.CodingKeys
+
+{{spacing}}    /// A type that can be used as a key for encoding and decoding.
+{{spacing}}    {{ type.accessLevel }} enum CodingKeys: String, CodingKey, Field {
+{{spacing}}        {% for variable in type.storedVariables %}
+{{spacing}}        {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}
+{{spacing}}        {% if variable.name == "identifier" %}
+{{spacing}}        case identifier = "id"
+{{spacing}}        {% elif variable.name == "year" %}
+{{spacing}}        case year = "y"
+{{spacing}}        {% elif variable.name == "month" %}
+{{spacing}}        case month = "m"
+{{spacing}}        {% elif variable.name == CamelCased %}
+{{spacing}}        case {{ variable.name }}
+{{spacing}}        {% else %}
+{{spacing}}        case {{ variable.name }} = "{{ CamelCased }}"
+{{spacing}}        {% endif %}
+{{spacing}}        {% endfor %}
+{{spacing}}    }
+// sourcery:end
+{% endif %}
+{% endfor %}

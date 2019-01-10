@@ -3,13 +3,29 @@ import Foundation
 /// [Search](https://api-docs.igdb.com/#search)
 ///
 /// Request Path: https://api-v3.igdb.com/searches
-public final class Search: Endpoint, Composable {
+public struct Search: Codable, Identifiable, Composable {
 
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case alternativeName, character, collection, company, description
-        case game, name, person, platform, popularity, theme, publishedAt
+    // sourcery:inline:Search.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case alternativeName = "alternative_name"
+        case character
+        case collection
+        case company
+        case description
+        case game
+        case name
+        case platform
+        case popularity
+        case theme
+        case publishedAt = "published_at"
     }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
 
     public let alternativeName: String?
 

@@ -7,6 +7,31 @@ import Foundation
 /// API path: [/platforms](https://api-v3.igdb.com/platforms)
 public struct Platform: Codable, Identifiable, Composable, Updatable {
 
+    // sourcery:inline:Platform.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case abbreviation
+        case alternativeName = "alternative_name"
+        case category
+        case generation
+        case name
+        case platformLogo = "platform_logo"
+        case productFamily = "product_family"
+        case slug
+        case summary
+        case url
+        case versions
+        case websites
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
+
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
 
@@ -48,10 +73,4 @@ public struct Platform: Codable, Identifiable, Composable, Updatable {
 
     /// <# Description #>
     public let websites: Expander<[Platform.Website]>?
-}
-
-extension Platform {
-}
-
-extension Platform  {
 }

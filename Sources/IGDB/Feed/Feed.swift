@@ -7,6 +7,32 @@ import Foundation
 /// API path: [/feeds](https://api-v3.igdb.com/feeds)
 public struct Feed: Codable, Identifiable, Composable, Updatable {
 
+    // sourcery:inline:Feed.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case category
+        case content
+        case feedLikesCount = "feed_likes_count"
+        case feedVideo = "feed_video"
+        case games
+        case meta
+        case publishedAt = "published_at"
+        case pulse
+        case slug
+        case title
+        case uid
+        case url
+        case user
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
+
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
 
@@ -35,7 +61,7 @@ public struct Feed: Codable, Identifiable, Composable, Updatable {
     public let publishedAt: Date?
 
     /// The pulse article associated with this feed item
-    public let pulse: Expander<Pulse>?
+    public let pulse: Pulse.Identifier?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
@@ -51,10 +77,4 @@ public struct Feed: Codable, Identifiable, Composable, Updatable {
 
     /// The user who created the feed item
     public let user: Int?
-}
-
-extension Feed {
-}
-
-extension Feed  {
 }

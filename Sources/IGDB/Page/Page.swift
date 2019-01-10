@@ -7,8 +7,36 @@ import Foundation
 /// API path: [/pages](https://api-v3.igdb.com/pages)
 public struct Page: Codable, Identifiable, Composable, Updatable {
 
+    // sourcery:inline:Page.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case background
+        case battlenet
+        case category
+        case color
+        case company
+        case country
+        case description
+        case feed
+        case game
+        case name
+        case origin
+        case pageFollowsCount = "page_follows_count"
+        case pageLogo = "page_logo"
+        case slug
+        case subCategory = "sub_category"
+        case uplay
+        case url
+        case websites
+    }
+    // sourcery:end
+
     /// The unique resource identifier to this specific entry
-    var identifier: Identifier { get }
+    public let identifier: UInt64
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -72,10 +100,4 @@ public struct Page: Codable, Identifiable, Composable, Updatable {
 
     /// <# Description #>
     public let websites: Expander<[Website]>?
-}
-
-extension Page {
-}
-
-extension Page  {
 }

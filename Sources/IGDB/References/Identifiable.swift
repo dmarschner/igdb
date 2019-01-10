@@ -44,35 +44,3 @@ extension Array: Identifiable where Element: Identifiable {
         return map({ $0.identifier })
     }
 }
-
-// MARK: - Coding
-
-/// A type that can be used as keys for encoding and decoding. Hidden within the file.
-private enum CodingKeys: String, CodingKey {
-    case identifier = "id"
-}
-
-public extension Identifiable where Self: Codable {
-
-    /// Decodes `identifier` from the given decoder.
-    ///
-    /// - Parameter decoder: The decoder to read data from.
-    /// - Returns: The identifier value of the static endpoint.
-    /// - Throws: If reading from the decoder fails, or if the data read is corrupted or otherwise invalid.
-    public static func decodeIdentifier(from decoder: Decoder) throws -> Identifier {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        return try container.decode(Identifier.self, forKey: .identifier)
-    }
-
-    /// Encodes `identifier` into the given encoder.
-    ///
-    /// If it fails to encode anything, `encoder` will encode an empty keyed container in its place.
-    ///
-    /// This function throws an error if any values are invalid for the given encoder's format.
-    ///
-    /// - Parameter encoder: The encoder to write data to.
-    public func encodeIdentifier(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(identifier, forKey: .identifier)
-    }
-}

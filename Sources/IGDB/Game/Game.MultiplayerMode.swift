@@ -9,6 +9,29 @@ public extension Game {
     /// API path: [/multiplayer_modes](https://api-v3.igdb.com/multiplayer_modes)
     public struct MultiplayerMode: Codable, Identifiable, Composable {
 
+        // sourcery:inline:Game.MultiplayerMode.CodingKeys
+
+        /// A type that can be used as a key for encoding and decoding.
+        public enum CodingKeys: String, CodingKey, Field {
+            case identifier = "id"
+            case campaigncoop
+            case dropin
+            case lancoop
+            case offlinecoop
+            case offlinecoopmax
+            case offlinemax
+            case onlinecoop
+            case onlinecoopmax
+            case onlinemax
+            case platform
+            case splitscreen
+            case splitscreenonline
+        }
+        // sourcery:end
+
+        /// The unique resource identifier to this specific entry
+        public let identifier: UInt64
+
         /// True if the game supports campaign coop
         public let campaigncoop: Bool?
 
@@ -45,10 +68,4 @@ public extension Game {
         /// True if the game supports split screen, online multiplayer
         public let splitscreenonline: Bool?
     }
-}
-
-extension MultiplayerMode {
-}
-
-extension MultiplayerMode  {
 }

@@ -4,7 +4,7 @@ import Foundation
 public class Website: Codable {
 
     /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, Field {
+    public enum CodingKeys: String, CodingKey, Field {
         case trusted, category, url
     }
 

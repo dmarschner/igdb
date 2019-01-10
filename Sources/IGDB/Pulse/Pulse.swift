@@ -7,6 +7,29 @@ import Foundation
 /// API path: [/pulses](https://api-v3.igdb.com/pulses)
 public struct Pulse: Codable, Identifiable, Composable, Updatable {
 
+    // sourcery:inline:Pulse.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case author
+        case image
+        case publishedAt = "published_at"
+        case pulseSource = "pulse_source"
+        case summary
+        case tags
+        case title
+        case uid
+        case videos
+        case website
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
+
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
 
@@ -23,7 +46,7 @@ public struct Pulse: Codable, Identifiable, Composable, Updatable {
     public let publishedAt: Date?
 
     /// The ID of the publisher
-    public let pulse_source: Expander<Source>?
+    public let pulseSource: Expander<Source>?
 
     /// A brief extract of the article
     public let summary: String?
@@ -42,10 +65,4 @@ public struct Pulse: Codable, Identifiable, Composable, Updatable {
 
     /// <# Description #>
     public let website: Expander<Website>?
-}
-
-extension Pulse {
-}
-
-extension Pulse  {
 }

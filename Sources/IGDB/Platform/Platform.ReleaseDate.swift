@@ -9,11 +9,25 @@ public extension Platform {
     /// Request Path: https://api-v3.igdb.com/platform_version_release_dates
     public struct ReleaseDate: Codable, Identifiable, Composable, Updatable {
 
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
+        // sourcery:inline:Platform.ReleaseDate.CodingKeys
+
+        /// A type that can be used as a key for encoding and decoding.
+        public enum CodingKeys: String, CodingKey, Field {
+            case identifier = "id"
+            case createdAt = "created_at"
+            case updatedAt = "updated_at"
+            case category
+            case date
+            case human
+            case platformVersion = "platform_version"
+            case region
             case month = "m"
             case year = "y"
         }
+        // sourcery:end
+
+        /// The unique resource identifier to this specific entry
+        public let identifier: UInt64
 
         /// Date this was initially added to the IGDB database
         public let createdAt: Date?
@@ -42,10 +56,4 @@ public extension Platform {
         /// The year in full (2018)
         public let year: Int?
     }
-}
-
-extension ReleaseDate {
-}
-
-extension ReleaseDate  {
 }

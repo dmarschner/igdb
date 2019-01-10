@@ -5,7 +5,68 @@ import Foundation
 /// Video Games!
 ///
 /// API path: [/games](https://api-v3.igdb.com/games)
-public final class Game: Codable, Identifiable, Composable, Updatable {
+public struct Game: Codable, Identifiable, Composable, Updatable {
+
+    // sourcery:inline:Game.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case ageRatings = "age_ratings"
+        case aggregatedRating = "aggregated_rating"
+        case aggregatedRatingCount = "aggregated_rating_count"
+        case alternativeNames = "alternative_names"
+        case bundles
+        case category
+        case collection
+        case cover
+        case dlcs
+        case expansions
+        case externalGames = "external_games"
+        case firstReleaseDate = "first_release_date"
+        case follows
+        case franchise
+        case franchises
+        case gameEngines = "game_engines"
+        case gameModes = "game_modes"
+        case genres
+        case hypes
+        case involvedCompanies = "involved_companies"
+        case keywords
+        case multiplayerModes = "multiplayer_modes"
+        case name
+        case parentGame = "parent_game"
+        case platforms
+        case playerPerspectives = "player_perspectives"
+        case popularity
+        case pulseCount = "pulse_count"
+        case rating
+        case ratingCount = "rating_count"
+        case releaseDates = "release_dates"
+        case screenshots
+        case similarGames = "similar_games"
+        case slug
+        case standaloneExpansions = "standalone_expansions"
+        case status
+        case storyline
+        case summary
+        case tags
+        case themes
+        case timeToBeat = "time_to_beat"
+        case totalRating = "total_rating"
+        case totalRatingCount = "total_rating_count"
+        case url
+        case versionParent = "version_parent"
+        case versionTitle = "version_title"
+        case videos
+        case websites
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -26,7 +87,7 @@ public final class Game: Codable, Identifiable, Composable, Updatable {
     public let alternativeNames: Expander<[AlternativeName]>?
 
     /// If a bundle, these are the games inside it
-    public let bundles: Expander<Game>?
+    public let bundles: [Game.Identifier]?
 
     /// The category of this game
     public let category: Category?
@@ -38,10 +99,10 @@ public final class Game: Codable, Identifiable, Composable, Updatable {
     public let cover: Expander<Cover>?
 
     /// DLCs for this game
-    public let dlcs: Expander<[Game]>?
+    public let dlcs: [Game.Identifier]?
 
     /// Expansions of this game
-    public let expansions: Expander<[Game]>?
+    public let expansions: [Game.Identifier]?
 
     /// External IDs this game has on other services
     public let externalGames: Expander<[External]>?
@@ -83,7 +144,7 @@ public final class Game: Codable, Identifiable, Composable, Updatable {
     public let name: String?
 
     /// If a DLC, expansion or part of a bundle, this is the main game or bundle
-    public let parentGame: Expander<Game>?
+    public let parentGame: Game.Identifier?
 
     /// Platforms this game was released on
     public let platforms: Expander<[Platform]>?
@@ -110,13 +171,13 @@ public final class Game: Codable, Identifiable, Composable, Updatable {
     public let screenshots: Expander<[Screenshot]>?
 
     /// Similar games
-    public let similarGames: Expander<[Game]>?
+    public let similarGames: [Game.Identifier]?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
 
     /// Standalone expansions of this game
-    public let standaloneExpansions: Expander<[Game]>?
+    public let standaloneExpansions: [Game.Identifier]?
 
     /// The status of the games release
     public let status: Status?
@@ -146,7 +207,7 @@ public final class Game: Codable, Identifiable, Composable, Updatable {
     public let url: String?
 
     /// If a version, this is the main game
-    public let versionParent: Expander<Game>?
+    public let versionParent: Game.Identifier?
 
     /// Title of this version (i.e Gold edition)
     public let versionTitle: String?

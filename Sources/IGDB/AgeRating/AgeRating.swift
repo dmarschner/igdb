@@ -5,6 +5,22 @@ import Foundation
 /// API path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
 public struct AgeRating: Codable, Identifiable, Composable {
 
+    // sourcery:inline:AgeRating.CodingKeys
+
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case category
+        case rating
+        case contentDescriptions = "content_descriptions"
+        case ratingCoverUrl = "rating_cover_url"
+        case synopsis
+    }
+    // sourcery:end
+
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
+
     /// The organization that has issued a specific rating
     public let category: Category?
 
@@ -19,10 +35,4 @@ public struct AgeRating: Codable, Identifiable, Composable {
 
     /// A free text motivating a rating
     public let synopsis: String?
-}
-
-extension AgeRating {
-}
-
-extension AgeRating  {
 }
