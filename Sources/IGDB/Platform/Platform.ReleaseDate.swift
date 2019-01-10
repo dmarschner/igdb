@@ -7,12 +7,10 @@ public extension Platform {
     /// A handy endpoint that extends game release dates. Used to dig deeper into release dates, platforms and versions.
     ///
     /// Request Path: https://api-v3.igdb.com/platform_version_release_dates
-    public final class ReleaseDate: Endpoint, Composable, Updatable {
+    public struct ReleaseDate: Codable, Identifiable, Composable, Updatable {
 
         /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
         public enum Fields: String, CodingKey, Field {
-            case createdAt, updatedAt // Updatable
-            case category, date, human, platformVersion, region
             case month = "m"
             case year = "y"
         }
@@ -44,4 +42,10 @@ public extension Platform {
         /// The year in full (2018)
         public let year: Int?
     }
+}
+
+extension ReleaseDate {
+}
+
+extension ReleaseDate  {
 }

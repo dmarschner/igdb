@@ -5,14 +5,7 @@ import Foundation
 /// The hardware used to run the game or game delivery network
 ///
 /// API path: [/platforms](https://api-v3.igdb.com/platforms)
-public final class Platform: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updatedAt // Updatable
-        case abbreviation, alternativeName, category, generation, name
-        case platformLogo, productFamily, slug, summary, url, versions, websites
-    }
+public struct Platform: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -55,4 +48,10 @@ public final class Platform: Endpoint, Composable, Updatable {
 
     /// <# Description #>
     public let websites: Expander<[Platform.Website]>?
+}
+
+extension Platform {
+}
+
+extension Platform  {
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension External {
+public extension Game.External {
 
     /// The external service identifier
     public enum Category: Int, Codable {

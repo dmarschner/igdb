@@ -8,13 +8,7 @@ public extension Pulse {
     /// and were published around the same time period.
     ///
     /// API path: [/pulse_groups](https://api-v3.igdb.com/pulse_groups)
-    public final class Group: Endpoint, Composable, Updatable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case createdAt, updateAt // Updatable
-            case game, name, publishedAt, pulses, tags
-        }
+    public struct Group: Codable, Identifiable, Composable, Updatable {
 
         /// Date this was initially added to the IGDB database
         public let createdAt: Date?
@@ -37,4 +31,10 @@ public extension Pulse {
         /// Related entities in the IGDB API
         public let tags: [Tag]?
     }
+}
+
+extension Group {
+}
+
+extension Group  {
 }

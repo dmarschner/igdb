@@ -5,17 +5,7 @@ import Foundation
 /// Video Games!
 ///
 /// API path: [/games](https://api-v3.igdb.com/games)
-public final class Game: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updatedAt // Updatable
-        case ageRatings, aggregatedRating, aggregatedRatingCount, alternativeNames, bundles, category, collection, cover, dlcs
-        case expansions, externalGames, firstReleaseDate, follows, franchise, franchises, gameEngines, gameModes, genres, hypes
-        case involvedCompanies, keywords, multiplayerModes, name, parentGame, platforms, playerPerspectives, popularity, pulseCount
-        case rating, ratingCount, releaseDates, screenshots, similarGames, slug, standaloneExpansions, status, storyline, summary
-        case tags, themes, timeToBeat, totalRating, totalRatingCount, url, versionParent, versionTitle, videos, websites
-    }
+public final class Game: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?

@@ -5,13 +5,7 @@ public extension Platform {
     /// [Platform Version](https://api-docs.igdb.com/#platform-version)
     ///
     /// API path: [/platform_versions](https://api-v3.igdb.com/platform_versions)
-    public final class Version: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case companies, connectivity, cpu, graphics, mainManufacturer, media, memory, name, os, output
-            case platformLogo, platformVersionReleaseDates, resolutions, slug, sound, storage, summary, url
-        }
+    public struct Version: Codable, Identifiable, Composable {
 
         /// Who developed this platform version
         public let companies: Expander<Platform.Company>?
@@ -68,4 +62,10 @@ public extension Platform {
         public let url: String?
 
     }
+}
+
+extension Version {
+}
+
+extension Version  {
 }

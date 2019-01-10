@@ -7,13 +7,7 @@ public extension Game {
     /// Data about the supported multiplayer types
     ///
     /// API path: [/multiplayer_modes](https://api-v3.igdb.com/multiplayer_modes)
-    public final class MultiplayerMode: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, Field {
-            case campaigncoop, dropin, lancoop, offlinecoop, offlinecoopmax, offlinemax
-            case onlinecoop, onlinecoopmax, onlinemax, platform, splitscreen, splitscreenonline
-        }
+    public struct MultiplayerMode: Codable, Identifiable, Composable {
 
         /// True if the game supports campaign coop
         public let campaigncoop: Bool?
@@ -51,4 +45,10 @@ public extension Game {
         /// True if the game supports split screen, online multiplayer
         public let splitscreenonline: Bool?
     }
+}
+
+extension MultiplayerMode {
+}
+
+extension MultiplayerMode  {
 }

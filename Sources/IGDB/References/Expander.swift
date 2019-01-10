@@ -6,7 +6,7 @@ import Foundation
 /// Using the expander parameter, the company ID will instead be an object containing that data.
 ///
 /// The expander can be used on any entity that has sub-properties such as Games, Companies, People etc.
-public enum Expander<Expandable> where Expandable: Identifiable  {
+public enum Expander<Expandable> where Expandable: Identifiable {
     case identifier(Expandable.Identifier)
     case expanded(Expandable)
 

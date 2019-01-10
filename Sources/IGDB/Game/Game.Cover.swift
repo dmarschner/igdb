@@ -17,8 +17,7 @@ public extension Game {
         ///
         /// - Parameter decoder: The decoder to read data from.
         public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: IdentifierKey.self)
-            id = try container.decode(Identifier.self, forKey: .identifier)
+            identifier = try type(of: self).decodeIdentifier(from: decoder)
             try super.init(from: decoder)
         }
 
@@ -30,8 +29,7 @@ public extension Game {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: IdentifierKey.self)
-            try container.encode(id, forKey: .identifier)
+            try encodeIdentifier(to: encoder)
             try super.encode(to: encoder)
         }
     }

@@ -5,13 +5,7 @@ public extension Game {
     /// [Involved Company](https://api-docs.igdb.com/#involved-company)
     ///
     /// API path: [/involved_companies](https://api-v3.igdb.com/involved_companies)
-    public final class InvolvedCompany: Endpoint, Composable, Updatable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case createdAt, updatedAt // Updatablecompany
-            case developer, game, porting, publisher, supporting
-        }
+    public struct InvolvedCompany: Codable, Identifiable, Composable, Updatable {
 
         /// Date this was initially added to the IGDB database
         public let createdAt: Date?
@@ -31,5 +25,11 @@ public extension Game {
 
         public let supporting: Bool?
     }
+}
+
+extension InvolvedCompany {
+}
+
+extension InvolvedCompany  {
 }
 

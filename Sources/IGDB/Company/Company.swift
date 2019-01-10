@@ -5,14 +5,7 @@ import Foundation
 /// Video game companies. Both publishers & developers
 ///
 /// API path: [/companies](https://api-v3.igdb.com/companies)
-public final class Company: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case country, description, developed, logo, name, parent, published, slug, url, websites
-        case changeDate, changeDateCategory, changedCompanyId, startDate, startDateCategory
-        case createdAt, updatedAt // Updatable
-    }
+public struct Company: Codable, Identifiable, Composable, Updatable {
 
     /// The resource creation timestamp
     public let createdAt: Date?
@@ -64,4 +57,10 @@ public final class Company: Endpoint, Composable, Updatable {
 
     /// The companies official websites
     public let websites: Expander<[Website]>?
+}
+
+extension Company {
+}
+
+extension Company  {
 }

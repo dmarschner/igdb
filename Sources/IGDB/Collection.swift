@@ -7,13 +7,7 @@ import Foundation
 /// Collection, AKA Series
 ///
 /// API path: [/collections](https://api-v3.igdb.com/collections)
-public final class Collection: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updatedAt // Updatable
-        case name, slug, url
-    }
+public struct Collection: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -29,4 +23,10 @@ public final class Collection: Endpoint, Composable, Updatable {
 
     /// The website address (URL) of the item
     public let url: String?
+}
+
+extension Collection {
+}
+
+extension Collection  {
 }

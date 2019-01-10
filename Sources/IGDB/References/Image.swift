@@ -9,7 +9,7 @@ import Foundation
 public class Image: Codable {
 
     /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
+    public enum CodingKeys: String, CodingKey, Field {
         case isTransparent = "alpha_channel"
         case animated, height, url, width
         case imageSlug = "image_id"

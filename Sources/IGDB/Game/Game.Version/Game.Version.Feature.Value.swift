@@ -7,12 +7,7 @@ public extension Game.Version.Feature {
     /// The bool/text value of the feature
     ///
     /// API path: [/game_version_feature_values](https://api-v3.igdb.com/game_version_feature_values)
-    public final class Value: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case game, gameFeature, includedFeature, note
-        }
+    public struct Value: Codable, Identifiable, Composable {
 
         /// The version/edition this value refers to
         public let game: Expander<Game>?
@@ -26,4 +21,10 @@ public extension Game.Version.Feature {
         /// The text value of this feature
         public let note: String?
     }
+}
+
+extension Value {
+}
+
+extension Value  {
 }

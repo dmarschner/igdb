@@ -7,13 +7,7 @@ import Foundation
 /// A list of video game franchises such as Star Wars.
 ///
 /// API path: [/franchises](https://api-v3.igdb.com/franchises)
-public final class Franchise: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updatedAt // Updatable
-        case name, slug, url
-    }
+public struct Franchise: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -29,4 +23,10 @@ public final class Franchise: Endpoint, Composable, Updatable {
 
     /// The website address (URL) of the item
     public let url: String?
+}
+
+extension Franchise {
+}
+
+extension Franchise  {
 }

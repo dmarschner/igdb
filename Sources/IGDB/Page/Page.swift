@@ -5,14 +5,10 @@ import Foundation
 /// Our multipurpose page system is currently used for youtubers and media organisations.
 ///
 /// API path: [/pages](https://api-v3.igdb.com/pages)
-public final class Page: Endpoint, Composable, Updatable {
+public struct Page: Codable, Identifiable, Composable, Updatable {
 
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updatedAt // Updatable
-        case background, battlenet, category, color, company, country, description, feed, game
-        case name, origin, pageFollowsCount, pageLogo, slug, subCategory, uplay, url, websites
-    }
+    /// The unique resource identifier to this specific entry
+    var identifier: Identifier { get }
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -76,4 +72,10 @@ public final class Page: Endpoint, Composable, Updatable {
 
     /// <# Description #>
     public let websites: Expander<[Website]>?
+}
+
+extension Page {
+}
+
+extension Page  {
 }

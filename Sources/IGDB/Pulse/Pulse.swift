@@ -5,14 +5,7 @@ import Foundation
 /// A single news article.
 ///
 /// API path: [/pulses](https://api-v3.igdb.com/pulses)
-public final class Pulse: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case createdAt, updateAt // Updatable
-        case author, image, publishedAt, pulse_source
-        case summary, tags, title, uid, videos, website
-    }
+public struct Pulse: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -49,4 +42,10 @@ public final class Pulse: Endpoint, Composable, Updatable {
 
     /// <# Description #>
     public let website: Expander<Website>?
+}
+
+extension Pulse {
+}
+
+extension Pulse  {
 }

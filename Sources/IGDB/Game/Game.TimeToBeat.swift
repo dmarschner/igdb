@@ -7,12 +7,7 @@ public extension Game {
     /// Average completion times for games
     ///
     /// API path: [/time_to_beats](https://api-v3.igdb.com/time_to_beats)
-    public final class TimeToBeat: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case completely, hastly, normally, game
-        }
+    public struct TimeToBeat: Codable, Identifiable, Composable {
 
         /// The time this game was completed in while the players were completing all tasks the game had to offer
         public let completely: Int?
@@ -26,4 +21,10 @@ public extension Game {
         /// The game this time-to-beat is connected to
         public let game: Expander<Game>?
     }
+}
+
+extension TimeToBeat {
+}
+
+extension TimeToBeat  {
 }

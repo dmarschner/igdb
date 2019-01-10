@@ -7,12 +7,7 @@ public extension Game.Version {
     /// Features and descriptions of what makes each version/edition different from the main game
     ///
     /// API path: [/game_version_features](https://api-v3.igdb.com/game_version_features)
-    public final class Feature: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case category, description, position, title, values
-        }
+    public struct Feature: Codable, Identifiable, Composable {
 
         /// The category of the feature description
         public let category: Category?
@@ -29,4 +24,10 @@ public extension Game.Version {
         /// The bool/text value of the feature
         public let values: Expander<[Value]>?
     }
+}
+
+extension Feature {
+}
+
+extension Feature  {
 }

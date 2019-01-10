@@ -7,12 +7,7 @@ public extension Pulse {
     /// A news article source such as IGN.
     ///
     /// API path: [/pulse_sources](https://api-v3.igdb.com/pulse_sources)
-    public final class Source: Endpoint, Composable {
-
-        /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-        public enum Fields: String, CodingKey, Field {
-            case game, name, page
-        }
+    public struct Source: Codable, Identifiable, Composable {
 
         /// If the source only contains news for a specific game, that game ID will be here
         public let game: Expander<Game>?
@@ -24,4 +19,10 @@ public extension Pulse {
         public let page: Expander<Page>?
 
     }
+}
+
+extension Source {
+}
+
+extension Source  {
 }

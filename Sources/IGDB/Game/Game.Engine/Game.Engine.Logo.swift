@@ -1,12 +1,12 @@
 import Foundation
 
-public extension Page {
+public extension Game.Engine {
 
-    /// [Page Logo](https://api-docs.igdb.com/#page-logo)
+    /// [Game Engine Logo](https://api-docs.igdb.com/#game-engine-logo)
     ///
-    /// Logo for a page
+    /// The logos of game engines
     ///
-    /// Request Path: https://api-v3.igdb.com/page_logos
+    /// API path: [/game_engine_logos](https://api-v3.igdb.com/game_engine_logos)
     public final class Logo: Image, Identifiable, Composable {
 
         /// The unique resource identifier to this specific entry

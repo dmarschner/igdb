@@ -35,6 +35,9 @@ public struct Order<Endpoint> where Endpoint: IGDB.Endpoint {
 
     /// The path along which to order the resulting types
     public var path: Endpoint.CodingKeys
+}
+
+extension Order {
 
     /// Initializes a new ordering options
     ///
@@ -45,4 +48,7 @@ public struct Order<Endpoint> where Endpoint: IGDB.Endpoint {
         self.sorting = sorting
         self.path = path
     }
+}
+
+extension Order  {
 }

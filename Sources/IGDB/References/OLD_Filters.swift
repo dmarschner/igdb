@@ -55,7 +55,7 @@ public struct Filter<Endpoint> where Endpoint: IGDB.Endpoint {
     public let operation: String
 
     public let value: String
-/*
+    /*
     /// - `eq` Equal: Exact match equal.
     public static func `where`<Value>(_ lhs: KeyPath<Endpoint, Value>, is rhs: Value) -> Filter {
         return .init(variable: lhs.<#T##String#>, operation: "eq", value: String(rhs))
@@ -77,4 +77,10 @@ public struct Filter<Endpoint> where Endpoint: IGDB.Endpoint {
      - `not_in` The values must not exists within the (comma separated) array (AND between values).
      - `any` The value has any within the (comma separated) array (OR between values).
      */
+}
+
+extension Filter {
+}
+
+extension Filter  {
 }

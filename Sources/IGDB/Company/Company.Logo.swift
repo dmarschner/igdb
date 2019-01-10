@@ -31,7 +31,7 @@ public extension Company {
         ///
         /// - Parameter encoder: The encoder to write data to.
         public override func encode(to encoder: Encoder) throws {
-try encodeIdentifier(to: encoder)
+            try encodeIdentifier(to: encoder)
             try super.encode(to: encoder)
         }
     }

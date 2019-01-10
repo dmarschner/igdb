@@ -6,10 +6,10 @@ import Foundation
 ///
 /// All the responses may contain the following fields in the result:
 ///
-///     | Name       | Type                    | Mandatory | Comment    |
-///     | ---------- | ----------------------- | --------- | ---------- |
-///     | created_at | 64-bit integer          | +         | Unix epoch |
-///     | updated_at | 64-bit integer          | +         | Unix epoch |
+///     | Name       | Type           | Comment    |
+///     | ---------- | -------------- | ---------- |
+///     | created_at | 64-bit integer | Unix epoch |
+///     | updated_at | 64-bit integer | Unix epoch |
 ///
 /// ### Representation
 ///

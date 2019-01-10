@@ -1,20 +1,16 @@
 import Foundation
 
 // TODO: 401 Unauthorized
+// TODO: Is not free tier endpoint
 
 /// [Achievement](https://api-docs.igdb.com/?swift#achievement) data for specific games for
 /// specific platforms (currently limited to achievements from steam, playstation and Xbox)
 ///
 /// API path: [/achievements](https://api-v3.igdb.com/achievements)
-public final class Achievement: Endpoint, Composable, Updatable {
+public struct Achievement: Codable, Identifiable, Composable, Updatable {
 
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case icon = "achievement_icon"
-        case createdAt, updatedAt // Updatable
-        case category, description, externalId, game, language
-        case name, ownersPercentage, rank, slug, tags
-    }
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -23,7 +19,7 @@ public final class Achievement: Endpoint, Composable, Updatable {
     public let updatedAt: Date?
 
     /// The icon of a specific achievement
-    public let icon: Expander<Icon>?
+    public let achievementIcon: Expander<Icon>?
 
     /// The platform that a specific achievement belongs to
     public let category: Category?
@@ -54,4 +50,7 @@ public final class Achievement: Endpoint, Composable, Updatable {
 
     /// Related entities in the IGDB API
     public let tags: [Tag]?
+}
+
+extension Achievement  {
 }

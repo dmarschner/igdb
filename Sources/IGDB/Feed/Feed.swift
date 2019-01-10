@@ -5,14 +5,7 @@ import Foundation
 /// Feed items are a social feed of status updates, media and news articles.
 ///
 /// API path: [/feeds](https://api-v3.igdb.com/feeds)
-public final class Feed: Endpoint, Composable, Updatable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case category, content, games, meta, pulse, slug, title
-        case uid, url, user, feedLikesCount, feedVideo, publishedAt
-        case createdAt, updatedAt // Updatable
-    }
+public struct Feed: Codable, Identifiable, Composable, Updatable {
 
     /// Date this was initially added to the IGDB database
     public let createdAt: Date?
@@ -58,4 +51,10 @@ public final class Feed: Endpoint, Composable, Updatable {
 
     /// The user who created the feed item
     public let user: Int?
+}
+
+extension Feed {
+}
+
+extension Feed  {
 }

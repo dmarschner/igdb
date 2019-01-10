@@ -6,12 +6,9 @@ let package = Package(
     products: [
         .library(name: "IGDB", targets: ["IGDB"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.40200.0"))
-    ],
+    dependencies: [],
     targets: [
         .target(name: "IGDB", dependencies: []),
-        .target(name: "Rewriter", dependencies: ["IGDB", "SwiftSyntax"]),
         .testTarget(name: "IGDBTests", dependencies: ["IGDB"])
     ]
 )

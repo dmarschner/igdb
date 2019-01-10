@@ -1,16 +1,9 @@
 import Foundation
 
-//case createdAt, updatedAt // Updatable
-
 /// [Age Rating](https://api-docs.igdb.com/?swift#age-rating) according to various rating organisations
 ///
 /// API path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
-public final class AgeRating: Endpoint, Composable {
-
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum Fields: String, CodingKey, Field {
-        case category, rating, contentDescriptions, ratingCoverUrl, synopsis
-    }
+public struct AgeRating: Codable, Identifiable, Composable {
 
     /// The organization that has issued a specific rating
     public let category: Category?
@@ -26,4 +19,10 @@ public final class AgeRating: Endpoint, Composable {
 
     /// A free text motivating a rating
     public let synopsis: String?
+}
+
+extension AgeRating {
+}
+
+extension AgeRating  {
 }

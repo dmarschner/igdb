@@ -1,6 +1,6 @@
 import Foundation
 
-/// Entities or [endpoints](https://api-docs.igdb.com/#endpoints that are unique, i.e. have a unique identifier, within the IGDB API.
+/// Identifiables or ([Endpoints](https://api-docs.igdb.com/#endpoints) that are unique, i.e. have a unique identifier within the API.
 ///
 /// Base API path: [https://api-v3.igdb.com](https://api-v3.igdb.com)
 ///
@@ -13,9 +13,9 @@ import Foundation
 ///
 /// All the responses contain the following field in the result:
 ///
-///     | Name       | Type                                                   | Mandatory | Comment    |
-///     | ---------- | ------------------------------------------------------ | --------- | ---------- |
-///     | id         | <Identifier> (most probably `unsigned 64-bit integer`) | +         |            |
+///     | Name       | Type                                                   | Mandatory |
+///     | ---------- | ------------------------------------------------------ | --------- |
+///     | id         | <Identifier> (most probably `unsigned 64-bit integer`) | +         |
 ///
 /// ### Representation
 ///
