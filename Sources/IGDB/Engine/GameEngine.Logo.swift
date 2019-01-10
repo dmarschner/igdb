@@ -1,15 +1,15 @@
 import Foundation
 
-extension Achievement {
+extension GameEngine {
 
-    /// [Achievement Icon](https://api-docs.igdb.com/?swift#achievement-icon)
+    /// [Game Engine Logo](https://api-docs.igdb.com/#game-engine-logo)
     ///
-    /// An icon for a specific achievement
+    /// The logos of game engines
     ///
-    /// Request Path: https://api-v3.igdb.com/achievement_icons
-    public final class Icon: Image, Identifiable, Composable {
+    /// API path: [/game_engine_logos](https://api-v3.igdb.com/game_engine_logos)
+    public final class Logo: Image, Identifiable, Composable {
 
-        // sourcery:inline:Achievement.Icon.IdentifierKey
+        // sourcery:inline:Game.EngineLogo.IdentifierKey
         /// A type that can be used as a key for identifier encoding
         private enum IdentifierKey: String, CodingKey { // swiftlint:disable:this nesting
             case identifier = "id"
@@ -42,6 +42,6 @@ extension Achievement {
             try container.encode(identifier, forKey: .identifier)
             try super.encode(to: encoder)
         }
-        // sourcery:end
+       // sourcery:end
     }
 }

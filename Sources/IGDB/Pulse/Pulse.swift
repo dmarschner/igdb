@@ -5,27 +5,7 @@ import Foundation
 /// A single news article.
 ///
 /// API path: [/pulses](https://api-v3.igdb.com/pulses)
-public struct Pulse: Codable, Identifiable, Composable, Updatable {
-
-    // sourcery:inline:Pulse.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case author
-        case image
-        case publishedAt = "published_at"
-        case pulseSource = "pulse_source"
-        case summary
-        case tags
-        case title
-        case uid
-        case videos
-        case website
-    }
-    // sourcery:end
+public struct Pulse: Identifiable, Composable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -65,4 +45,26 @@ public struct Pulse: Codable, Identifiable, Composable, Updatable {
 
     /// <# Description #>
     public let website: Expander<Website>?
+}
+
+extension Pulse {
+
+    // sourcery:inline:Pulse.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case author
+        case image
+        case publishedAt = "published_at"
+        case pulseSource = "pulse_source"
+        case summary
+        case tags
+        case title
+        case uid
+        case videos
+        case website
+    }
+    // sourcery:end
 }

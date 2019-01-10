@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Page {
+extension Page {
 
     public enum SubCategory: Int, Codable {
         case user = 1

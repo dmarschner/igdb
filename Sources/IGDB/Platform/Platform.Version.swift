@@ -8,29 +8,28 @@ public extension Platform {
     public struct Version: Codable, Identifiable, Composable {
 
         // sourcery:inline:Platform.Version.CodingKeys
-
-        /// A type that can be used as a key for encoding and decoding.
-        public enum CodingKeys: String, CodingKey, Field {
-            case identifier = "id"
-            case companies
-            case connectivity
-            case cpu
-            case graphics
-            case mainManufacturer = "main_manufacturer"
-            case media
-            case memory
-            case name
-            case os
-            case output
-            case platformLogo = "platform_logo"
-            case platformVersionReleaseDates = "platform_version_release_dates"
-            case resolutions
-            case slug
-            case sound
-            case storage
-            case summary
-            case url
-        }
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case companies
+        case connectivity
+        case cpu
+        case graphics
+        case mainManufacturer = "main_manufacturer"
+        case media
+        case memory
+        case name
+        case operationSystem = "os"
+        case output
+        case platformLogo = "platform_logo"
+        case platformVersionReleaseDates = "platform_version_release_dates"
+        case resolutions
+        case slug
+        case sound
+        case storage
+        case summary
+        case url
+    }
         // sourcery:end
 
         /// The unique resource identifier to this specific entry
@@ -61,7 +60,7 @@ public extension Platform {
         public let name: String?
 
         /// The operating system installed on the platform version
-        public let os: String?
+        public let operationSystem: String?
 
         /// The output video rate
         public let output: String?

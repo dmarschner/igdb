@@ -1,6 +1,6 @@
 import Foundation
 
-public extension AgeRating {
+extension AgeRating {
 
     /// The organization that has issued a specific rating
     public enum Category: Int, Codable {

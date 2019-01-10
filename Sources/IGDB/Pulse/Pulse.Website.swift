@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Pulse {
+extension Pulse {
 
     /// [Pulse Website](https://api-docs.igdb.com/#pulse-url)
     ///
@@ -9,15 +9,15 @@ public extension Pulse {
     /// Request Path: https://api-v3.igdb.com/pulse_urls
     public final class Website: IGDB.Website, Identifiable, Composable {
 
+        // sourcery:inline:Pulse.Website.IdentifierKey
+        /// A type that can be used as a key for identifier encoding
+        private enum IdentifierKey: String, CodingKey { // swiftlint:disable:this nesting
+            case identifier = "id"
+        }
+
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
 
-        // sourcery:inline:Pulse.Website.IdentifierKey
-
-        /// A type that can be used as a key for identifier encoding
-        private enum IdentifierKey: String, CodingKey {
-            case identifier = "id"
-        }
         /// Creates a new instance by decoding from the given decoder.
         ///
         /// This initializer throws an error if reading from the decoder fails, or
@@ -29,6 +29,7 @@ public extension Pulse {
             identifier = try container.decode(Identifier.self, forKey: .identifier)
             try super.init(from: decoder)
         }
+
         /// Encodes this value into the given encoder.
         ///
         /// If the value fails to encode anything, `encoder` will encode an empty keyed container in its place.

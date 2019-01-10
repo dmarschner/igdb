@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Achievement {
+extension Achievement {
 
     /// The service where the [Achievement](https://api-docs.igdb.com/?swift#achievement) is located
     ///

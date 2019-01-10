@@ -1,7 +1,5 @@
 import Foundation
 
-// TODO: Right now, game only - check later and move to Game scope if necessary
-
 /// [Alternative and international](https://api-docs.igdb.com/#alternative-name) game titles
 ///
 ///     {
@@ -10,17 +8,7 @@ import Foundation
 ///     }
 ///
 /// API path: [/alternative_names](https://api-v3.igdb.com/alternative_names)
-public struct AlternativeName: Codable, Identifiable, Composable {
-
-    // sourcery:inline:AlternativeName.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case comment
-        case name
-    }
-    // sourcery:end
+public struct AlternativeName: Identifiable, Composable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -30,4 +18,16 @@ public struct AlternativeName: Codable, Identifiable, Composable {
 
     /// An alternative name
     public let name: String?
+}
+
+extension AlternativeName {
+
+    // sourcery:inline:AlternativeName.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case comment
+        case name
+    }
+    // sourcery:end
 }

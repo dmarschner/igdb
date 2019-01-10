@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Feed {
+extension Feed {
 
     /// Category of a `FeedItem`, i.e. whether it is an article, trailer, user contribution, ...
     ///

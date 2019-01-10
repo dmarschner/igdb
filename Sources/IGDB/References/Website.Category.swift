@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Website {
+extension Website {
 
     /// Category of a `Website`, i.e. whether it points to the official website, reddit page, twitch directory, ....
     public enum Category: Int, Codable {

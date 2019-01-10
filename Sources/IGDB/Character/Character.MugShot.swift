@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Character {
+extension Character {
 
     /// [Character Mug Shot](https://api-docs.igdb.com/#character-mug-shot)
     ///
@@ -9,15 +9,15 @@ public extension Character {
     /// Request Path: https://api-v3.igdb.com/character_mug_shots
     public final class MugShot: Image, Identifiable, Composable {
 
+        // sourcery:inline:Character.MugShot.IdentifierKey
+        /// A type that can be used as a key for identifier encoding
+        private enum IdentifierKey: String, CodingKey { // swiftlint:disable:this nesting
+            case identifier = "id"
+        }
+
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
 
-        // sourcery:inline:Character.MugShot.IdentifierKey
-
-        /// A type that can be used as a key for identifier encoding
-        private enum IdentifierKey: String, CodingKey {
-            case identifier = "id"
-        }
         /// Creates a new instance by decoding from the given decoder.
         ///
         /// This initializer throws an error if reading from the decoder fails, or
@@ -29,6 +29,7 @@ public extension Character {
             identifier = try container.decode(Identifier.self, forKey: .identifier)
             try super.init(from: decoder)
         }
+
         /// Encodes this value into the given encoder.
         ///
         /// If the value fails to encode anything, `encoder` will encode an empty keyed container in its place.

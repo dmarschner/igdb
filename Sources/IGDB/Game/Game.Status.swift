@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// Status of a `Game`, i.e. whether is released, cancelled, early-access, ...
     ///

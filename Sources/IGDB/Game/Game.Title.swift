@@ -1,28 +1,13 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// [Title](https://api-docs.igdb.com/#title)
     ///
     /// Job titles in the games industry
     ///
     /// API path: [/titles](https://api-v3.igdb.com/titles)
-    public struct Title: Codable, Identifiable, Composable, Updatable {
-
-        // sourcery:inline:Game.Title.CodingKeys
-
-        /// A type that can be used as a key for encoding and decoding.
-        public enum CodingKeys: String, CodingKey, Field {
-            case identifier = "id"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-            case description
-            case games
-            case name
-            case slug
-            case url
-        }
-        // sourcery:end
+    public struct Title: Identifiable, Composable, Updatable, Codable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -48,4 +33,21 @@ public extension Game {
         /// The website address (URL) of the item
         public let url: String?
     }
+}
+
+extension Game.Title {
+
+    // sourcery:inline:Game.Title.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case description
+        case games
+        case name
+        case slug
+        case url
+    }
+    // sourcery:end
 }

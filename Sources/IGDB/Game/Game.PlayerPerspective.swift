@@ -1,26 +1,13 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// [Player Perspective](https://api-docs.igdb.com/#player-perspective)
     ///
     /// Player perspectives describe the view/perspective of the player in a video game.
     ///
     /// API path: [/player_perspectives](https://api-v3.igdb.com/player_perspectives)
-    public struct PlayerPerspective: Codable, Identifiable, Composable, Updatable {
-
-        // sourcery:inline:Game.PlayerPerspective.CodingKeys
-
-        /// A type that can be used as a key for encoding and decoding.
-        public enum CodingKeys: String, CodingKey, Field {
-            case identifier = "id"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-            case name
-            case slug
-            case url
-        }
-        // sourcery:end
+    public struct PlayerPerspective: Identifiable, Composable, Updatable, Codable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -40,4 +27,19 @@ public extension Game {
         /// The website address (URL) of the item
         public let url: String?
     }
+}
+
+extension Game.PlayerPerspective {
+
+    // sourcery:inline:Game.PlayerPerspective.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case name
+        case slug
+        case url
+    }
+    // sourcery:end
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Page {
+extension Page {
 
     public enum Category: Int, Codable {
         case personality = 1

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Achievement {
+extension Achievement {
 
     /// The rank of the [Achievement](https://api-docs.igdb.com/?swift#achievement)
     ///

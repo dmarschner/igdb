@@ -5,25 +5,6 @@ import Foundation
 /// Request Path: https://api-v3.igdb.com/searches
 public struct Search: Codable, Identifiable, Composable {
 
-    // sourcery:inline:Search.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case alternativeName = "alternative_name"
-        case character
-        case collection
-        case company
-        case description
-        case game
-        case name
-        case platform
-        case popularity
-        case theme
-        case publishedAt = "published_at"
-    }
-    // sourcery:end
-
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
 
@@ -53,4 +34,25 @@ public struct Search: Codable, Identifiable, Composable {
 
     /// The date this item was initially published by the third party
     public let publishedAt: Date?
+}
+
+extension Search {
+
+    // sourcery:inline:Search.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case alternativeName = "alternative_name"
+        case character
+        case collection
+        case company
+        case description
+        case game
+        case name
+        case platform
+        case popularity
+        case theme
+        case publishedAt = "published_at"
+    }
+    // sourcery:end
 }

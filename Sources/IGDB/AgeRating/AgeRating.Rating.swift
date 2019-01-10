@@ -1,6 +1,6 @@
 import Foundation
 
-public extension AgeRating {
+extension AgeRating {
 
     /// The title of an age rating // TODO: PEGI & ESRB merge enum is not that pretty and also redundant considering the category
     public enum Rating: Int, Codable {

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// [Screenshot](https://api-docs.igdb.com/#screenshot)
     ///
@@ -9,15 +9,15 @@ public extension Game {
     /// Request Path: https://api-v3.igdb.com/screenshots
     public final class Screenshot: Image, Identifiable, Composable {
 
+        // sourcery:inline:Game.Screenshot.IdentifierKey
+        /// A type that can be used as a key for identifier encoding
+        private enum IdentifierKey: String, CodingKey { // swiftlint:disable:this nesting
+            case identifier = "id"
+        }
+
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
 
-        // sourcery:inline:Game.Screenshot.IdentifierKey
-
-        /// A type that can be used as a key for identifier encoding
-        private enum IdentifierKey: String, CodingKey {
-            case identifier = "id"
-        }
         /// Creates a new instance by decoding from the given decoder.
         ///
         /// This initializer throws an error if reading from the decoder fails, or
@@ -29,6 +29,7 @@ public extension Game {
             identifier = try container.decode(Identifier.self, forKey: .identifier)
             try super.init(from: decoder)
         }
+
         /// Encodes this value into the given encoder.
         ///
         /// If the value fails to encode anything, `encoder` will encode an empty keyed container in its place.

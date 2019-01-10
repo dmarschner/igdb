@@ -7,24 +7,6 @@ import Foundation
 /// Request Path: https://api-v3.igdb.com/release_dates
 public struct ReleaseDate: Codable, Identifiable, Composable, Updatable {
 
-    // sourcery:inline:ReleaseDate.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case category
-        case date
-        case game
-        case human
-        case platform
-        case region
-        case month = "m"
-        case year = "y"
-    }
-    // sourcery:end
-
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
 
@@ -57,4 +39,24 @@ public struct ReleaseDate: Codable, Identifiable, Composable, Updatable {
 
     /// The year in full (2018)
     public let year: Int?
+}
+
+extension ReleaseDate {
+
+    // sourcery:inline:ReleaseDate.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case category
+        case date
+        case game
+        case human
+        case platform
+        case region
+        case month = "m"
+        case year = "y"
+    }
+    // sourcery:end
 }

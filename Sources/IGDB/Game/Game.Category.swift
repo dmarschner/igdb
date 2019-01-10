@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// Category of a `Game`, i.e. whether is the main game, an expansion, DLC, ...
     ///

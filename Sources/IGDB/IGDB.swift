@@ -2,15 +2,11 @@ import Foundation
 
 // TODO: Extract error from endpoint and make it more Result<Success, Failure> based
 
-// TODO: CODER NEEDS DATE AND KEY DECODING STRATEGY ADJUSTED
+// TODO: CODER NEEDS DATE DE-/ENCODING STRATEGY ADJUSTED
 //let decoder = JSONDecoder()
 //decoder.dateDecodingStrategy = .secondsSince1970
-//decoder.keyDecodingStrategy = .convertFromSnakeCase
 //let encoder = JSONEncoder()
 //encoder.dateEncodingStrategy = .secondsSince1970
-//encoder.keyEncodingStrategy = .convertToSnakeCase
-
-
 
 /// The common [endpoint](https://api-docs.igdb.com/#endpoints) definition.
 ///
@@ -34,7 +30,6 @@ import Foundation
 /// - Important:
 ///
 ///     All unix epoch fields’ values are in seconds relative to 00:00:00 UTC on 1 January 1970.
-
 
 // Rewriter:
 // - Extract internal CodingKeys (everything including identifier == id and snake_cased)

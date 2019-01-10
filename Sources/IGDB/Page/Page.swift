@@ -5,35 +5,7 @@ import Foundation
 /// Our multipurpose page system is currently used for youtubers and media organisations.
 ///
 /// API path: [/pages](https://api-v3.igdb.com/pages)
-public struct Page: Codable, Identifiable, Composable, Updatable {
-
-    // sourcery:inline:Page.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case background
-        case battlenet
-        case category
-        case color
-        case company
-        case country
-        case description
-        case feed
-        case game
-        case name
-        case origin
-        case pageFollowsCount = "page_follows_count"
-        case pageLogo = "page_logo"
-        case slug
-        case subCategory = "sub_category"
-        case uplay
-        case url
-        case websites
-    }
-    // sourcery:end
+public struct Page: Identifiable, Composable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -100,4 +72,34 @@ public struct Page: Codable, Identifiable, Composable, Updatable {
 
     /// <# Description #>
     public let websites: Expander<[Website]>?
+}
+
+extension Page {
+
+    // sourcery:inline:Page.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case background
+        case battlenet
+        case category
+        case color
+        case company
+        case country
+        case description
+        case feed
+        case game
+        case name
+        case origin
+        case pageFollowsCount = "page_follows_count"
+        case pageLogo = "page_logo"
+        case slug
+        case subCategory = "sub_category"
+        case uplay
+        case url
+        case websites
+    }
+    // sourcery:end
 }

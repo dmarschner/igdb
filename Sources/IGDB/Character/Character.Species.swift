@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Character {
+extension Character {
 
     /// The species of a game character, actor (LUL), ...
     public enum Species: Int, Codable {

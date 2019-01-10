@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Platform {
+extension Platform {
 
     public enum Category: Int, Codable {
         case console = 1

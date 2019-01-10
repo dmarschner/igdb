@@ -5,30 +5,7 @@ import Foundation
 /// Feed items are a social feed of status updates, media and news articles.
 ///
 /// API path: [/feeds](https://api-v3.igdb.com/feeds)
-public struct Feed: Codable, Identifiable, Composable, Updatable {
-
-    // sourcery:inline:Feed.CodingKeys
-
-    /// A type that can be used as a key for encoding and decoding.
-    public enum CodingKeys: String, CodingKey, Field {
-        case identifier = "id"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case category
-        case content
-        case feedLikesCount = "feed_likes_count"
-        case feedVideo = "feed_video"
-        case games
-        case meta
-        case publishedAt = "published_at"
-        case pulse
-        case slug
-        case title
-        case uid
-        case url
-        case user
-    }
-    // sourcery:end
+public struct Feed: Identifiable, Composable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -77,4 +54,29 @@ public struct Feed: Codable, Identifiable, Composable, Updatable {
 
     /// The user who created the feed item
     public let user: Int?
+}
+
+extension Feed {
+
+    // sourcery:inline:Feed.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case category
+        case content
+        case feedLikesCount = "feed_likes_count"
+        case feedVideo = "feed_video"
+        case games
+        case meta
+        case publishedAt = "published_at"
+        case pulse
+        case slug
+        case title
+        case uid
+        case url
+        case user
+    }
+    // sourcery:end
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Character {
+extension Character {
 
     /// The gender of an actor, character, ...
     public enum Gender: Int, Codable {

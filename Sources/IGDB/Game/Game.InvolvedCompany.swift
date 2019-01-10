@@ -1,27 +1,11 @@
 import Foundation
 
-public extension Game {
+extension Game {
 
     /// [Involved Company](https://api-docs.igdb.com/#involved-company)
     ///
     /// API path: [/involved_companies](https://api-v3.igdb.com/involved_companies)
-    public struct InvolvedCompany: Codable, Identifiable, Composable, Updatable {
-
-        // sourcery:inline:Game.InvolvedCompany.CodingKeys
-
-        /// A type that can be used as a key for encoding and decoding.
-        public enum CodingKeys: String, CodingKey, Field {
-            case identifier = "id"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-            case company
-            case developer
-            case game
-            case porting
-            case publisher
-            case supporting
-        }
-        // sourcery:end
+    public struct InvolvedCompany: Identifiable, Composable, Updatable, Codable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -44,4 +28,22 @@ public extension Game {
 
         public let supporting: Bool?
     }
+}
+
+extension Game.InvolvedCompany {
+
+    // sourcery:inline:Game.InvolvedCompany.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case company
+        case developer
+        case game
+        case porting
+        case publisher
+        case supporting
+    }
+    // sourcery:end
 }

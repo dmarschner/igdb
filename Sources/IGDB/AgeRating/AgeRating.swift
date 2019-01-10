@@ -3,10 +3,9 @@ import Foundation
 /// [Age Rating](https://api-docs.igdb.com/?swift#age-rating) according to various rating organisations
 ///
 /// API path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
-public struct AgeRating: Codable, Identifiable, Composable {
+public struct AgeRating: Identifiable, Composable, Codable {
 
     // sourcery:inline:AgeRating.CodingKeys
-
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey, Field {
         case identifier = "id"

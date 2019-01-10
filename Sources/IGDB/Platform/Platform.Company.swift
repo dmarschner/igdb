@@ -1,25 +1,13 @@
 import Foundation
 
-public extension Platform {
+extension Platform {
 
     /// [Platform Version Company](https://api-docs.igdb.com/#platform-version-company)
     ///
     /// A platform developer
     ///
     /// Request Path: https://api-v3.igdb.com/platform_version_companies
-    public struct Company: Codable, Identifiable, Composable {
-
-        // sourcery:inline:Platform.Company.CodingKeys
-
-        /// A type that can be used as a key for encoding and decoding.
-        public enum CodingKeys: String, CodingKey, Field {
-            case identifier = "id"
-            case comment
-            case company
-            case developer
-            case manufacturer
-        }
-        // sourcery:end
+    public struct Company: Identifiable, Composable, Codable {
 
         /// The unique resource identifier to this specific entry
         public let identifier: UInt64
@@ -36,4 +24,18 @@ public extension Platform {
         /// <# Description #>
         public let manufacturer: Bool?
     }
+}
+
+extension Platform.Company {
+
+    // sourcery:inline:Platform.Company.CodingKeys
+    /// A type that can be used as a key for encoding and decoding.
+    public enum CodingKeys: String, CodingKey, Field {
+        case identifier = "id"
+        case comment
+        case company
+        case developer
+        case manufacturer
+    }
+    // sourcery:end
 }
