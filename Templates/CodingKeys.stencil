@@ -1,5 +1,4 @@
 {% for type in types.all %}
-{% if type.initializers.count == 0 %}
 
     // sourcery:inline:{{ type.name }}.CodingKeys
     /// A type that can be used as a key for encoding and decoding.
@@ -8,19 +7,14 @@
         {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}
         {% if variable.name == "identifier" %}
         case identifier = "id"
-        {% elif variable.name == "operationSystem" %}
-        case operationSystem = "os"
-        {% elif variable.name == "year" %}
-        case year = "y"
-        {% elif variable.name == "month" %}
-        case month = "m"
-        {% elif variable.name == CamelCased %}
-        case {{ variable.name }}
-        {% else %}
+        {% elif variable.annotations.key %}
+        case {{ variable.name }} = "{{ variable.annotations.key }}"
+        {% elif variable.name != CamelCased %}
         case {{ variable.name }} = "{{ CamelCased }}"
+        {% else %}
+        case {{ variable.name }}
         {% endif %}
         {% endfor %}
     }
     // sourcery:end
-{% endif %}
 {% endfor %}

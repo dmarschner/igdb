@@ -34,9 +34,11 @@ extension Platform {
         public let region: Region?
 
         /// The month as an integer starting at 1 (January)
+        // sourcery: key = m
         public let month: Int?
 
         /// The year in full (2018)
+        // sourcery: key = y
         public let year: Int?
     }
 }

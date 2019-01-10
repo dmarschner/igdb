@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Platform {
+extension Platform {
 
     /// [Platform Website](https://api-docs.igdb.com/#platform-website)
     ///

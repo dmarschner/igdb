@@ -47,6 +47,7 @@ extension Game {
         public let url: String?
 
         /// The year in full (2018)
+        // sourcery: key = y
         public let year: Int?
     }
 }
