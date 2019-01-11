@@ -1,11 +1,13 @@
 import Foundation
 
-/// [Images](https://igdb.github.io/api/references/images/) may be used to get URLs of different sized images.
+/// [Images](https://api-docs.igdb.com/#images) may be used to get URLs of different sized images.
 ///
 /// Images are composable by a fixed set of different named sizes and the retina equivalent.
-/// Non-IGDB images are not composable therefore the initializer does throw on initialization.
+/// Non-IGDB images are not composable. Requesting a url will throw in this cases.
 ///
-/// For example, given the following url:
+/// ### Example
+///
+/// Given the following url:
 ///
 ///     https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/dfgkfivjrhcksyymh9vw.jpg
 ///
@@ -16,41 +18,15 @@ import Foundation
 /// These are the values to be changed by the formatter, where:
 ///
 ///  - `size` is one of the interchangeable size types listed below.
-///  - `hash` is the `cloudinary_id` of the image.
+///  - `hash` is the `imageSlug` of the image.
 ///
 /// The image sizes are all maximum size but by appending `_2x` to any size, you can get retina (DPR 2.0) sizes (`cover_small_2x`).
-///
-/// ### Representation
-///
-/// Here we retrieve the screenshot properties of the game with the id "1942": `/games/1942?fields=screenshots`
-///
-///     [
-///       {
-///         "id": 1942,
-///         "screenshots": [
-///           {
-///             "url": "//images.igdb.com/igdb/image/upload/t_thumb/z5t0yuhyiiui1ickwhgj.png",
-///             "cloudinary_id": "z5t0yuhyiiui1ickwhgj",
-///             "width": 1920,
-///             "height": 1080
-///           },
-///           {
-///             "url": "//images.igdb.com/igdb/image/upload/t_thumb/mnljdjtrh44x4snmierh.png",
-///             "cloudinary_id": "mnljdjtrh44x4snmierh",
-///             "width": 1920,
-///             "height": 1080
-///           }
-///         ]
-///       }
-///     ]
 ///
 /// - Attention:
 ///
 ///     Images that are removed or replaced from IGDB.com exist for 30 days before they are removed.
 ///     Keep that in mind when designing cache logic.
-public extension Image {
-
-    // MARK: Options
+extension Image {
 
     /// Sizes are a fixed set of pre-scaled images, that are:
     ///
@@ -99,10 +75,8 @@ public extension Image {
 
     public enum Error: Swift.Error {
         case malformedBaseUrl
-        case unknownSlug
+        case unknownHash
     }
-
-    // MARK: Accessing Sizes
 
     /// Allows access to a properly sized image, of given `size` considering given `ratio` of given `rasterFormat`
     ///
@@ -118,7 +92,7 @@ public extension Image {
     ///     `Image.Error.malformedBaseUrl` if the baseURL init fails on current platform.
     public func url(for size: Size, ratio: PixelRatio = .normal, of format: RasterFormat = .jpg) throws -> URL {
         guard let url = URL(string: "//images.igdb.com/igdb/image/upload") else { throw Error.malformedBaseUrl }
-        guard let identifier = self.imageSlug else { throw Error.unknownSlug  }
+        guard let identifier = self.imageHash else { throw Error.unknownHash  }
         return url.appendingPathComponent("t_\(size.rawValue)\(ratio.rawValue)")  // Size           (t_thumb_2x)
             .appendingPathComponent(identifier)                                   // Cloudinary Id  (kjsdhfjhd..)
             .appendingPathExtension(format.rawValue)                              // Raster Format  (.jpg, .png)

@@ -17,6 +17,11 @@ public protocol Field: CaseIterable, RawRepresentable where Self.RawValue == Str
 /// It allows to define what properties of an entity should be returned upon requesting an entity (or multiple entities)
 public protocol Composable {
 
-    /// A type that can be used as keys for expressing required fields, sorting & filtering
-    associatedtype CodingKeys: Field
+    /// A type that can be used as keys for expressing required fields
+    associatedtype Fields: Field
+
+    /// A type that can be used to filter entities
+    associatedtype Filter // TODO: Split filter and composable
 }
+
+internal protocol AutoComposable {} // Used by sourcery

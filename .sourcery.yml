@@ -1,5 +1,8 @@
 sources:
-  - Sources
+    include:
+        - Sources/IGDB
+    exclude:
+        - Sources/IGDB/Generated
 templates:
-  - Templates
+    - Templates
 output: Sources/IGDB/Generated

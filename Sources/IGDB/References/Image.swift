@@ -6,16 +6,13 @@ import Foundation
 ///
 ///     To get different sized images, check out the [Images+Sizes](Images+Sizes.swift) extension.
 ///
-public class Image: Codable {
+public struct Image: Identifiable, AutoComposable, Codable {
 
-    /// A type that can be used as keys for coding as well as for expressing required fields, sorting & filtering
-    public enum CodingKeys: String, CodingKey, Field {
-        case isTransparent = "alpha_channel"
-        case animated, height, url, width
-        case imageSlug = "image_id"
-    }
+    /// The unique resource identifier to this specific entry
+    public let identifier: UInt64
 
     /// Wether or not the image has an alpha channel
+    // sourcery: key = alpha_channel
     public let isTransparent: Bool?
 
     /// Whether or not the image is animated
@@ -31,5 +28,6 @@ public class Image: Codable {
     public let width: Int?
 
     /// The slug of the image used to construct an IGDB image link
-    public let imageSlug: String?
+    // sourcery: key = image_id
+    public let imageHash: String?
 }

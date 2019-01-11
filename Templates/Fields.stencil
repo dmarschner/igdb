@@ -1,22 +1,22 @@
-{% for type in types.all.implementing.Codable|struct %}
-// sourcery:file:{{ type.name}}+CodingKeys.gen.swift
+{% for type in types.all.implementing.AutoComposable|struct %}
+// sourcery:file:{{ type.name}}+Fields.gen.swift
 import Foundation
 
-extension {{ type.name }} {
+extension {{ type.name }}: Composable {
 
-    /// A type that can be used as a key for encoding and decoding.
-    {{ type.accessLevel }} enum CodingKeys: String, CodingKey, Field {
+    /// A type that can be used for expressing required fields
+    {{ type.accessLevel }} enum Fields: String, Field {
         {% for variable in type.storedVariables %}
         {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}
-        {% if variable.name == "identifier" %}
-        case identifier = "id"
-        {% elif variable.annotations.key %}
+        {% if variable.name != "identifier" %}{# Identifier is skipped on fields #}
+        {% if variable.annotations.key %}
         case {{ variable.name }} = "{{ variable.annotations.key }}"
         {% elif variable.name != CamelCased %}
         case {{ variable.name }} = "{{ CamelCased }}"
         {% else %}
         case {{ variable.name }}
         {% endif %}
+        {% endif %}{# Identifier skip #}
         {% endfor %}
     }
 }

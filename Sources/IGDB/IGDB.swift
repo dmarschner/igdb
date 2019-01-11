@@ -30,7 +30,3 @@ import Foundation
 /// - Important:
 ///
 ///     All unix epoch fields’ values are in seconds relative to 00:00:00 UTC on 1 January 1970.
-
-// Rewriter:
-// - Extract internal CodingKeys (everything including identifier == id and snake_cased)
-// - Extract public Fields (everything not identifier)

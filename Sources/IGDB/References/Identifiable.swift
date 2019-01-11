@@ -41,6 +41,6 @@ extension Array: Identifiable where Element: Identifiable {
 
     /// The unique resource identifier to this specific entry
     public var identifier: [Element.Identifier] {
-        return map({ $0.identifier })
+        return map({$0.identifier})
     }
 }
