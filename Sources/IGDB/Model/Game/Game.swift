@@ -5,7 +5,7 @@ import Foundation
 /// Video Games!
 ///
 /// API path: [/games](https://api-v3.igdb.com/games)
-public struct Game: Identifiable, AutoComposable, Updatable, Codable {
+public struct Game: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -65,7 +65,7 @@ public struct Game: Identifiable, AutoComposable, Updatable, Codable {
     public let gameEngines: Expander<[GameEngine]>?
 
     /// Modes of gameplay
-    public let gameModes: Expander<[Mode]>?
+    public let gameModes: Expander<[GameMode]>?
 
     /// Genres of the game
     public let genres: Expander<[Genre]>?

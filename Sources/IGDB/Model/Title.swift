@@ -5,7 +5,7 @@ import Foundation
 /// Job titles in the games industry
 ///
 /// API path: [/titles](https://api-v3.igdb.com/titles)
-public struct Title: Identifiable, AutoComposable, Updatable, Codable {
+public struct Title: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

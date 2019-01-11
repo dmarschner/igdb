@@ -5,7 +5,7 @@ import Foundation
 /// Video game themes
 ///
 /// API path: [/themes](https://api-v3.igdb.com/themes)
-public struct Theme: Identifiable, AutoComposable, Updatable, Codable {
+public struct Theme: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

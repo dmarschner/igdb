@@ -5,7 +5,7 @@ import Foundation
 /// Data about the supported multiplayer types
 ///
 /// API path: [/multiplayer_modes](https://api-v3.igdb.com/multiplayer_modes)
-public struct MultiplayerMode: Identifiable, AutoComposable, Codable {
+public struct MultiplayerMode: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

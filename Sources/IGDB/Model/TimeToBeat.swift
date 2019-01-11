@@ -5,7 +5,7 @@ import Foundation
 /// Average completion times for games
 ///
 /// API path: [/time_to_beats](https://api-v3.igdb.com/time_to_beats)
-public struct TimeToBeat: Identifiable, AutoComposable, Codable {
+public struct TimeToBeat: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

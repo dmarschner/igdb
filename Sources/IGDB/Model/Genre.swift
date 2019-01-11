@@ -5,7 +5,7 @@ import Foundation
 /// Genres of video game
 ///
 /// API path: [/genres](https://api-v3.igdb.com/genres)
-public struct Genre: Identifiable, AutoComposable, Updatable, Codable {
+public struct Genre: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

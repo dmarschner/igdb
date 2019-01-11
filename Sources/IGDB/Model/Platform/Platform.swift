@@ -5,7 +5,7 @@ import Foundation
 /// The hardware used to run the game or game delivery network
 ///
 /// API path: [/platforms](https://api-v3.igdb.com/platforms)
-public struct Platform: Identifiable, AutoComposable, Updatable, Codable {
+public struct Platform: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

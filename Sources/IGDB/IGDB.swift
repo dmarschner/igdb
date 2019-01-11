@@ -8,6 +8,8 @@ import Foundation
 //let encoder = JSONEncoder()
 //encoder.dateEncodingStrategy = .secondsSince1970
 
+// TODO: Make certain endpoint "Searchable"
+
 /// The common [endpoint](https://api-docs.igdb.com/#endpoints) definition.
 ///
 /// Base path: [https://api-v3.igdb.com](https://api-v3.igdb.com)

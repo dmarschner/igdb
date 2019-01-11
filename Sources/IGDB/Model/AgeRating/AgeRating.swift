@@ -3,7 +3,7 @@ import Foundation
 /// [Age Rating](https://api-docs.igdb.com/?swift#age-rating) according to various rating organisations
 ///
 /// API path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
-public struct AgeRating: Identifiable, AutoComposable, Codable {
+public struct AgeRating: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

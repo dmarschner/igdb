@@ -5,7 +5,7 @@ import Foundation
 /// Video game companies. Both publishers & developers
 ///
 /// API path: [/companies](https://api-v3.igdb.com/companies)
-public struct Company: Identifiable, AutoComposable, Updatable, Codable {
+public struct Company: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -21,12 +21,6 @@ public struct Company: Identifiable, AutoComposable, Updatable, Codable {
 
     /// The data when a company got a new ID
     public let changeDate: Date?
-
-    /// <# Description #> // TODO: Not sure if actually used
-    public let changeDateCategory: DateCategory?
-
-    /// <# Description #> // TODO: Not sure if actually used
-    public let startDateCategory: DateCategory?
 
     /// The new ID for a company that has gone through a merger or restructuring
     public let changedCompanyId: Identifier?
@@ -60,4 +54,8 @@ public struct Company: Identifiable, AutoComposable, Updatable, Codable {
 
     /// The companies official websites
     public let websites: Expander<[Website]>?
+
+    // TODO: Not sure if actually used
+    public let changeDateCategory: DateCategory?
+    public let startDateCategory: DateCategory?
 }

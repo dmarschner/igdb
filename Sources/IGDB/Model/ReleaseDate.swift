@@ -5,7 +5,7 @@ import Foundation
 /// A handy endpoint that extends game release dates. Used to dig deeper into release dates, platforms and versions.
 ///
 /// Request Path: https://api-v3.igdb.com/release_dates
-public struct ReleaseDate: Identifiable, AutoComposable, Updatable, Codable {
+public struct ReleaseDate: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

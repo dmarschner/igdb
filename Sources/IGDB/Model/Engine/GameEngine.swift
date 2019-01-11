@@ -5,7 +5,7 @@ import Foundation
 /// Video game engines such as unreal engine.
 ///
 /// API path: [/game_engines](https://api-v3.igdb.com/game_engines)
-public struct GameEngine: Identifiable, AutoComposable, Updatable, Codable {
+public struct GameEngine: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

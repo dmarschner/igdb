@@ -1,19 +1,19 @@
-{% for type in types.all.implementing.AutoComposable|struct %}
+{% for type in types.all.implementing.AutoFilterable|struct %}
 // sourcery:file:{{ type.name}}+Filters.gen.swift
 import Foundation
 
-extension {{ type.name }} {
+extension {{ type.name }}: Filterable {
 
     /// A type that can be used for expressing required fields
-    {{ type.accessLevel }} enum Filter {
+    {{ type.accessLevel }} enum Filters: Filter {
         {% for variable in type.storedVariables %}
         {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}
         {% if variable.name != "identifier" %}{# Identifier is skipped on fields #}
-        case {{ variable.name }}(Operator, {{ variable.typeName }})
+        case {{ variable.name }}(Postfix, {{ variable.typeName }})
         {% endif %}{# Identifier skip #}
         {% endfor %}
 
-        internal var stringValue: String {
+        {{ type.accessLevel }} var stringValue: String {
             switch self {
             {% for variable in type.storedVariables %}
             {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}

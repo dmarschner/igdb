@@ -6,7 +6,7 @@ import Foundation
 ///
 ///     To get different sized images, check out the [Images+Sizes](Images+Sizes.swift) extension.
 ///
-public struct Image: Identifiable, AutoComposable, Codable {
+public struct Image: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

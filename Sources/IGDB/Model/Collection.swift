@@ -5,7 +5,7 @@ import Foundation
 /// Collection, AKA Series
 ///
 /// API path: [/collections](https://api-v3.igdb.com/collections)
-public struct Collection: Identifiable, AutoComposable, Updatable, Codable {
+public struct Collection: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -5,7 +5,7 @@ import Foundation
 /// A video associated with a game
 ///
 /// API path: [/game_videos](https://api-v3.igdb.com/game_videos)
-public struct Video: Identifiable, AutoComposable, Codable {
+public struct Video: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

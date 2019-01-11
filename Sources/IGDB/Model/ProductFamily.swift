@@ -5,7 +5,7 @@ import Foundation
 /// A collection of closely related platforms
 ///
 /// API path: [/product_families](https://api-v3.igdb.com/product_families)
-public struct ProductFamily: Identifiable, AutoComposable, Codable {
+public struct ProductFamily: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

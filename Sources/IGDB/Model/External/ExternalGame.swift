@@ -7,7 +7,7 @@ import Foundation
 /// Game IDs on other services
 ///
 /// API path: [/external_games](https://api-v3.igdb.com/external_games)
-public struct ExternalGame: Identifiable, AutoComposable, Updatable, Codable {
+public struct ExternalGame: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -5,7 +5,7 @@ import Foundation
 /// A single news article.
 ///
 /// API path: [/pulses](https://api-v3.igdb.com/pulses)
-public struct Pulse: Identifiable, AutoComposable, Updatable, Codable {
+public struct Pulse: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
@@ -26,7 +26,7 @@ public struct Pulse: Identifiable, AutoComposable, Updatable, Codable {
     public let publishedAt: Date?
 
     /// The ID of the publisher
-    public let pulseSource: Expander<Source>?
+    public let pulseSource: Expander<PulseSource>?
 
     /// A brief extract of the article
     public let summary: String?

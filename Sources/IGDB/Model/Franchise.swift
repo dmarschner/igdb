@@ -5,7 +5,7 @@ import Foundation
 /// A list of video game franchises such as Star Wars.
 ///
 /// API path: [/franchises](https://api-v3.igdb.com/franchises)
-public struct Franchise: Identifiable, AutoComposable, Updatable, Codable {
+public struct Franchise: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

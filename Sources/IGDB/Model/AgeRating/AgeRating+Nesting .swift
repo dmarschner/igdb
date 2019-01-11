@@ -8,7 +8,9 @@ extension AgeRating {
         case esrb
     }
 
-    /// The title of an age rating // TODO: PEGI & ESRB merge enum is not that pretty and also redundant considering the category
+    // TODO: PEGI & ESRB merge enum is not that pretty and also redundant considering the category
+
+    /// The title of an age rating
     public enum Rating: Int, Codable {
         // PEGI
         case three = 1
@@ -24,20 +26,5 @@ extension AgeRating {
         case teen
         case mature
         case adultsOnly
-    }
-
-    /// [Age Rating Content Description](https://api-docs.igdb.com/?swift#age-rating-content-description)
-    ///
-    /// API path: [/age_rating_content_descriptions](https://api-v3.igdb.com/age_rating_content_descriptions)
-    public struct ContentDescription: Identifiable, AutoComposable, Codable {
-
-        /// The unique resource identifier to this specific entry
-        public let identifier: UInt64
-
-        /// The organization that has issued a specific rating
-        public let category: Category?
-
-        /// Descriptive reason as to why the rating has been assigned. e.g. "Strong Language", "Animated Blood", ...
-        public let description: String?
     }
 }

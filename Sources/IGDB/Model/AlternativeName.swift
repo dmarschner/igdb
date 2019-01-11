@@ -8,7 +8,7 @@ import Foundation
 ///     }
 ///
 /// API path: [/alternative_names](https://api-v3.igdb.com/alternative_names)
-public struct AlternativeName: Identifiable, AutoComposable, Codable {
+public struct AlternativeName: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

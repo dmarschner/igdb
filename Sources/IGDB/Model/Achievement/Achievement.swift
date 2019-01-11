@@ -1,6 +1,6 @@
 import Foundation
 
-// TODO: 403 - Not free tier endpoint
+// TODO: 403 Forbidden in default tier
 
 /// [Achievement](https://api-docs.igdb.com/?swift#achievement)
 ///
@@ -8,7 +8,7 @@ import Foundation
 /// limited to achievements from steam, playstation and Xbox)
 ///
 /// API path: [/achievements](https://api-v3.igdb.com/achievements)
-public struct Achievement: Identifiable, AutoComposable, Updatable, Codable {
+public struct Achievement: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

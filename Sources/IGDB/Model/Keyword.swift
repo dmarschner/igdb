@@ -5,7 +5,7 @@ import Foundation
 /// Keywords are words or phrases that get tagged to a game such as “world war 2” or “steampunk”.
 ///
 /// API path: [/keywords](https://api-v3.igdb.com/keywords)
-public struct Keyword: Identifiable, AutoComposable, Updatable, Codable {
+public struct Keyword: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

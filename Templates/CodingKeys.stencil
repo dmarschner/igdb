@@ -5,7 +5,7 @@ import Foundation
 extension {{ type.name }} {
 
     /// A type that can be used as a key for encoding and decoding.
-    {{ type.accessLevel }} enum CodingKeys: String, CodingKey, Field {
+    {{ type.accessLevel }} enum CodingKeys: String, CodingKey {
         {% for variable in type.storedVariables %}
         {% set CamelCased %}{{ variable.name | camelToSnakeCase }}{% endset %}
         {% if variable.name == "identifier" %}

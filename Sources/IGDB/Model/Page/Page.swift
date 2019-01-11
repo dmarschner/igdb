@@ -5,7 +5,7 @@ import Foundation
 /// Our multipurpose page system is currently used for youtubers and media organisations.
 ///
 /// API path: [/pages](https://api-v3.igdb.com/pages)
-public struct Page: Identifiable, AutoComposable, Updatable, Codable {
+public struct Page: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -19,9 +19,6 @@ public protocol Composable {
 
     /// A type that can be used as keys for expressing required fields
     associatedtype Fields: Field
-
-    /// A type that can be used to filter entities
-    associatedtype Filter // TODO: Split filter and composable
 }
 
-internal protocol AutoComposable {} // Used by sourcery
+internal protocol AutoComposable {} // Used by sourcery for auto-generation
