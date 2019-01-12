@@ -4,6 +4,7 @@ import PackageDescription
 let package = Package(
     name: "IGDB",
     products: [
+        // 🕹️ An IGDB API vapor service 
         .library(name: "IGDB", targets: ["IGDB"])
     ],
     dependencies: [
