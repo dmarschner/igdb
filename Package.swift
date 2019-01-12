@@ -6,9 +6,12 @@ let package = Package(
     products: [
         .library(name: "IGDB", targets: ["IGDB"])
     ],
-    dependencies: [],
+    dependencies: [
+        // 📦 Vapor dependency injection / inversion of control framework.
+        .package(url: "https://github.com/vapor/service.git", from: "1.0.0")
+    ],
     targets: [
-        .target(name: "IGDB", dependencies: []),
+        .target(name: "IGDB", dependencies: ["Service"]),
         .testTarget(name: "IGDBTests", dependencies: ["IGDB"])
     ]
 )

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Apicalypse<Entity> where Entity: Composable & Filterable {
+public struct Query<Entity> where Entity: Composable & Filterable {
 
     private var includes: Entity.Fields.AllCases?
 
@@ -28,7 +28,7 @@ public struct Apicalypse<Entity> where Entity: Composable & Filterable {
    }
 }
 
-extension Apicalypse where Entity.Fields.AllCases == Array<Entity.Fields> {
+extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
 
     /// Example: `.include(fields: [.name, .platform])`
     public mutating func include(fields: Entity.Fields.AllCases) {
@@ -45,7 +45,7 @@ extension Apicalypse where Entity.Fields.AllCases == Array<Entity.Fields> {
         sort = (field, order)
     }
 
-    /// Example: `.filter(.platforms(.equalTo, 48))`
+    /// Example: `.filter(.platform(.equalTo, 48))`
     public mutating func filter(_ include: Entity.Filters) {
         filters = filters ?? []
         filters?.append(include)
@@ -65,7 +65,7 @@ extension Apicalypse where Entity.Fields.AllCases == Array<Entity.Fields> {
 // MARK: Search
 // Only applicable on Characters - Collections - Games - People - Platforms - Themes
 
-extension Apicalypse where Entity == Character {
+extension Query where Entity == Character {
 
     /// Example: `.search(for: "Master Chief")`
     public mutating func search(for value: String) {
@@ -73,7 +73,7 @@ extension Apicalypse where Entity == Character {
     }
 }
 
-extension Apicalypse where Entity == Collection {
+extension Query where Entity == Collection {
 
     /// Example: `.search(for: "Star Wars")`
     public mutating func search(for value: String) {
@@ -81,7 +81,7 @@ extension Apicalypse where Entity == Collection {
     }
 }
 
-extension Apicalypse where Entity == Game {
+extension Query where Entity == Game {
 
     /// Example: `.search(for: "Halo")`
     public mutating func search(for value: String) {
@@ -90,7 +90,7 @@ extension Apicalypse where Entity == Game {
 }
 
 // Private Endpoint
-//extension Apicalypse where Entity == People {
+//extension Query where Entity == People {
 //
 //    /// Example: `.search(for: "Jeff Bridges")`
 //    public mutating func search(for value: String) {
@@ -98,7 +98,7 @@ extension Apicalypse where Entity == Game {
 //    }
 //}
 
-extension Apicalypse where Entity == Platform {
+extension Query where Entity == Platform {
 
     /// Example: `.search(for: "Xbox")`
     public mutating func search(for value: String) {
@@ -106,7 +106,7 @@ extension Apicalypse where Entity == Platform {
     }
 }
 
-extension Apicalypse where Entity == Theme {
+extension Query where Entity == Theme {
 
     /// Example: `.search(for: "Survival")`
     public mutating func search(for value: String) {

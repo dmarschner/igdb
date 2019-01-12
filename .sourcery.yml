@@ -1,8 +1,6 @@
 sources:
-    include:
-        - Sources/IGDB
-    exclude:
-        - Sources/IGDB/Generated
+    - Sources/IGDB/Models
+    - Sources/IGDB/References
 templates:
     - Templates
 output: Sources/IGDB/Generated
