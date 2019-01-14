@@ -18,7 +18,7 @@ public struct Query<Entity> where Entity: Composable & Filterable {
     // Only changable on Entities that are Searchable
     private var search: String?
 
-    init() {
+    public init() {
         includes = Entity.Fields.allCases
         // Any other property should initialize to nil
     }
@@ -123,7 +123,7 @@ extension Query: RawRepresentable {
 
 // MARK: - Fields
 
-extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
+extension Query {
 
     /// Example: `.include(fields: [.name, .platform])`
     public mutating func include(fields: Entity.Fields.AllCases) {
@@ -158,55 +158,16 @@ extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
     }
 }
 
-// MARK: - Search
-// Only applicable on Characters - Collections - Games - People - Platforms - Themes
+extension Query where Entity: Searchable {
 
-extension Query where Entity == Character {
-
-    /// Example: `.search(for: "Master Chief")`
+    /// Examples:
+    ///
+    /// - Character `.search(for: "Master Chief")`
+    /// - Collection: `.search(for: "Halo")`
+    /// - Game: `.search(for: "Combat Evolved")`
+    /// - Platform: `.search(for: "Xbox")`
+    /// - Theme: `.search(for: "Survival")`
     public mutating func search(for value: String) {
         search = value
     }
 }
-
-extension Query where Entity == Collection {
-
-    /// Example: `.search(for: "Star Wars")`
-    public mutating func search(for value: String) {
-        search = value
-    }
-}
-
-extension Query where Entity == Game {
-
-    /// Example: `.search(for: "Halo")`
-    public mutating func search(for value: String) {
-        search = value
-    }
-}
-
-extension Query where Entity == Platform {
-
-    /// Example: `.search(for: "Xbox")`
-    public mutating func search(for value: String) {
-        search = value
-    }
-}
-
-extension Query where Entity == Theme {
-
-    /// Example: `.search(for: "Survival")`
-    public mutating func search(for value: String) {
-        search = value
-    }
-}
-
-// MARK: Private Endpoint
-
-//extension Query where Entity == People {
-//
-//    /// Example: `.search(for: "Jeff Bridges")`
-//    public mutating func search(for value: String) {
-//        search = value
-//    }
-//}

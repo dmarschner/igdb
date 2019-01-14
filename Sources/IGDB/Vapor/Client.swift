@@ -64,7 +64,7 @@ public final class Client: Service {
 
 extension Client {
 
-    public func request<E>(endpoint: E.Type, query: Query<E>, completion: Result<[E]>) throws where E: Entity {
+    public func request<E>(endpoint: E.Type, query: Query<E> = .init(), completion: Result<[E]>) throws where E: Entity {
 
     }
 }
