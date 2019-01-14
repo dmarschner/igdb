@@ -1,6 +1,8 @@
 import Service
 
+// TODO: Make fields of Entities in Expander part of the parent fields (to make them usable in sort, included fields, excluded fields, ...)
 // TODO: Extract error from endpoint and make it more Result<Success, Failure> based
+// TODO: Filters actually support multiple values for one field, e.g. "where id = (4356,189,444);"
 
 // TODO: CODER NEEDS DATE DE-/ENCODING STRATEGY ADJUSTED
 //let decoder = JSONDecoder()
@@ -8,6 +10,13 @@ import Service
 //let encoder = JSONEncoder()
 //encoder.dateEncodingStrategy = .secondsSince1970
 
+public enum Result<Success> {
+    case success(Success)
+    case failure(Error)
+}
+
+/// A requestable endpoint entity must conform to all following protocols
+public typealias Entity = Identifiable & Composable & Filterable
 
 /// `Vapor.Service` wrapper around the IGDB API.
 /// All [endpoint](https://api-docs.igdb.com/#endpoints) definitions may be requested.
@@ -34,16 +43,14 @@ import Service
 ///     All unix epoch fields’ values are in seconds relative to 00:00:00 UTC on 1 January 1970.
 public final class Client: Service {
 
-    private var apikey: String
+    private let baseUrl: String
 
-    /// See `Client`.
-    public var container: Container
+    private let apikey: String
 
-    /// The `FoundationClient` powering this client.
-//    private let client: Client
+    private let container: Container
 
     public init(key: String, on container: Container) throws {
-//        self.client = try container.client()
+        self.baseUrl = "https://api-v3.igdb.com"
         self.container = container
         self.apikey = key
     }
@@ -54,6 +61,14 @@ public final class Client: Service {
 //        return client.send(req)
 //    }
 }
+
+extension Client {
+
+    public func request<E>(endpoint: E, query: Query<E>, completion: Result<[E]>) throws where E: Entity {
+
+    }
+}
+
 //
 ///// `Client` wrapper around `Foundation.URLSession`.
 //public final class FoundationClient: Client, ServiceType {

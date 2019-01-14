@@ -1,7 +1,7 @@
 import Foundation
 
 /// A generic website, as used for `Company` and `Game`
-public class Website: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct Website: Identifiable, AutoComposable, AutoFilterable, Codable {
 
     /// Category of a `Website`, i.e. whether it points to the official
     /// website, reddit page, twitch directory, facebook page,  ....

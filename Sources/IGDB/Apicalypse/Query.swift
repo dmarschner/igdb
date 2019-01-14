@@ -1,5 +1,6 @@
 import Foundation
 
+/// An Apicalypse query to append upon requesting an entity
 public struct Query<Entity> where Entity: Composable & Filterable {
 
     private var includes: Entity.Fields.AllCases?
@@ -19,14 +20,108 @@ public struct Query<Entity> where Entity: Composable & Filterable {
 
     init() {
         includes = Entity.Fields.allCases
-        excludes = nil
-        sort = nil
-        filters = nil
-        limit = nil
-        offset = nil
-        search = nil
-   }
+        // Any other property should initialize to nil
+    }
 }
+
+// MARK: - String Representable
+
+extension Query: RawRepresentable {
+
+    /// The raw type that can be used to represent all values of the conforming
+    /// type.
+    ///
+    /// Every distinct value of the conforming type has a corresponding unique
+    /// value of the `RawValue` type, but there may be values of the `RawValue`
+    /// type that don't have a corresponding value of the conforming type.
+    public typealias RawValue = String
+
+    /// Creates a new instance with the specified raw value.
+    ///
+    /// If there is no value of the type that corresponds with the specified raw
+    /// value, this initializer returns `nil`. For example:
+    ///
+    ///     enum PaperSize: String {
+    ///         case A4, A5, Letter, Legal
+    ///     }
+    ///
+    ///     print(PaperSize(rawValue: "Legal"))
+    ///     // Prints "Optional("PaperSize.Legal")"
+    ///
+    ///     print(PaperSize(rawValue: "Tabloid"))
+    ///     // Prints "nil"
+    ///
+    /// - Parameter rawValue: The raw value to use for the new instance.
+    public init?(rawValue: RawValue) {
+        fatalError("Implementation missing")
+        return nil
+    }
+
+    /// The corresponding value of the raw type.
+    ///
+    /// A new instance initialized with `rawValue` will be equivalent to this
+    /// instance. For example:
+    ///
+    ///     enum PaperSize: String {
+    ///         case A4, A5, Letter, Legal
+    ///     }
+    ///
+    ///     let selectedSize = PaperSize.Letter
+    ///     print(selectedSize.rawValue)
+    ///     // Prints "Letter"
+    ///
+    ///     print(selectedSize == PaperSize(rawValue: selectedSize.rawValue)!)
+    ///     // Prints "true"
+    public var rawValue: RawValue {
+        var query: String = ""
+        if let includes = self.includes {
+            // fields name,genres;
+            let values = includes.map({ $0.rawValue }).joined(separator: ",")
+            let fields = queryField(for: "fields", value: values)
+            query.append(fields)
+        }
+        if let excludes = self.excludes {
+            // exclude screenshots;
+            let values = excludes.map({ $0.rawValue }).joined(separator: ",")
+            let exclude = queryField(for: "exclude", value: values)
+            query.append(exclude)
+        }
+        if let sort = self.sort {
+            // sort release_dates.date desc;
+            let value = "\(sort.field.rawValue) \(sort.order.rawValue)"
+            let sort = queryField(for: "sort", value: value)
+            query.append(sort)
+        }
+        if let filters = self.filters {//        private var filters: [Entity.Filters]?
+            // where rating >= 80 & release_dates.date > 631152000;
+            let value = filters.map({ $0.stringValue }).joined(separator: "&")
+            let filter = queryField(for: "where", value: value)
+            query.append(filter)
+        }
+        if let limit = self.limit {
+            // limit 33;
+            let field = queryField(for: "limit", value: String(limit))
+            query.append(field)
+        }
+        if let offset = self.offset {
+            // offset 33;
+            let field = queryField(for: "offset", value: String(offset))
+            query.append(field)
+        }
+        if let search = self.search {
+            // search "zelda";
+            let field = queryField(for: "search", value: "\"\(search)\"")
+            query.append(field)
+        }
+        return query
+    }
+
+    private func queryField(for key: String, value: String) -> String {
+        return "\(key) \(value);"
+    }
+}
+
+// MARK: - Fields
 
 extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
 
@@ -52,6 +147,7 @@ extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
     }
 
     /// Example: `.limit(by: 10)`
+    /// Default limit is 10. The maximum limit is 50, for pro it is 500, and the above tiers, the maximum limit is 5000.
     public mutating func limit(by value: Int) {
         limit = value
     }
@@ -62,7 +158,7 @@ extension Query where Entity.Fields.AllCases == Array<Entity.Fields> {
     }
 }
 
-// MARK: Search
+// MARK: - Search
 // Only applicable on Characters - Collections - Games - People - Platforms - Themes
 
 extension Query where Entity == Character {
@@ -89,15 +185,6 @@ extension Query where Entity == Game {
     }
 }
 
-// Private Endpoint
-//extension Query where Entity == People {
-//
-//    /// Example: `.search(for: "Jeff Bridges")`
-//    public mutating func search(for value: String) {
-//        search = value
-//    }
-//}
-
 extension Query where Entity == Platform {
 
     /// Example: `.search(for: "Xbox")`
@@ -113,3 +200,13 @@ extension Query where Entity == Theme {
         search = value
     }
 }
+
+// MARK: Private Endpoint
+
+//extension Query where Entity == People {
+//
+//    /// Example: `.search(for: "Jeff Bridges")`
+//    public mutating func search(for value: String) {
+//        search = value
+//    }
+//}
