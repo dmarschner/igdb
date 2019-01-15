@@ -3,9 +3,11 @@ import Foundation
 /// [Pulse Source](https://api-docs.igdb.com/#pulse-source)
 ///
 /// A news article source such as IGN.
-///
-/// API path: [/pulse_sources](https://api-v3.igdb.com/pulse_sources)
-public struct PulseSource: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct PulseSource: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/pulse_sources](https://api-v3.igdb.com/pulse_sources)
+    public static let requestPath: String = "pulse_sources"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

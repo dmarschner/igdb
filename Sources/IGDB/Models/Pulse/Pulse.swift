@@ -5,7 +5,11 @@ import Foundation
 /// A single news article.
 ///
 /// API path: [/pulses](https://api-v3.igdb.com/pulses)
-public struct Pulse: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Pulse: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/pulses](https://api-v3.igdb.com/pulses)
+    public static let requestPath: String = "pulses"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

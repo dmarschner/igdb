@@ -5,7 +5,7 @@ import Foundation
 /// The bool/text value of the feature
 ///
 /// API path: [/game_version_feature_values](https://api-v3.igdb.com/game_version_feature_values)
-public struct GameVersionValue: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct GameVersionValue: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
 
     /// Game Version Feature Value Included
     public enum Included: Int, Codable {
@@ -13,6 +13,10 @@ public struct GameVersionValue: Identifiable, AutoComposable, AutoFilterable, Co
         case included
         case preOrderOnly
     }
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/game_version_feature_values](https://api-v3.igdb.com/game_version_feature_values)
+    public static let requestPath: String = "game_version_feature_values"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

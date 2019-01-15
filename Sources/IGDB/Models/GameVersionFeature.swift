@@ -5,13 +5,17 @@ import Foundation
 /// Features and descriptions of what makes each version/edition different from the main game
 ///
 /// API path: [/game_version_features](https://api-v3.igdb.com/game_version_features)
-public struct GameVersionFeature: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct GameVersionFeature: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
 
     /// Game Version Feature Category
     public enum Category: Int, Codable {
         case boolean
         case description
     }
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/game_version_features](https://api-v3.igdb.com/game_version_features)
+    public static let requestPath: String = "game_version_features"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

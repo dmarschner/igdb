@@ -6,9 +6,11 @@ import Foundation
 ///
 /// Achievement data for specific games for specific platforms (currently
 /// limited to achievements from steam, playstation and Xbox)
-///
-/// API path: [/achievements](https://api-v3.igdb.com/achievements)
-public struct Achievement: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Achievement: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/achievements](https://api-v3.igdb.com/achievements)
+    public static let requestPath: String = "achievements"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

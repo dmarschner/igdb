@@ -1,154 +1,92 @@
 import Service
 
 // TODO: Make fields of Entities in Expander part of the parent fields (to make them usable in sort, included fields, excluded fields, ...)
-// TODO: Extract error from endpoint and make it more Result<Success, Failure> based
 // TODO: Filters actually support multiple values for one field, e.g. "where id = (4356,189,444);"
 
-// TODO: CODER NEEDS DATE DE-/ENCODING STRATEGY ADJUSTED
-//let decoder = JSONDecoder()
-//decoder.dateDecodingStrategy = .secondsSince1970
-//let encoder = JSONEncoder()
-//encoder.dateEncodingStrategy = .secondsSince1970
-
-public enum Result<Success> {
-    case success(Success)
-    case failure(Error)
-}
-
-/// A requestable endpoint entity must conform to all following protocols
-public typealias Entity = Identifiable & Composable & Filterable
-
-/// `Vapor.Service` wrapper around the IGDB API.
-/// All [endpoint](https://api-docs.igdb.com/#endpoints) definitions may be requested.
+/// `Vapor.Service` wrapper around the IGDB API, allowing all of the
+/// [endpoint](https://api-docs.igdb.com/#endpoints) definitions to be requested.
 ///
 /// Base path: [https://api-v3.igdb.com](https://api-v3.igdb.com)
 ///
-/// In order to communicate with the server, you will have to send these headers.
+/// In order to communicate with the server, the client will have to send these headers.
 ///
 ///     | HTTP Header | Value            |
 ///     | ----------- | ---------------- |
 ///     | user-key    | <your-key>       |
 ///     | accept      | application/json |
 ///
-/// # Common fields in responses
-///
-/// All the responses may contain the following fields in the result:
-///
-///     | Name       | Type                    | Mandatory | Comment    |
-///     | ---------- | ----------------------- | --------- | ---------- |
-///     | id         | unsigned 64-bit integer | +         |            |
+/// The key must be provided at client initialization. The accept header is auto added on any request.
 ///
 /// - Important:
 ///
 ///     All unix epoch fields’ values are in seconds relative to 00:00:00 UTC on 1 January 1970.
 public final class Client: Service {
 
-    private let baseUrl: String
+    /// The IGDB API base url
+    private let baseUrl: URL
 
-    private let apikey: String
-
+    /// The container to spawn new promises
     private let container: Container
 
-    public init(key: String, on container: Container) throws {
-        self.baseUrl = "https://api-v3.igdb.com"
-        self.container = container
-        self.apikey = key
-    }
+    /// The `URLSession` powering this client.
+    private let urlSession: URLSession
 
-//    /// See `Client`.
-//    public func send(_ req: Request) -> Future<Response> {
-//        req.http.headers.add(name: .init("user-key"), value: apikey)
-//        return client.send(req)
-//    }
+    /// The JSON decoder used to decode requested entities
+    private let decoder: JSONDecoder
+
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - key: <#key description#>
+    ///   - container: <#container description#>
+    /// - Throws: <#throws value description#>
+    public init(key: String, on container: Container, baseUrl: String = "https://api-v3.igdb.com") throws {
+
+        // Make sure the input is valid
+        guard let url = URL(string: baseUrl) else {
+            throw Error.malformedBaseUrl(baseUrl)
+        }
+
+        // Backup required properties
+        self.baseUrl = url
+        self.container = container
+        self.urlSession = .init(configuration: .init())
+        self.urlSession.configuration.httpAdditionalHeaders = [
+            "accept": "application/json",
+            "user-key" : key
+        ]
+
+        // Prepare the necessary decoder
+        self.decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+    }
 }
 
 extension Client {
 
-    public func request<E>(endpoint: E.Type, query: Query<E> = .init(), completion: Result<[E]>) throws where E: Entity {
-
+    /// Sends a request against Entity Endpoint of given Query
+    ///
+    /// - Parameter query: <#query description#>
+    /// - Returns: <#return value description#>
+    /// - Throws: <#throws value description#>
+    public func request<E>(query: Query<E> = .init()) throws -> Future<E> where E: Entity & Composable & Filterable & Decodable {
+        let promise = container.eventLoop.newPromise(E.self) // The request/response promise
+        var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath)) // The request against the entity endpoint
+        request.httpBody = query.rawValue.data(using: .utf8, allowLossyConversion: false) // The query attached as body data
+        request.httpMethod = "POST" // POST, to attach body data
+        urlSession.dataTask(with: request) { (data, response, error) in
+            if let error = error { // Fail directly on an error
+                return promise.fail(error: error)
+            }
+            guard let data = data else { // Fail if no data to decode
+                return promise.fail(error: Error.invalidResponseData)
+            }
+            do { // Try decoding, finish successfully on success and fail on error
+                try promise.succeed(result: self.decoder.decode(E.self, from: data))
+            } catch let error {
+                promise.fail(error: error)
+            }
+        }.resume() // Send right away
+        return promise.futureResult
     }
 }
-
-//
-///// `Client` wrapper around `Foundation.URLSession`.
-//public final class FoundationClient: Client, ServiceType {
-//    /// See `ServiceType`.
-//    public static var serviceSupports: [Any.Type] {
-//        return [Client.self]
-//    }
-//
-//    /// See `ServiceType`.
-//    public static func makeService(for worker: Container) throws -> FoundationClient {
-//        return .default(on: worker)
-//    }
-//
-//    /// See `Client`.
-//    public var container: Container
-//
-//    /// The `URLSession` powering this client.
-//    private let urlSession: URLSession
-//
-//    /// Creates a new `FoundationClient`.
-//    public init(_ urlSession: URLSession, on container: Container) {
-//        self.urlSession = urlSession
-//        self.container = container
-//    }
-//
-//    /// Creates a `FoundationClient` with default settings.
-//    public static func `default`(on container: Container) -> FoundationClient {
-//        return .init(.init(configuration: .default), on: container)
-//    }
-//
-//    /// See `Client`.
-//    public func send(_ req: Request) -> Future<Response> {
-//        let urlReq = req.http.convertToFoundationRequest()
-//        let promise = req.eventLoop.newPromise(Response.self)
-//        self.urlSession.dataTask(with: urlReq) { data, urlResponse, error in
-//            if let error = error {
-//                promise.fail(error: error)
-//                return
-//            }
-//
-//            guard let httpResponse = urlResponse as? HTTPURLResponse else {
-//                let error = VaporError(identifier: "httpURLResponse", reason: "URLResponse was not a HTTPURLResponse.")
-//                promise.fail(error: error)
-//                return
-//            }
-//
-//            let response = HTTPResponse.convertFromFoundationResponse(httpResponse, data: data, on: self.container)
-//            promise.succeed(result: Response(http: response, using: self.container))
-//            }.resume()
-//        return promise.futureResult
-//    }
-//}
-//
-//// MARK: Private
-//
-//private extension HTTPRequest {
-//    /// Converts an `HTTP.HTTPRequest` to `Foundation.URLRequest`
-//    func convertToFoundationRequest() -> URLRequest {
-//        let http = self
-//        let body = http.body.data ?? Data()
-//        var request = URLRequest(url: http.url)
-//        request.httpMethod = "\(http.method)"
-//        request.httpBody = body
-//        http.headers.forEach { key, val in
-//            request.addValue(val, forHTTPHeaderField: key.description)
-//        }
-//        return request
-//    }
-//}
-//
-//private extension HTTPResponse {
-//    /// Creates an `HTTP.HTTPResponse` to `Foundation.URLResponse`
-//    static func convertFromFoundationResponse(_ httpResponse: HTTPURLResponse, data: Data?, on worker: Worker) -> HTTPResponse {
-//        var res = HTTPResponse(status: .init(statusCode: httpResponse.statusCode))
-//        if let data = data {
-//            res.body = HTTPBody(data: data)
-//        }
-//        for (key, value) in httpResponse.allHeaderFields {
-//            res.headers.replaceOrAdd(name: "\(key)", value: "\(value)")
-//        }
-//        return res
-//    }
-//}

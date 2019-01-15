@@ -5,7 +5,11 @@ import Foundation
 /// Feed items are a social feed of status updates, media and news articles.
 ///
 /// API path: [/feeds](https://api-v3.igdb.com/feeds)
-public struct Feed: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Feed: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/feeds](https://api-v3.igdb.com/feeds)
+    public static let requestPath: String = "feeds"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

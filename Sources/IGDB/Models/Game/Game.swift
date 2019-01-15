@@ -5,7 +5,11 @@ import Foundation
 /// Video Games!
 ///
 /// API path: [/games](https://api-v3.igdb.com/games)
-public struct Game: Identifiable, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/games](https://api-v3.igdb.com/games)
+    public static let requestPath: String = "games"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

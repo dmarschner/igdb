@@ -5,7 +5,11 @@ import Foundation
 /// A video associated with a game
 ///
 /// API path: [/game_videos](https://api-v3.igdb.com/game_videos)
-public struct Video: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct Video: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/game_videos](https://api-v3.igdb.com/game_videos)
+    public static let requestPath: String = "game_videos"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -3,7 +3,11 @@ import Foundation
 /// [Involved Company](https://api-docs.igdb.com/#involved-company)
 ///
 /// API path: [/involved_companies](https://api-v3.igdb.com/involved_companies)
-public struct InvolvedCompany: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct InvolvedCompany: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/involved_companies](https://api-v3.igdb.com/involved_companies)
+    public static let requestPath: String = "involved_companies"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

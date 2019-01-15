@@ -3,9 +3,11 @@ import Foundation
 /// [Player Perspective](https://api-docs.igdb.com/#player-perspective)
 ///
 /// Player perspectives describe the view/perspective of the player in a video game.
-///
-/// API path: [/player_perspectives](https://api-v3.igdb.com/player_perspectives)
 public struct PlayerPerspective: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/player_perspectives](https://api-v3.igdb.com/player_perspectives)
+    public static let requestPath: String = "player_perspectives"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

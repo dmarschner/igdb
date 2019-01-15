@@ -1,3 +1,4 @@
+// TODO: Make it nice somehow
 //import Foundation
 //
 ///// [Search](https://api-docs.igdb.com/#search)

@@ -4,9 +4,11 @@ import Foundation
 ///
 /// Pulse groups are a combined array of news articles that are about a specific game
 /// and were published around the same time period.
-///
-/// API path: [/pulse_groups](https://api-v3.igdb.com/pulse_groups)
-public struct PulseGroup: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct PulseGroup: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/pulse_groups](https://api-v3.igdb.com/pulse_groups)
+    public static let requestPath: String = "pulse_groups"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

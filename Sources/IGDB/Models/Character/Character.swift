@@ -3,7 +3,11 @@ import Foundation
 /// Video Game [Characters](https://api-docs.igdb.com/#character)
 ///
 /// API path: [/characters](https://api-v3.igdb.com/characters)
-public struct Character: Identifiable, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Character: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/characters](https://api-v3.igdb.com/characters)
+    public static let requestPath: String = "characters"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

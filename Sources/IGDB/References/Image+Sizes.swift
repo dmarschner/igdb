@@ -73,11 +73,6 @@ extension Image {
         case png
     }
 
-    public enum Error: Swift.Error {
-        case malformedBaseUrl
-        case unknownHash
-    }
-
     /// Allows access to a properly sized image, of given `size` considering given `ratio` of given `rasterFormat`
     ///
     ///     //images.igdb.com/igdb/image/upload/t_{size}{_ratio}/{hash}.{format}
@@ -91,7 +86,8 @@ extension Image {
     ///     `Image.Error.unknownIdentifier` if image is not size composable (none-IGDB images) or
     ///     `Image.Error.malformedBaseUrl` if the baseURL init fails on current platform.
     public func url(for size: Size, ratio: PixelRatio = .normal, of format: RasterFormat = .jpg) throws -> URL {
-        guard let url = URL(string: "//images.igdb.com/igdb/image/upload") else { throw Error.malformedBaseUrl }
+        let baseUrl = "//images.igdb.com/igdb/image/upload"
+        guard let url = URL(string: baseUrl) else { throw Error.malformedBaseUrl(baseUrl) }
         guard let identifier = self.imageHash else { throw Error.unknownHash  }
         return url.appendingPathComponent("t_\(size.rawValue)\(ratio.rawValue)")  // Size           (t_thumb_2x)
             .appendingPathComponent(identifier)                                   // Cloudinary Id  (kjsdhfjhd..)

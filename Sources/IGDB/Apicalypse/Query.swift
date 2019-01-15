@@ -18,7 +18,7 @@ public struct Query<Entity> where Entity: Composable & Filterable {
     // Only changable on Entities that are Searchable
     private var search: String?
 
-    public init() {
+    public init(entity: Entity.Type = Entity.self) {
         includes = Entity.Fields.allCases
         // Any other property should initialize to nil
     }

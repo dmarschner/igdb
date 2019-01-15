@@ -5,7 +5,11 @@ import Foundation
 /// Collection, AKA Series
 ///
 /// API path: [/collections](https://api-v3.igdb.com/collections)
-public struct Collection: Identifiable, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Collection: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/collections](https://api-v3.igdb.com/collections)
+    public static let requestPath: String = "collections"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

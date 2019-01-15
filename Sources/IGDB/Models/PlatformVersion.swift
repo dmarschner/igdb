@@ -3,7 +3,11 @@ import Foundation
 /// [Platform Version](https://api-docs.igdb.com/#platform-version)
 ///
 /// API path: [/platform_versions](https://api-v3.igdb.com/platform_versions)
-public struct PlatformVersion: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct PlatformVersion: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/platform_versions](https://api-v3.igdb.com/platform_versions)
+    public static let requestPath: String = "platform_versions"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

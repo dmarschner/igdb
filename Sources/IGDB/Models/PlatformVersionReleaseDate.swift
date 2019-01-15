@@ -3,9 +3,11 @@ import Foundation
 /// [Platform Version ReleaseDate](https://api-docs.igdb.com/#platform-version-release-date)
 ///
 /// A handy endpoint that extends game release dates. Used to dig deeper into release dates, platforms and versions.
-///
-/// Request Path: https://api-v3.igdb.com/platform_version_release_dates
-public struct PlatformVersionReleaseDate: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct PlatformVersionReleaseDate: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/platform_version_release_dates](https://api-v3.igdb.com/platform_version_release_dates)
+    public static let requestPath: String = "platform_version_release_dates"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -5,7 +5,11 @@ import Foundation
 /// Video game engines such as unreal engine.
 ///
 /// API path: [/game_engines](https://api-v3.igdb.com/game_engines)
-public struct GameEngine: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct GameEngine: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/game_engines](https://api-v3.igdb.com/game_engines)
+    public static let requestPath: String = "game_engines"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

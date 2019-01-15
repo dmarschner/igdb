@@ -5,7 +5,11 @@ import Foundation
 /// Job titles in the games industry
 ///
 /// API path: [/titles](https://api-v3.igdb.com/titles)
-public struct Title: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Title: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/titles](https://api-v3.igdb.com/titles)
+    public static let requestPath: String = "titles"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

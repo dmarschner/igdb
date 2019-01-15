@@ -5,7 +5,11 @@ import Foundation
 /// The hardware used to run the game or game delivery network
 ///
 /// API path: [/platforms](https://api-v3.igdb.com/platforms)
-public struct Platform: Identifiable, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Platform: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/platforms](https://api-v3.igdb.com/platforms)
+    public static let requestPath: String = "platforms"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

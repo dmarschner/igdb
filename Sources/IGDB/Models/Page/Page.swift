@@ -5,7 +5,11 @@ import Foundation
 /// Our multipurpose page system is currently used for youtubers and media organisations.
 ///
 /// API path: [/pages](https://api-v3.igdb.com/pages)
-public struct Page: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/pages](https://api-v3.igdb.com/pages)
+    public static let requestPath: String = "pages"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

@@ -5,7 +5,11 @@ import Foundation
 /// Single player, Multiplayer etc
 ///
 /// API path: [/game_modes](https://api-v3.igdb.com/game_modes)
-public struct GameMode: Identifiable, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct GameMode: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/game_modes](https://api-v3.igdb.com/game_modes)
+    public static let requestPath: String = "game_modes"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64

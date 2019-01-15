@@ -3,7 +3,11 @@ import Foundation
 /// [Age Rating Content Description](https://api-docs.igdb.com/?swift#age-rating-content-description)
 ///
 /// API path: [/age_rating_content_descriptions](https://api-v3.igdb.com/age_rating_content_descriptions)
-public struct ContentDescription: Identifiable, AutoComposable, AutoFilterable, Codable {
+public struct ContentDescription: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
+
+    /// The API endpoint to request these entities from.
+    /// Path: [/age_rating_content_descriptions](https://api-v3.igdb.com/age_rating_content_descriptions)
+    public static let requestPath: String = "age_rating_content_descriptions"
 
     /// The unique resource identifier to this specific entry
     public let identifier: UInt64
