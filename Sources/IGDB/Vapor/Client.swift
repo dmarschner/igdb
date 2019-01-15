@@ -69,7 +69,7 @@ extension Client {
     /// - Parameter query: <#query description#>
     /// - Returns: <#return value description#>
     /// - Throws: <#throws value description#>
-    public func request<E>(query: Query<E> = .init()) throws -> Future<E> where E: Entity & Composable & Filterable & Decodable {
+    public func send<E>(query: Query<E> = .init()) throws -> Future<E> where E: Entity & Composable & Filterable & Decodable {
         let promise = container.eventLoop.newPromise(E.self) // The request/response promise
         var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath)) // The request against the entity endpoint
         request.httpBody = query.rawValue.data(using: .utf8, allowLossyConversion: false) // The query attached as body data
