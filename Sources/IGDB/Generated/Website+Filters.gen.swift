@@ -3,19 +3,22 @@
 
 import Foundation
 
-extension ContentDescription: Filterable {
+extension Website: Filterable {
 
     /// A type that can be used for expressing required fields
     public enum Filters: Filter {
-        case category(Postfix, AgeRating.Category?)
-        case description(Postfix, String?)
+        case trusted(Postfix, Bool?)
+        case category(Postfix, Category?)
+        case url(Postfix, String?)
 
         public var stringValue: String {
             switch self {
+            case .trusted:
+                return "trusted"
             case .category:
                 return "category"
-            case .description:
-                return "description"
+            case .url:
+                return "url"
             }
         }
     }

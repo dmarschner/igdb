@@ -3,17 +3,12 @@
 
 import Foundation
 
-extension ExternalGame: Composable {
+extension Website: Composable {
 
     /// A type that can be used for expressing required fields
     public enum Fields: String, Field {
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+        case trusted
         case category
-        case game
-        case name
-        case uid
         case url
-        case year = "y"
     }
 }
