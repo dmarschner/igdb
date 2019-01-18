@@ -25,13 +25,13 @@ extension ExternalGame: Codable {
     public init(from decoder: Decoder) throws {
         // Find proper container, and decode the identifier right away. This is the only mandatory property.
         let container: KeyedDecodingContainer<ExternalGame.CodingKeys>?
-        if let singleContainer = try? decoder.singleValueContainer() {
-            identifier = try singleContainer.decode(Identifier.self)
-            container = nil
-        } else {
-            let keyedContainer = try decoder.container(keyedBy: CodingKeys.self)
+        if let keyedContainer = try? decoder.container(keyedBy: CodingKeys.self) {
             identifier = try keyedContainer.decode(Identifier.self, forKey: .identifier)
             container = keyedContainer
+        } else {
+            let singleContainer = try decoder.singleValueContainer()
+            identifier = try singleContainer.decode(Identifier.self)
+            container = nil
         }
         // Extended decoding - any other property than identifier is optional
         createdAt = try container?.decodeIfPresent(Date.self, forKey: .createdAt) ?? nil
