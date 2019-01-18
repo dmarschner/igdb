@@ -3,9 +3,7 @@ import Foundation
 /// [Pulse](https://api-docs.igdb.com/#pulse)
 ///
 /// A single news article.
-///
-/// API path: [/pulses](https://api-v3.igdb.com/pulses)
-public struct Pulse: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Pulse: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/pulses](https://api-v3.igdb.com/pulses)
@@ -30,7 +28,7 @@ public struct Pulse: Identifiable, Entity, AutoComposable, AutoFilterable, Updat
     public let publishedAt: Date?
 
     /// The ID of the publisher
-    public let pulseSource: Expander<PulseSource>?
+    public let pulseSource: PulseSource?
 
     /// A brief extract of the article
     public let summary: String?
@@ -47,6 +45,6 @@ public struct Pulse: Identifiable, Entity, AutoComposable, AutoFilterable, Updat
     /// Any videos embedded in the article
     public let videos: [String]?
 
-    /// <# Description #>
-    public let website: Expander<Website>?
+    /// The link to the website
+    public let website: Website?
 }

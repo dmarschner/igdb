@@ -3,9 +3,7 @@ import Foundation
 /// [Company](https://api-docs.igdb.com/#company)
 ///
 /// Video game companies. Both publishers & developers
-///
-/// API path: [/companies](https://api-v3.igdb.com/companies)
-public struct Company: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Company: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/companies](https://api-v3.igdb.com/companies)
@@ -36,10 +34,10 @@ public struct Company: Identifiable, Entity, AutoComposable, AutoFilterable, Upd
     public let description: String?
 
     /// An array of games that a company has developed
-    public let developed: Expander<[Game]>?
+    public let developed: [Game]?
 
     /// The company’s logo
-    public let logo: Expander<Logo>?
+    public let logo: Logo?
 
     /// The company’s name
     public let name: String?
@@ -48,7 +46,7 @@ public struct Company: Identifiable, Entity, AutoComposable, AutoFilterable, Upd
     public let parent: Identifier?
 
     /// An array of games that a company has published
-    public let published: Expander<[Game]>?
+    public let published: [Game]?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
@@ -57,7 +55,7 @@ public struct Company: Identifiable, Entity, AutoComposable, AutoFilterable, Upd
     public let url: String?
 
     /// The companies official websites
-    public let websites: Expander<[Website]>?
+    public let websites: [Website]?
 
     // TODO: Not sure if actually used
     public let changeDateCategory: DateCategory?

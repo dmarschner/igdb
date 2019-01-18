@@ -1,9 +1,7 @@
 import Foundation
 
 /// [Age Rating](https://api-docs.igdb.com/?swift#age-rating) according to various rating organisations
-///
-/// API path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
-public struct AgeRating: Identifiable, Entity, AutoComposable, AutoFilterable, Codable {
+public struct AgeRating: Identifiable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/age_ratings](https://api-v3.igdb.com/age_ratings)
@@ -19,7 +17,7 @@ public struct AgeRating: Identifiable, Entity, AutoComposable, AutoFilterable, C
     public let rating: Rating?
 
     /// Reference ID for Age Rating Content Description
-    public let contentDescriptions: Expander<[ContentDescription]>?
+    public let contentDescriptions: [AgeRatingContentDescription]?
 
     /// The url for the image of a age rating
     public let ratingCoverUrl: String?

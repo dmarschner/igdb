@@ -3,9 +3,7 @@ import Foundation
 /// [Game](https://api-docs.igdb.com/#game)
 ///
 /// Video Games!
-///
-/// API path: [/games](https://api-v3.igdb.com/games)
-public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Game: Identifiable, Updatable, Searchable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/games](https://api-v3.igdb.com/games)
@@ -21,7 +19,7 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let updatedAt: Date?
 
     /// The PEGI rating
-    public let ageRatings: Expander<[AgeRating]>?
+    public let ageRatings: [AgeRating]?
 
     /// Rating based on external critic scores
     public let aggregatedRating: Double?
@@ -30,7 +28,7 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let aggregatedRatingCount: Int?
 
     /// Alternative names for this game
-    public let alternativeNames: Expander<[AlternativeName]>?
+    public let alternativeNames: [AlternativeName]?
 
     /// If a bundle, these are the games inside it
     public let bundles: [Game.Identifier]?
@@ -39,10 +37,10 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let category: Category?
 
     /// The series the game belongs to
-    public let collection: Expander<Collection>?
+    public let collection: Collection?
 
     /// The cover of this game
-    public let cover: Expander<Cover>?
+    public let cover: Cover?
 
     /// DLCs for this game
     public let dlcs: [Game.Identifier]?
@@ -51,7 +49,7 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let expansions: [Game.Identifier]?
 
     /// External IDs this game has on other services
-    public let externalGames: Expander<[ExternalGame]>?
+    public let externalGames: [ExternalGame]?
 
     /// The first release date for this game
     public let firstReleaseDate: Date?
@@ -60,31 +58,31 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let follows: Int?
 
     /// The main franchise
-    public let franchise: Expander<Franchise>?
+    public let franchise: Franchise?
 
     /// Other franchises the game belongs to
-    public let franchises: Expander<[Franchise]>?
+    public let franchises: [Franchise]?
 
     /// The game engine used in this game
-    public let gameEngines: Expander<[GameEngine]>?
+    public let gameEngines: [GameEngine]?
 
     /// Modes of gameplay
-    public let gameModes: Expander<[GameMode]>?
+    public let gameModes: [GameMode]?
 
     /// Genres of the game
-    public let genres: Expander<[Genre]>?
+    public let genres: [Genre]?
 
     /// Number of follows a game gets before release
     public let hypes: Int?
 
     /// Companies who developed this game
-    public let involvedCompanies: Expander<[InvolvedCompany]>?
+    public let involvedCompanies: [InvolvedCompany]?
 
     /// Associated keywords
-    public let keywords: Expander<[Keyword]>?
+    public let keywords: [Keyword]?
 
     /// Multiplayer modes for this game
-    public let multiplayerModes: Expander<[MultiplayerMode]>?
+    public let multiplayerModes: [MultiplayerMode]?
 
     /// <# Description #>
     public let name: String?
@@ -93,10 +91,10 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let parentGame: Game.Identifier?
 
     /// Platforms this game was released on
-    public let platforms: Expander<[Platform]>?
+    public let platforms: [Platform]?
 
     /// The main perspective of the player
-    public let playerPerspectives: Expander<[PlayerPerspective]>?
+    public let playerPerspectives: [PlayerPerspective]?
 
     /// The popularity score of the game
     public let popularity: Double?
@@ -111,10 +109,10 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let ratingCount: Int?
 
     /// Release dates of this game
-    public let releaseDates: Expander<[ReleaseDate]>?
+    public let releaseDates: [ReleaseDate]?
 
     /// Screenshots of this game
-    public let screenshots: Expander<[Screenshot]>?
+    public let screenshots: [Screenshot]?
 
     /// Similar games
     public let similarGames: [Game.Identifier]?
@@ -138,10 +136,10 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let tags: [Tag]?
 
     /// Themes of the game
-    public let themes: Expander<[Theme]>?
+    public let themes: [Theme]?
 
     /// How long the game takes to be completed
-    public let timeToBeat: Expander<TimeToBeat>?
+    public let timeToBeat: TimeToBeat?
 
     /// Average rating based on both IGDB user and external critic scores
     public let totalRating: Double?
@@ -159,8 +157,8 @@ public struct Game: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let versionTitle: String?
 
     /// Videos of this game
-    public let videos: Expander<[Video]>?
+    public let videos: [Video]?
 
     /// <# Description #>
-    public let websites: Expander<[Website]>?
+    public let websites: [Website]?
 }

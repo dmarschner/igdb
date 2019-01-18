@@ -1,6 +1,7 @@
 import Foundation
 
-/// Identifiables or ([Endpoints](https://api-docs.igdb.com/#endpoints) that are unique, i.e. have a unique identifier within the API.
+/// Identifiables or ([Endpoints](https://api-docs.igdb.com/#endpoints) are unique, i.e. have a
+/// unique identifier within the API and a unique Endpoint, i.e. request path, to request them.
 ///
 /// Base API path: [https://api-v3.igdb.com](https://api-v3.igdb.com)
 ///
@@ -31,6 +32,9 @@ public protocol Identifiable {
 
     /// The unique resource identifier to this specific entry
     var identifier: Identifier { get }
+
+    /// The API endpoint to request these entities from
+    static var requestPath: String { get }
 }
 
 /// Allows multiple entities to be used as identifiable proxy elements
@@ -42,5 +46,10 @@ extension Array: Identifiable where Element: Identifiable {
     /// The unique resource identifier to this specific entry
     public var identifier: [Element.Identifier] {
         return map({$0.identifier})
+    }
+
+    /// The API endpoint to request these entities from
+    public static var requestPath: String {
+        return Element.requestPath
     }
 }

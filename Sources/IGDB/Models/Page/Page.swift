@@ -3,9 +3,7 @@ import Foundation
 /// [Page](https://api-docs.igdb.com/#page)
 ///
 /// Our multipurpose page system is currently used for youtubers and media organisations.
-///
-/// API path: [/pages](https://api-v3.igdb.com/pages)
-public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Page: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/pages](https://api-v3.igdb.com/pages)
@@ -21,7 +19,7 @@ public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let updatedAt: Date?
 
     /// The page background
-    public let background: Expander<Background>?
+    public let background: Background?
 
     /// A battlenet ID
     public let battlenet: String?
@@ -33,7 +31,7 @@ public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let color: Color?
 
     /// The company this page is about
-    public let company: Expander<Company>?
+    public let company: Company?
 
     /// ISO 3166-1 country code
     public let country: Int?
@@ -42,10 +40,10 @@ public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let description: String?
 
     /// The id of the feed for this page
-    public let feed: Expander<Feed>?
+    public let feed: Feed?
 
     /// The game this page is about
-    public let game: Expander<Game>?
+    public let game: Game?
 
     /// The page name
     public let name: String?
@@ -57,7 +55,7 @@ public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let pageFollowsCount: Int?
 
     /// The page logo
-    public let pageLogo: Expander<Logo>?
+    public let pageLogo: Logo?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
@@ -72,8 +70,8 @@ public struct Page: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let url: String?
 
     /// The user who has write permissions to this page
-//    public let user: Expander<User>?
+//    public let user: User?
 
     /// <# Description #>
-    public let websites: Expander<[Website]>?
+    public let websites: [Website]?
 }

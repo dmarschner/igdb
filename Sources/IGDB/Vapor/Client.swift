@@ -1,7 +1,7 @@
 import Service
 
 // TODO: Make fields of Entities in Expander part of the parent fields (to make them usable in sort, included fields, excluded fields, ...)
-// TODO: Filters actually support multiple values for one field, e.g. "where id = (4356,189,444);"
+//       including those wrapped in arrays
 
 /// `Vapor.Service` wrapper around the IGDB API, allowing all of the
 /// [endpoint](https://api-docs.igdb.com/#endpoints) definitions to be requested.
@@ -50,10 +50,10 @@ public final class Client: Service {
         // Backup required properties
         self.baseUrl = url
         self.container = container
-        self.urlSession = .init(configuration: .init())
+        self.urlSession = .init(configuration: .default)
         self.urlSession.configuration.httpAdditionalHeaders = [
             "accept": "application/json",
-            "user-key" : key
+            "user-key": key
         ]
 
         // Prepare the necessary decoder
@@ -64,17 +64,17 @@ public final class Client: Service {
 
 extension Client {
 
-    /// Sends a request against Entity Endpoint of given Query
+    /// Sends a POST request against the Endpoint of given Query's Entity, with given query parameters as body data.
     ///
-    /// - Parameter query: <#query description#>
-    /// - Returns: <#return value description#>
-    /// - Throws: <#throws value description#>
-    public func send<E>(query: Query<E> = .init()) throws -> Future<E> where E: Entity & Composable & Filterable & Decodable {
-        let promise = container.eventLoop.newPromise(E.self) // The request/response promise
+    /// - Parameter query: The query to send against the IGDB API
+    /// - Returns: The Future holding the resulting entities of the request
+    /// - Throws: An Error if request is invalid or networking fails
+    public func send<E>(query: Query<E> = .init()) throws -> Future<[E]> where E: Identifiable & Composable & Decodable {
+        let promise = container.eventLoop.newPromise([E].self) // The request/response promise
         var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath)) // The request against the entity endpoint
-        request.httpBody = query.rawValue.data(using: .utf8, allowLossyConversion: false) // The query attached as body data
+        request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false) // The query attached as body data
         request.httpMethod = "POST" // POST, to attach body data
-        urlSession.dataTask(with: request) { (data, response, error) in
+        urlSession.dataTask(with: request) { (data, _, error) in
             if let error = error { // Fail directly on an error
                 return promise.fail(error: error)
             }
@@ -82,7 +82,7 @@ extension Client {
                 return promise.fail(error: Error.invalidResponseData)
             }
             do { // Try decoding, finish successfully on success and fail on error
-                try promise.succeed(result: self.decoder.decode(E.self, from: data))
+                try promise.succeed(result: self.decoder.decode([E].self, from: data))
             } catch let error {
                 promise.fail(error: error)
             }

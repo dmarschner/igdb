@@ -1,61 +1,95 @@
 import Foundation
 
 /// An Apicalypse query to append upon requesting an entity
-public struct Query<Entity> where Entity: Composable & Filterable {
+public final class Query<Entity> where Entity: Identifiable & Composable {
 
-    private var includes: Entity.Fields.AllCases?
+    /// The fields to include on the requested entities
+    private var includes: [String]
 
-    private var excludes: Entity.Fields.AllCases?
+    /// The fields to exclude on the requested entities
+    private var excludes: [String]?
 
-    private var sort: (field: Entity.Fields, order: Order)?
+    /// The sort parameter to attach to the query
+    private var sort: (path: String, order: Order)?
 
-    private var filters: [Entity.Filters]?
+    /// The filter parameters to attach to the query
+    private var filters: [String]?
 
+    /// The limit parameter to attach to the query
     private var limit: Int?
 
+    /// The offset parameter to attach to the query
     private var offset: Int?
 
-    // Only changable on Entities that are Searchable
+    /// The search parameter to attach to the query
     private var search: String?
 
+    /// Designated initializer.
+    ///
+    /// Allows Query to be initialized either using `Query<Entity>()`
+    /// or `Query(entity: Entity.self)` - whichever prefered.
+    ///
+    /// - Parameter entity: The Entity to query for
     public init(entity: Entity.Type = Entity.self) {
-        includes = Entity.Fields.allCases
-        // Any other property should initialize to nil
+        includes = ["*"] // Wildcard
     }
 }
 
-// MARK: - String Representable
+// MARK: - Fields
 
-extension Query: RawRepresentable {
+extension Query {
 
-    /// The raw type that can be used to represent all values of the conforming
-    /// type.
-    ///
-    /// Every distinct value of the conforming type has a corresponding unique
-    /// value of the `RawValue` type, but there may be values of the `RawValue`
-    /// type that don't have a corresponding value of the conforming type.
-    public typealias RawValue = String
-
-    /// Creates a new instance with the specified raw value.
-    ///
-    /// If there is no value of the type that corresponds with the specified raw
-    /// value, this initializer returns `nil`. For example:
-    ///
-    ///     enum PaperSize: String {
-    ///         case A4, A5, Letter, Legal
-    ///     }
-    ///
-    ///     print(PaperSize(rawValue: "Legal"))
-    ///     // Prints "Optional("PaperSize.Legal")"
-    ///
-    ///     print(PaperSize(rawValue: "Tabloid"))
-    ///     // Prints "nil"
-    ///
-    /// - Parameter rawValue: The raw value to use for the new instance.
-    public init?(rawValue: RawValue) {
-        fatalError("Implementation missing")
-        return nil
+    /// Example: `.include(fields: [\.name, \.platform])`
+    public func include(fields: [PartialKeyPath<Entity>]) throws {
+        try includes = fields.map(Entity.rawCodingPath(for:))
     }
+
+    /// Example: `.exclude(fields: [\.releaseDate, \.rating])`
+    public func exclude(fields: [PartialKeyPath<Entity>]) throws {
+        try excludes = fields.map(Entity.rawCodingPath(for:))
+    }
+
+    /// Example: `.sort(by: \.rating, order: .descending)`
+    /// Defaults to `.descending`.
+    public func sort(by field: PartialKeyPath<Entity>, order: Order = .descending) throws {
+        try sort = (Entity.rawCodingPath(for: field), order)
+    }
+
+    /// Example: `.where(\.platform == 48))`, `.where(\.identifier == [3, 6, 19])`
+    public func `where`(_ filter: Filter<Entity>) rethrows {
+        try filters?.append(filter())
+    }
+
+    /// Default limit is 10. The maximum limit is 50, for pro it is 500, and the above tiers, the maximum limit is 5000.
+    ///
+    /// Example: `.limit(by: 10)`
+    public func limit(by value: Int) {
+        limit = value
+    }
+
+    /// Example: `.offset(by: 0)`
+    public func offset(by value: Int) {
+        offset = value
+    }
+}
+
+extension Query where Entity: Searchable {
+
+    /// Examples:
+    ///
+    /// - Character `.search(for: "Master Chief")`
+    /// - Collection: `.search(for: "Halo")`
+    /// - Game: `.search(for: "Combat Evolved")`
+    /// - Platform: `.search(for: "Xbox")`
+    /// - Theme: `.search(for: "Survival")`
+    public func search(for value: String) {
+        search = value
+    }
+}
+
+// MARK: - Build
+
+extension Query {
 
     /// The corresponding value of the raw type.
     ///
@@ -72,102 +106,44 @@ extension Query: RawRepresentable {
     ///
     ///     print(selectedSize == PaperSize(rawValue: selectedSize.rawValue)!)
     ///     // Prints "true"
-    public var rawValue: RawValue {
-        var query: String = ""
-        if let includes = self.includes {
-            // fields name,genres;
-            let values = includes.map({ $0.rawValue }).joined(separator: ",")
-            let fields = queryField(for: "fields", value: values)
-            query.append(fields)
+    internal func build() -> String {
+        var queries: String = ""
+        if !includes.isEmpty { // fields name,genres;
+            let values = includes.joined(separator: ",")
+            let fields = query(for: "fields", of: values)
+            queries.append(fields)
         }
-        if let excludes = self.excludes {
-            // exclude screenshots;
-            let values = excludes.map({ $0.rawValue }).joined(separator: ",")
-            let exclude = queryField(for: "exclude", value: values)
-            query.append(exclude)
+        if let excludes = self.excludes { // exclude screenshots;
+            let values = excludes.joined(separator: ",")
+            let exclude = query(for: "exclude", of: values)
+            queries.append(exclude)
         }
-        if let sort = self.sort {
-            // sort release_dates.date desc;
-            let value = "\(sort.field.rawValue) \(sort.order.rawValue)"
-            let sort = queryField(for: "sort", value: value)
-            query.append(sort)
+        if let sort = self.sort { // sort release_dates.date desc;
+            let value = "\(sort.path) \(sort.order.rawValue)"
+            let sort = query(for: "sort", of: value)
+            queries.append(sort)
         }
-        if let filters = self.filters {//        private var filters: [Entity.Filters]?
-            // where rating >= 80 & release_dates.date > 631152000;
-            let value = filters.map({ $0.stringValue }).joined(separator: "&")
-            let filter = queryField(for: "where", value: value)
-            query.append(filter)
+        if let filters = self.filters { // where rating >= 80 & release_dates.date > 631152000;
+            let value = filters.joined(separator: "&")
+            let filter = query(for: "where", of: value)
+            queries.append(filter)
         }
-        if let limit = self.limit {
-            // limit 33;
-            let field = queryField(for: "limit", value: String(limit))
-            query.append(field)
+        if let limit = self.limit { // limit 33;
+            let field = query(for: "limit", of: String(limit))
+            queries.append(field)
         }
-        if let offset = self.offset {
-            // offset 33;
-            let field = queryField(for: "offset", value: String(offset))
-            query.append(field)
+        if let offset = self.offset { // offset 3;
+            let field = query(for: "offset", of: String(offset))
+            queries.append(field)
         }
-        if let search = self.search {
-            // search "zelda";
-            let field = queryField(for: "search", value: "\"\(search)\"")
-            query.append(field)
+        if let search = self.search { // search "zelda";
+            let field = query(for: "search", of: "\"\(search)\"")
+            queries.append(field)
         }
-        return query
+        return queries
     }
 
-    private func queryField(for key: String, value: String) -> String {
+    private func query(for key: String, of value: String) -> String {
         return "\(key) \(value);"
-    }
-}
-
-// MARK: - Fields
-
-extension Query {
-
-    /// Example: `.include(fields: [.name, .platform])`
-    public mutating func include(fields: Entity.Fields.AllCases) {
-        includes = fields
-    }
-
-    /// Example: `.exclude(fields: [.releaseDate, .rating])`
-    public mutating func exclude(fields: Entity.Fields.AllCases) {
-        excludes = fields
-    }
-
-    /// Example: `.sort(along: .rating, order: .descending)`
-    public mutating func sort(along field: Entity.Fields, order: Order) {
-        sort = (field, order)
-    }
-
-    /// Example: `.filter(.platform(.equalTo, 48))`
-    public mutating func filter(_ include: Entity.Filters) {
-        filters = filters ?? []
-        filters?.append(include)
-    }
-
-    /// Example: `.limit(by: 10)`
-    /// Default limit is 10. The maximum limit is 50, for pro it is 500, and the above tiers, the maximum limit is 5000.
-    public mutating func limit(by value: Int) {
-        limit = value
-    }
-
-    /// Example: `.offset(by: 0)`
-    public mutating func offset(by value: Int) {
-        offset = value
-    }
-}
-
-extension Query where Entity: Searchable {
-
-    /// Examples:
-    ///
-    /// - Character `.search(for: "Master Chief")`
-    /// - Collection: `.search(for: "Halo")`
-    /// - Game: `.search(for: "Combat Evolved")`
-    /// - Platform: `.search(for: "Xbox")`
-    /// - Theme: `.search(for: "Survival")`
-    public mutating func search(for value: String) {
-        search = value
     }
 }

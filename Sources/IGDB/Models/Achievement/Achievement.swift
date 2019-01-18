@@ -1,12 +1,12 @@
 import Foundation
 
-// TODO: 403 Forbidden in default tier
-
 /// [Achievement](https://api-docs.igdb.com/?swift#achievement)
 ///
 /// Achievement data for specific games for specific platforms (currently
 /// limited to achievements from steam, playstation and Xbox)
-public struct Achievement: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+///
+/// - Note: This endpoint is not available within the Free Tier (requires Pro)
+public struct Achievement: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/achievements](https://api-v3.igdb.com/achievements)
@@ -21,9 +21,9 @@ public struct Achievement: Identifiable, Entity, AutoComposable, AutoFilterable,
     /// The last date this entry was updated in the IGDB database
     public let updatedAt: Date?
 
-    /// The icon of a specific achievement
     // sourcery: key = achievement_icon
-    public let icon: Expander<Icon>?
+    /// The icon of a specific achievement
+    public let icon: Icon?
 
     /// The platform that a specific achievement belongs to
     public let category: Category?

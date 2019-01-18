@@ -1,13 +1,11 @@
 import Foundation
 
-// TODO: 403 Forbidden in default tier
-
 /// [External Game](https://api-docs.igdb.com/#external-game) reference
 ///
 /// Game IDs on other services
 ///
-/// API path: [/external_games](https://api-v3.igdb.com/external_games)
-public struct ExternalGame: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+/// - Note: This endpoint is not available within the Free Tier (requires Pro)
+public struct ExternalGame: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/external_games](https://api-v3.igdb.com/external_games)

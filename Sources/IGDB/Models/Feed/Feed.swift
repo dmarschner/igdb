@@ -3,9 +3,7 @@ import Foundation
 /// [Feed](https://api-docs.igdb.com/#feed)
 ///
 /// Feed items are a social feed of status updates, media and news articles.
-///
-/// API path: [/feeds](https://api-v3.igdb.com/feeds)
-public struct Feed: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Codable {
+public struct Feed: Identifiable, Updatable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/feeds](https://api-v3.igdb.com/feeds)
@@ -30,10 +28,10 @@ public struct Feed: Identifiable, Entity, AutoComposable, AutoFilterable, Updata
     public let feedLikesCount: Int?
 
     /// A video associated with this feed item
-    public let feedVideo: Expander<Video>?
+    public let feedVideo: Video?
 
     /// The games connected to this feed item
-    public let games: Expander<[Game]>?
+    public let games: [Game]?
 
     /// Other meta data
     public let meta: String?

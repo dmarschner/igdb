@@ -1,9 +1,7 @@
 import Foundation
 
 /// Video Game [Characters](https://api-docs.igdb.com/#character)
-///
-/// API path: [/characters](https://api-v3.igdb.com/characters)
-public struct Character: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Character: Identifiable, Updatable, Searchable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/characters](https://api-v3.igdb.com/characters)
@@ -27,20 +25,20 @@ public struct Character: Identifiable, Entity, AutoComposable, AutoFilterable, U
     /// A text describing a character
     public let description: String?
 
-    /// <# Description #>
-    public let games: Expander<[Game]>?
+    /// The games within which this character may be seen
+    public let games: [Game]?
 
-    /// <# Description #>
+    /// The gender of the
     public let gender: Gender?
 
     /// An image depciting a character
-    public let mugShot: Expander<MugShot>?
+    public let mugShot: MugShot?
 
-    /// <# Description #>
+    /// The name of the characer
     public let name: String?
 
     /// <# Description #>
-    public let people: Expander<[Character]>?
+    public let people: [Character]?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?

@@ -2,3 +2,7 @@ line_length: 140
 force_cast: error
 excluded:
     - .build
+disabled_rules: # Because they mess up with sourcery
+    - nesting
+    - cyclomatic_complexity
+    - function_body_length

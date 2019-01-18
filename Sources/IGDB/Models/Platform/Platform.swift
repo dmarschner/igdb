@@ -3,9 +3,7 @@ import Foundation
 /// [Platform](https://api-docs.igdb.com/platform)
 ///
 /// The hardware used to run the game or game delivery network
-///
-/// API path: [/platforms](https://api-v3.igdb.com/platforms)
-public struct Platform: Identifiable, Entity, AutoComposable, AutoFilterable, Updatable, Searchable, Codable {
+public struct Platform: Identifiable, Updatable, Searchable {
 
     /// The API endpoint to request these entities from.
     /// Path: [/platforms](https://api-v3.igdb.com/platforms)
@@ -36,10 +34,10 @@ public struct Platform: Identifiable, Entity, AutoComposable, AutoFilterable, Up
     public let name: String?
 
     /// The logo of the first Version of this platform
-    public let platformLogo: Expander<Logo>?
+    public let platformLogo: Logo?
 
     /// The family of platforms this one belongs to
-    public let productFamily: Expander<ProductFamily>?
+    public let productFamily: ProductFamily?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
@@ -51,8 +49,8 @@ public struct Platform: Identifiable, Entity, AutoComposable, AutoFilterable, Up
     public let url: String?
 
     /// Associated versions of this platform
-    public let versions: Expander<[PlatformVersion]>?
+    public let versions: [PlatformVersion]?
 
-    /// <# Description #>
-    public let websites: Expander<[Website]>?
+    /// Associated websites of this platform
+    public let websites: [Website]?
 }
