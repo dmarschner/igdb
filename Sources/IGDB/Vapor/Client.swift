@@ -31,6 +31,8 @@ public final class Client: Service {
     /// The `URLSession` powering this client.
     private let urlSession: URLSession
 
+    private let additionalHeaders: [String: String]
+
     /// The JSON decoder used to decode requested entities
     private let decoder: JSONDecoder
 
@@ -51,7 +53,7 @@ public final class Client: Service {
         self.baseUrl = url
         self.container = container
         self.urlSession = .init(configuration: .default)
-        self.urlSession.configuration.httpAdditionalHeaders = [
+        self.additionalHeaders = [
             "accept": "application/json",
             "user-key": key
         ]
@@ -74,6 +76,7 @@ extension Client {
         var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath)) // The request against the entity endpoint
         request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false) // The query attached as body data
         request.httpMethod = "POST" // POST, to attach body data
+        request.allHTTPHeaderFields = additionalHeaders
         urlSession.dataTask(with: request) { (data, _, error) in
             if let error = error { // Fail directly on an error
                 return promise.fail(error: error)
