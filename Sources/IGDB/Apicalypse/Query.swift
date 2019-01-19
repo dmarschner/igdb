@@ -57,6 +57,7 @@ extension Query {
 
     /// Example: `.where(\.platform == 48))`, `.where(\.identifier == [3, 6, 19])`
     public func `where`(_ filter: Filter<Entity>) rethrows {
+        filters = filters ?? []
         try filters?.append(filter())
     }
 
