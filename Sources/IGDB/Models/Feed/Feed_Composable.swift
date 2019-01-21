@@ -9,12 +9,7 @@ extension Feed: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Video.Type {
-            return try Feed.codingPath(for: \Feed.feedVideo)
-                + Video.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Feed.identifier: return [CodingKeys.identifier]
         case \Feed.createdAt: return [CodingKeys.createdAt]
@@ -32,8 +27,23 @@ extension Feed: Composable {
         case \Feed.uid: return [CodingKeys.uid]
         case \Feed.url: return [CodingKeys.url]
         case \Feed.user: return [CodingKeys.user]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Feed.codingPath(for: \Feed.games)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Video`
+        if type(of: keyPath).rootType is Video.Type {
+            return try Feed.codingPath(for: \Feed.feedVideo)
+                + Video.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

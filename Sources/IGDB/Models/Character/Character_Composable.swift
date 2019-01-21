@@ -9,7 +9,7 @@ extension Character: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Character.identifier: return [CodingKeys.identifier]
         case \Character.createdAt: return [CodingKeys.createdAt]
@@ -25,8 +25,23 @@ extension Character: Composable {
         case \Character.slug: return [CodingKeys.slug]
         case \Character.species: return [CodingKeys.species]
         case \Character.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Character`
+        if type(of: keyPath).rootType is Character.Type {
+            return try Character.codingPath(for: \Character.people)
+                + Character.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Character.codingPath(for: \Character.games)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

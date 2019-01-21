@@ -9,12 +9,7 @@ extension Platform: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is ProductFamily.Type {
-            return try Platform.codingPath(for: \Platform.productFamily)
-                + ProductFamily.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Platform.identifier: return [CodingKeys.identifier]
         case \Platform.createdAt: return [CodingKeys.createdAt]
@@ -31,8 +26,23 @@ extension Platform: Composable {
         case \Platform.url: return [CodingKeys.url]
         case \Platform.versions: return [CodingKeys.versions]
         case \Platform.websites: return [CodingKeys.websites]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `PlatformVersion`
+        if type(of: keyPath).rootType is PlatformVersion.Type {
+            return try Platform.codingPath(for: \Platform.versions)
+                + PlatformVersion.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `ProductFamily`
+        if type(of: keyPath).rootType is ProductFamily.Type {
+            return try Platform.codingPath(for: \Platform.productFamily)
+                + ProductFamily.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

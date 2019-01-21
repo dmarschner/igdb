@@ -9,22 +9,7 @@ extension PlatformVersion: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Platform.Logo.Type {
-            return try PlatformVersion.codingPath(for: \PlatformVersion.platformLogo)
-                + Platform.Logo.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is PlatformVersionCompany.Type {
-            return try PlatformVersion.codingPath(for: \PlatformVersion.companies)
-                + PlatformVersionCompany.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is PlatformVersionCompany.Type {
-            return try PlatformVersion.codingPath(for: \PlatformVersion.mainManufacturer)
-                + PlatformVersionCompany.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \PlatformVersion.identifier: return [CodingKeys.identifier]
         case \PlatformVersion.companies: return [CodingKeys.companies]
@@ -45,8 +30,35 @@ extension PlatformVersion: Composable {
         case \PlatformVersion.storage: return [CodingKeys.storage]
         case \PlatformVersion.summary: return [CodingKeys.summary]
         case \PlatformVersion.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Platform.Logo`
+        if type(of: keyPath).rootType is Platform.Logo.Type {
+            return try PlatformVersion.codingPath(for: \PlatformVersion.platformLogo)
+                + Platform.Logo.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `PlatformVersionCompany`
+        if type(of: keyPath).rootType is PlatformVersionCompany.Type {
+            return try PlatformVersion.codingPath(for: \PlatformVersion.companies)
+                + PlatformVersionCompany.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `PlatformVersionCompany`
+        if type(of: keyPath).rootType is PlatformVersionCompany.Type {
+            return try PlatformVersion.codingPath(for: \PlatformVersion.mainManufacturer)
+                + PlatformVersionCompany.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `PlatformVersionReleaseDate`
+        if type(of: keyPath).rootType is PlatformVersionReleaseDate.Type {
+            return try PlatformVersion.codingPath(for: \PlatformVersion.releaseDates)
+                + PlatformVersionReleaseDate.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

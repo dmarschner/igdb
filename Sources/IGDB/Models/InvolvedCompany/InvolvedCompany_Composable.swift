@@ -9,17 +9,7 @@ extension InvolvedCompany: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Company.Type {
-            return try InvolvedCompany.codingPath(for: \InvolvedCompany.company)
-                + Company.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is Game.Type {
-            return try InvolvedCompany.codingPath(for: \InvolvedCompany.game)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \InvolvedCompany.identifier: return [CodingKeys.identifier]
         case \InvolvedCompany.createdAt: return [CodingKeys.createdAt]
@@ -30,8 +20,23 @@ extension InvolvedCompany: Composable {
         case \InvolvedCompany.porting: return [CodingKeys.porting]
         case \InvolvedCompany.publisher: return [CodingKeys.publisher]
         case \InvolvedCompany.supporting: return [CodingKeys.supporting]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Company`
+        if type(of: keyPath).rootType is Company.Type {
+            return try InvolvedCompany.codingPath(for: \InvolvedCompany.company)
+                + Company.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try InvolvedCompany.codingPath(for: \InvolvedCompany.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

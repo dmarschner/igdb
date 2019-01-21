@@ -9,7 +9,7 @@ extension Company: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Company.identifier: return [CodingKeys.identifier]
         case \Company.createdAt: return [CodingKeys.createdAt]
@@ -29,8 +29,23 @@ extension Company: Composable {
         case \Company.websites: return [CodingKeys.websites]
         case \Company.changeDateCategory: return [CodingKeys.changeDateCategory]
         case \Company.startDateCategory: return [CodingKeys.startDateCategory]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Company.codingPath(for: \Company.developed)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Company.codingPath(for: \Company.published)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

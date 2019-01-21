@@ -9,13 +9,16 @@ extension AlternativeName: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \AlternativeName.identifier: return [CodingKeys.identifier]
         case \AlternativeName.comment: return [CodingKeys.comment]
         case \AlternativeName.name: return [CodingKeys.name]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

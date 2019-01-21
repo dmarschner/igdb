@@ -9,22 +9,7 @@ extension Game: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Collection.Type {
-            return try Game.codingPath(for: \Game.collection)
-                + Collection.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is Franchise.Type {
-            return try Game.codingPath(for: \Game.franchise)
-                + Franchise.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is TimeToBeat.Type {
-            return try Game.codingPath(for: \Game.timeToBeat)
-                + TimeToBeat.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Game.identifier: return [CodingKeys.identifier]
         case \Game.createdAt: return [CodingKeys.createdAt]
@@ -77,8 +62,119 @@ extension Game: Composable {
         case \Game.versionTitle: return [CodingKeys.versionTitle]
         case \Game.videos: return [CodingKeys.videos]
         case \Game.websites: return [CodingKeys.websites]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `AgeRating`
+        if type(of: keyPath).rootType is AgeRating.Type {
+            return try Game.codingPath(for: \Game.ageRatings)
+                + AgeRating.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `AlternativeName`
+        if type(of: keyPath).rootType is AlternativeName.Type {
+            return try Game.codingPath(for: \Game.alternativeNames)
+                + AlternativeName.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Collection`
+        if type(of: keyPath).rootType is Collection.Type {
+            return try Game.codingPath(for: \Game.collection)
+                + Collection.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `ExternalGame`
+        if type(of: keyPath).rootType is ExternalGame.Type {
+            return try Game.codingPath(for: \Game.externalGames)
+                + ExternalGame.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Franchise`
+        if type(of: keyPath).rootType is Franchise.Type {
+            return try Game.codingPath(for: \Game.franchise)
+                + Franchise.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Franchise`
+        if type(of: keyPath).rootType is Franchise.Type {
+            return try Game.codingPath(for: \Game.franchises)
+                + Franchise.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `GameEngine`
+        if type(of: keyPath).rootType is GameEngine.Type {
+            return try Game.codingPath(for: \Game.gameEngines)
+                + GameEngine.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `GameMode`
+        if type(of: keyPath).rootType is GameMode.Type {
+            return try Game.codingPath(for: \Game.gameModes)
+                + GameMode.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Genre`
+        if type(of: keyPath).rootType is Genre.Type {
+            return try Game.codingPath(for: \Game.genres)
+                + Genre.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `InvolvedCompany`
+        if type(of: keyPath).rootType is InvolvedCompany.Type {
+            return try Game.codingPath(for: \Game.involvedCompanies)
+                + InvolvedCompany.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Keyword`
+        if type(of: keyPath).rootType is Keyword.Type {
+            return try Game.codingPath(for: \Game.keywords)
+                + Keyword.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `MultiplayerMode`
+        if type(of: keyPath).rootType is MultiplayerMode.Type {
+            return try Game.codingPath(for: \Game.multiplayerModes)
+                + MultiplayerMode.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Platform`
+        if type(of: keyPath).rootType is Platform.Type {
+            return try Game.codingPath(for: \Game.platforms)
+                + Platform.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `PlayerPerspective`
+        if type(of: keyPath).rootType is PlayerPerspective.Type {
+            return try Game.codingPath(for: \Game.playerPerspectives)
+                + PlayerPerspective.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `ReleaseDate`
+        if type(of: keyPath).rootType is ReleaseDate.Type {
+            return try Game.codingPath(for: \Game.releaseDates)
+                + ReleaseDate.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Theme`
+        if type(of: keyPath).rootType is Theme.Type {
+            return try Game.codingPath(for: \Game.themes)
+                + Theme.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `TimeToBeat`
+        if type(of: keyPath).rootType is TimeToBeat.Type {
+            return try Game.codingPath(for: \Game.timeToBeat)
+                + TimeToBeat.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Video`
+        if type(of: keyPath).rootType is Video.Type {
+            return try Game.codingPath(for: \Game.videos)
+                + Video.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

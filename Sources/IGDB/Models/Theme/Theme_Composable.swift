@@ -9,7 +9,7 @@ extension Theme: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Theme.identifier: return [CodingKeys.identifier]
         case \Theme.createdAt: return [CodingKeys.createdAt]
@@ -17,8 +17,11 @@ extension Theme: Composable {
         case \Theme.name: return [CodingKeys.name]
         case \Theme.slug: return [CodingKeys.slug]
         case \Theme.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

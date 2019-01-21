@@ -9,7 +9,7 @@ extension Game.Cover: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Game.Cover.identifier: return [CodingKeys.identifier]
         case \Game.Cover.isTransparent: return [CodingKeys.isTransparent]
@@ -18,8 +18,11 @@ extension Game.Cover: Composable {
         case \Game.Cover.height: return [CodingKeys.height]
         case \Game.Cover.width: return [CodingKeys.width]
         case \Game.Cover.imageId: return [CodingKeys.imageId]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

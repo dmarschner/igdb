@@ -9,13 +9,16 @@ extension ProductFamily: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \ProductFamily.identifier: return [CodingKeys.identifier]
         case \ProductFamily.name: return [CodingKeys.name]
         case \ProductFamily.slug: return [CodingKeys.slug]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

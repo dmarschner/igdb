@@ -9,7 +9,7 @@ extension MultiplayerMode: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \MultiplayerMode.identifier: return [CodingKeys.identifier]
         case \MultiplayerMode.campaigncoop: return [CodingKeys.campaigncoop]
@@ -24,8 +24,11 @@ extension MultiplayerMode: Composable {
         case \MultiplayerMode.platform: return [CodingKeys.platform]
         case \MultiplayerMode.splitscreen: return [CodingKeys.splitscreen]
         case \MultiplayerMode.splitscreenonline: return [CodingKeys.splitscreenonline]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

@@ -9,12 +9,7 @@ extension GameVersion: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Game.Type {
-            return try GameVersion.codingPath(for: \GameVersion.game)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \GameVersion.identifier: return [CodingKeys.identifier]
         case \GameVersion.createdAt: return [CodingKeys.createdAt]
@@ -23,8 +18,29 @@ extension GameVersion: Composable {
         case \GameVersion.game: return [CodingKeys.game]
         case \GameVersion.games: return [CodingKeys.games]
         case \GameVersion.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try GameVersion.codingPath(for: \GameVersion.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try GameVersion.codingPath(for: \GameVersion.games)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `GameVersionFeature`
+        if type(of: keyPath).rootType is GameVersionFeature.Type {
+            return try GameVersion.codingPath(for: \GameVersion.features)
+                + GameVersionFeature.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

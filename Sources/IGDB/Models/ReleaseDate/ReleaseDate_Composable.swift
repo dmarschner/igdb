@@ -9,12 +9,7 @@ extension ReleaseDate: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Platform.Type {
-            return try ReleaseDate.codingPath(for: \ReleaseDate.platform)
-                + Platform.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \ReleaseDate.identifier: return [CodingKeys.identifier]
         case \ReleaseDate.createdAt: return [CodingKeys.createdAt]
@@ -27,8 +22,17 @@ extension ReleaseDate: Composable {
         case \ReleaseDate.region: return [CodingKeys.region]
         case \ReleaseDate.month: return [CodingKeys.month]
         case \ReleaseDate.year: return [CodingKeys.year]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Platform`
+        if type(of: keyPath).rootType is Platform.Type {
+            return try ReleaseDate.codingPath(for: \ReleaseDate.platform)
+                + Platform.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

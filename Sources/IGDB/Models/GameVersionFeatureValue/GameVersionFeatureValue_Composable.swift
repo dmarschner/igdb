@@ -9,15 +9,18 @@ extension GameVersionFeatureValue: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \GameVersionFeatureValue.identifier: return [CodingKeys.identifier]
         case \GameVersionFeatureValue.game: return [CodingKeys.game]
         case \GameVersionFeatureValue.gameFeature: return [CodingKeys.gameFeature]
         case \GameVersionFeatureValue.includedFeature: return [CodingKeys.includedFeature]
         case \GameVersionFeatureValue.note: return [CodingKeys.note]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

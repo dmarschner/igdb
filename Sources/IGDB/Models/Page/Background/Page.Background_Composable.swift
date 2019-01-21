@@ -9,7 +9,7 @@ extension Page.Background: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Page.Background.identifier: return [CodingKeys.identifier]
         case \Page.Background.isTransparent: return [CodingKeys.isTransparent]
@@ -18,8 +18,11 @@ extension Page.Background: Composable {
         case \Page.Background.height: return [CodingKeys.height]
         case \Page.Background.width: return [CodingKeys.width]
         case \Page.Background.imageId: return [CodingKeys.imageId]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

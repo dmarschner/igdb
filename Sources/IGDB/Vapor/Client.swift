@@ -1,8 +1,5 @@
 import Service
 
-// TODO: Make fields of Entities in Expander part of the parent fields (to make them usable in sort, included fields, excluded fields, ...)
-//       including those wrapped in arrays
-
 /// `Vapor.Service` wrapper around the IGDB API, allowing all of the
 /// [endpoint](https://api-docs.igdb.com/#endpoints) definitions to be requested.
 ///

@@ -9,7 +9,7 @@ extension PulseGroup: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \PulseGroup.identifier: return [CodingKeys.identifier]
         case \PulseGroup.createdAt: return [CodingKeys.createdAt]
@@ -19,8 +19,11 @@ extension PulseGroup: Composable {
         case \PulseGroup.publishedAt: return [CodingKeys.publishedAt]
         case \PulseGroup.pulses: return [CodingKeys.pulses]
         case \PulseGroup.tags: return [CodingKeys.tags]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

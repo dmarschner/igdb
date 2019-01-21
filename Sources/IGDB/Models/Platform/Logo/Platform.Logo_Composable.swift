@@ -9,7 +9,7 @@ extension Platform.Logo: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Platform.Logo.identifier: return [CodingKeys.identifier]
         case \Platform.Logo.isTransparent: return [CodingKeys.isTransparent]
@@ -18,8 +18,11 @@ extension Platform.Logo: Composable {
         case \Platform.Logo.height: return [CodingKeys.height]
         case \Platform.Logo.width: return [CodingKeys.width]
         case \Platform.Logo.imageId: return [CodingKeys.imageId]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

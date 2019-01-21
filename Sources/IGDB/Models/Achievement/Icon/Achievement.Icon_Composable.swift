@@ -9,7 +9,7 @@ extension Achievement.Icon: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Achievement.Icon.identifier: return [CodingKeys.identifier]
         case \Achievement.Icon.isTransparent: return [CodingKeys.isTransparent]
@@ -18,8 +18,11 @@ extension Achievement.Icon: Composable {
         case \Achievement.Icon.height: return [CodingKeys.height]
         case \Achievement.Icon.width: return [CodingKeys.width]
         case \Achievement.Icon.imageId: return [CodingKeys.imageId]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

@@ -36,20 +36,3 @@ public protocol Identifiable {
     /// The API endpoint to request these entities from
     static var requestPath: String { get }
 }
-
-/// Allows multiple entities to be used as identifiable proxy elements
-extension Array: Identifiable where Element: Identifiable {
-
-    /// The identifier value type
-    public typealias Identifier = [Element.Identifier]
-
-    /// The unique resource identifier to this specific entry
-    public var identifier: [Element.Identifier] {
-        return map({$0.identifier})
-    }
-
-    /// The API endpoint to request these entities from
-    public static var requestPath: String {
-        return Element.requestPath
-    }
-}

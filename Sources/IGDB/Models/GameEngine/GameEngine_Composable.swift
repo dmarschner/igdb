@@ -9,7 +9,7 @@ extension GameEngine: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \GameEngine.identifier: return [CodingKeys.identifier]
         case \GameEngine.createdAt: return [CodingKeys.createdAt]
@@ -21,8 +21,23 @@ extension GameEngine: Composable {
         case \GameEngine.platforms: return [CodingKeys.platforms]
         case \GameEngine.slug: return [CodingKeys.slug]
         case \GameEngine.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Company`
+        if type(of: keyPath).rootType is Company.Type {
+            return try GameEngine.codingPath(for: \GameEngine.companies)
+                + Company.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Platform`
+        if type(of: keyPath).rootType is Platform.Type {
+            return try GameEngine.codingPath(for: \GameEngine.platforms)
+                + Platform.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

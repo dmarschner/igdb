@@ -9,7 +9,7 @@ extension Achievement: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Achievement.identifier: return [CodingKeys.identifier]
         case \Achievement.createdAt: return [CodingKeys.createdAt]
@@ -25,8 +25,11 @@ extension Achievement: Composable {
         case \Achievement.rank: return [CodingKeys.rank]
         case \Achievement.slug: return [CodingKeys.slug]
         case \Achievement.tags: return [CodingKeys.tags]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

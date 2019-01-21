@@ -9,7 +9,7 @@ extension Title: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Title.identifier: return [CodingKeys.identifier]
         case \Title.createdAt: return [CodingKeys.createdAt]
@@ -19,8 +19,17 @@ extension Title: Composable {
         case \Title.name: return [CodingKeys.name]
         case \Title.slug: return [CodingKeys.slug]
         case \Title.url: return [CodingKeys.url]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Title.codingPath(for: \Title.games)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }

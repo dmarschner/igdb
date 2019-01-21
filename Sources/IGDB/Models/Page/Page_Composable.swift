@@ -9,22 +9,7 @@ extension Page: Composable {
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
     public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
 
-        if type(of: keyPath).rootType is Company.Type {
-            return try Page.codingPath(for: \Page.company)
-                + Company.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is Feed.Type {
-            return try Page.codingPath(for: \Page.feed)
-                + Feed.codingPath(for: keyPath)
-        }
-
-        if type(of: keyPath).rootType is Game.Type {
-            return try Page.codingPath(for: \Page.game)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Each single `keyPath` in `Self`
+        // Evaluate the `keyPath`s in `Self`
         switch keyPath {
         case \Page.identifier: return [CodingKeys.identifier]
         case \Page.createdAt: return [CodingKeys.createdAt]
@@ -47,8 +32,29 @@ extension Page: Composable {
         case \Page.uplay: return [CodingKeys.uplay]
         case \Page.url: return [CodingKeys.url]
         case \Page.websites: return [CodingKeys.websites]
-        default: throw Error.unexpectedKeyPath(keyPath)
+        default: break
         }
+
+        // Evaluate the `keyPath`s in `Company`
+        if type(of: keyPath).rootType is Company.Type {
+            return try Page.codingPath(for: \Page.company)
+                + Company.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Feed`
+        if type(of: keyPath).rootType is Feed.Type {
+            return try Page.codingPath(for: \Page.feed)
+                + Feed.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Page.codingPath(for: \Page.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // No matching coding key found.
+        throw Error.unexpectedKeyPath(keyPath)
     }
     // sourcery:end
 }
