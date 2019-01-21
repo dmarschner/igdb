@@ -40,7 +40,7 @@ public final class MultiplayerMode: Identifiable, Codable {
     public let onlinemax: Int?
 
     /// The platform this multiplayer mode refers to
-    public let platform: Platform.Identifier?
+    public let platform: Platform?
 
     /// True if the game supports split screen, offline multiplayer
     public let splitscreen: Bool?
@@ -94,7 +94,7 @@ public final class MultiplayerMode: Identifiable, Codable {
         onlinecoop = try container?.decodeIfPresent(Bool.self, forKey: .onlinecoop) ?? nil
         onlinecoopmax = try container?.decodeIfPresent(Int.self, forKey: .onlinecoopmax) ?? nil
         onlinemax = try container?.decodeIfPresent(Int.self, forKey: .onlinemax) ?? nil
-        platform = try container?.decodeIfPresent(Platform.Identifier.self, forKey: .platform) ?? nil
+        platform = try container?.decodeIfPresent(Platform.self, forKey: .platform) ?? nil
         splitscreen = try container?.decodeIfPresent(Bool.self, forKey: .splitscreen) ?? nil
         splitscreenonline = try container?.decodeIfPresent(Bool.self, forKey: .splitscreenonline) ?? nil
     }

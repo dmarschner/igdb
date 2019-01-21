@@ -25,7 +25,7 @@ public final class ReleaseDate: Identifiable, Updatable, Codable {
     public let date: Date?
 
     /// <#Description#>
-    public let game: Game.Identifier?
+    public let game: Game?
 
     /// A human readable version of the release date
     public let human: String?
@@ -83,7 +83,7 @@ public final class ReleaseDate: Identifiable, Updatable, Codable {
         updatedAt = try container?.decodeIfPresent(Date.self, forKey: .updatedAt) ?? nil
         category = try container?.decodeIfPresent(DateCategory.self, forKey: .category) ?? nil
         date = try container?.decodeIfPresent(Date.self, forKey: .date) ?? nil
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
         human = try container?.decodeIfPresent(String.self, forKey: .human) ?? nil
         platform = try container?.decodeIfPresent(Platform.self, forKey: .platform) ?? nil
         region = try container?.decodeIfPresent(Region.self, forKey: .region) ?? nil

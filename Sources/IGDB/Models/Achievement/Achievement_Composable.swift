@@ -28,6 +28,12 @@ extension Achievement: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try Achievement.codingPath(for: \Achievement.game)
+                + Game.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

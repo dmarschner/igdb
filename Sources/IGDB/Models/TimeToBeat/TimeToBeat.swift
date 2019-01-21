@@ -22,7 +22,7 @@ public final class TimeToBeat: Identifiable, Codable {
     public let normally: Int?
 
     /// The game this time-to-beat is connected to
-    public let game: Game.Identifier?
+    public let game: Game?
 
     // sourcery:inline:TimeToBeat.Codable
 
@@ -56,7 +56,7 @@ public final class TimeToBeat: Identifiable, Codable {
         completely = try container?.decodeIfPresent(Int.self, forKey: .completely) ?? nil
         hastly = try container?.decodeIfPresent(Int.self, forKey: .hastly) ?? nil
         normally = try container?.decodeIfPresent(Int.self, forKey: .normally) ?? nil
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
     }
 
     /// Encodes this value into the given encoder.

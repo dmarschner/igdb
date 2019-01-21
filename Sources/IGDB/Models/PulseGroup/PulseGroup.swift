@@ -20,7 +20,7 @@ public final class PulseGroup: Identifiable, Updatable, Codable {
     public let updatedAt: Date?
 
     /// The game these articles are about
-    public let game: Game.Identifier?
+    public let game: Game?
 
     /// The name of the group
     public let name: String?
@@ -29,7 +29,7 @@ public final class PulseGroup: Identifiable, Updatable, Codable {
     public let publishedAt: Date?
 
     /// The articles within this pulse group
-    public let pulses: [Pulse.Identifier]?
+    public let pulses: [Pulse]?
 
     /// Related entities in the IGDB API
     public let tags: [Tag]?
@@ -68,10 +68,10 @@ public final class PulseGroup: Identifiable, Updatable, Codable {
         // Extended decoding - any other property than identifier is optional
         createdAt = try container?.decodeIfPresent(Date.self, forKey: .createdAt) ?? nil
         updatedAt = try container?.decodeIfPresent(Date.self, forKey: .updatedAt) ?? nil
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
         name = try container?.decodeIfPresent(String.self, forKey: .name) ?? nil
         publishedAt = try container?.decodeIfPresent(Date.self, forKey: .publishedAt) ?? nil
-        pulses = try container?.decodeIfPresent([Pulse.Identifier].self, forKey: .pulses) ?? nil
+        pulses = try container?.decodeIfPresent([Pulse].self, forKey: .pulses) ?? nil
         tags = try container?.decodeIfPresent([Tag].self, forKey: .tags) ?? nil
     }
 

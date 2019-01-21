@@ -27,6 +27,12 @@ extension MultiplayerMode: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Platform`
+        if type(of: keyPath).rootType is Platform.Type {
+            return try MultiplayerMode.codingPath(for: \MultiplayerMode.platform)
+                + Platform.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

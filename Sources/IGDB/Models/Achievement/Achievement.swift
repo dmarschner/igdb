@@ -35,7 +35,7 @@ public final class Achievement: Identifiable, Updatable, Codable {
     public let externalId: String?
 
     /// The ID of the game the achievement is connected to
-    public let game: Game.Identifier?
+    public let game: Game?
 
     /// The ID of a region
     public let language: Region?
@@ -99,7 +99,7 @@ public final class Achievement: Identifiable, Updatable, Codable {
         category = try container?.decodeIfPresent(Category.self, forKey: .category) ?? nil
         description = try container?.decodeIfPresent(String.self, forKey: .description) ?? nil
         externalId = try container?.decodeIfPresent(String.self, forKey: .externalId) ?? nil
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
         language = try container?.decodeIfPresent(Region.self, forKey: .language) ?? nil
         name = try container?.decodeIfPresent(String.self, forKey: .name) ?? nil
         ownersPercentage = try container?.decodeIfPresent(Double.self, forKey: .ownersPercentage) ?? nil

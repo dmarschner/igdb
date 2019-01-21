@@ -24,7 +24,7 @@ public final class ExternalGame: Identifiable, Updatable, Codable {
     public let category: Category?
 
     /// The IGDB ID of the game
-    public let game: Game.Identifier?
+    public let game: Game?
 
     /// The name of the game according to the other service
     public let name: String?
@@ -75,7 +75,7 @@ public final class ExternalGame: Identifiable, Updatable, Codable {
         createdAt = try container?.decodeIfPresent(Date.self, forKey: .createdAt) ?? nil
         updatedAt = try container?.decodeIfPresent(Date.self, forKey: .updatedAt) ?? nil
         category = try container?.decodeIfPresent(Category.self, forKey: .category) ?? nil
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
         name = try container?.decodeIfPresent(String.self, forKey: .name) ?? nil
         uid = try container?.decodeIfPresent(String.self, forKey: .uid) ?? nil
         url = try container?.decodeIfPresent(String.self, forKey: .url) ?? nil

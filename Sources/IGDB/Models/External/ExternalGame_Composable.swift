@@ -23,6 +23,12 @@ extension ExternalGame: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try ExternalGame.codingPath(for: \ExternalGame.game)
+                + Game.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

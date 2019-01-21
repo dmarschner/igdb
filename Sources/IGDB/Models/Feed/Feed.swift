@@ -40,7 +40,7 @@ public final class Feed: Identifiable, Updatable, Codable {
     public let publishedAt: Date?
 
     /// The pulse article associated with this feed item
-    public let pulse: Pulse.Identifier?
+    public let pulse: Pulse?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
@@ -106,7 +106,7 @@ public final class Feed: Identifiable, Updatable, Codable {
         games = try container?.decodeIfPresent([Game].self, forKey: .games) ?? nil
         meta = try container?.decodeIfPresent(String.self, forKey: .meta) ?? nil
         publishedAt = try container?.decodeIfPresent(Date.self, forKey: .publishedAt) ?? nil
-        pulse = try container?.decodeIfPresent(Pulse.Identifier.self, forKey: .pulse) ?? nil
+        pulse = try container?.decodeIfPresent(Pulse.self, forKey: .pulse) ?? nil
         slug = try container?.decodeIfPresent(String.self, forKey: .slug) ?? nil
         title = try container?.decodeIfPresent(String.self, forKey: .title) ?? nil
         uid = try container?.decodeIfPresent(String.self, forKey: .uid) ?? nil

@@ -19,6 +19,18 @@ extension GameVersionFeatureValue: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try GameVersionFeatureValue.codingPath(for: \GameVersionFeatureValue.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `GameVersionFeature`
+        if type(of: keyPath).rootType is GameVersionFeature.Type {
+            return try GameVersionFeatureValue.codingPath(for: \GameVersionFeatureValue.gameFeature)
+                + GameVersionFeature.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

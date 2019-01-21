@@ -25,6 +25,12 @@ extension ReleaseDate: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try ReleaseDate.codingPath(for: \ReleaseDate.game)
+                + Game.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `Platform`
         if type(of: keyPath).rootType is Platform.Type {
             return try ReleaseDate.codingPath(for: \ReleaseDate.platform)

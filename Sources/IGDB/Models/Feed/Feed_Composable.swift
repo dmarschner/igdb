@@ -36,6 +36,12 @@ extension Feed: Composable {
                 + Game.codingPath(for: keyPath)
         }
 
+        // Evaluate the `keyPath`s in `Pulse`
+        if type(of: keyPath).rootType is Pulse.Type {
+            return try Feed.codingPath(for: \Feed.pulse)
+                + Pulse.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `Video`
         if type(of: keyPath).rootType is Video.Type {
             return try Feed.codingPath(for: \Feed.feedVideo)

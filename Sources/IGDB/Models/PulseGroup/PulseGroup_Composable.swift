@@ -22,6 +22,18 @@ extension PulseGroup: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Game`
+        if type(of: keyPath).rootType is Game.Type {
+            return try PulseGroup.codingPath(for: \PulseGroup.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Pulse`
+        if type(of: keyPath).rootType is Pulse.Type {
+            return try PulseGroup.codingPath(for: \PulseGroup.pulses)
+                + Pulse.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

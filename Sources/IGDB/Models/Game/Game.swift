@@ -34,7 +34,7 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
     public let alternativeNames: [AlternativeName]?
 
     /// If a bundle, these are the games inside it
-    public let bundles: [Game.Identifier]?
+    public let bundles: [Game]?
 
     /// The category of this game
     public let category: Category?
@@ -46,10 +46,10 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
     public let cover: Cover?
 
     /// DLCs for this game
-    public let dlcs: [Game.Identifier]?
+    public let dlcs: [Game]?
 
     /// Expansions of this game
-    public let expansions: [Game.Identifier]?
+    public let expansions: [Game]?
 
     /// External IDs this game has on other services
     public let externalGames: [ExternalGame]?
@@ -91,7 +91,7 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
     public let name: String?
 
     /// If a DLC, expansion or part of a bundle, this is the main game or bundle
-    public let parentGame: Game.Identifier?
+    public let parentGame: Game?
 
     /// Platforms this game was released on
     public let platforms: [Platform]?
@@ -118,13 +118,13 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
     public let screenshots: [Screenshot]?
 
     /// Similar games
-    public let similarGames: [Game.Identifier]?
+    public let similarGames: [Game]?
 
     /// A url-safe, unique, lower-case version of the name
     public let slug: String?
 
     /// Standalone expansions of this game
-    public let standaloneExpansions: [Game.Identifier]?
+    public let standaloneExpansions: [Game]?
 
     /// The status of the games release
     public let status: Status?
@@ -154,7 +154,7 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
     public let url: String?
 
     /// If a version, this is the main game
-    public let versionParent: Game.Identifier?
+    public let versionParent: Game?
 
     /// Title of this version (i.e Gold edition)
     public let versionTitle: String?
@@ -246,12 +246,12 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
         aggregatedRating = try container?.decodeIfPresent(Double.self, forKey: .aggregatedRating) ?? nil
         aggregatedRatingCount = try container?.decodeIfPresent(Int.self, forKey: .aggregatedRatingCount) ?? nil
         alternativeNames = try container?.decodeIfPresent([AlternativeName].self, forKey: .alternativeNames) ?? nil
-        bundles = try container?.decodeIfPresent([Game.Identifier].self, forKey: .bundles) ?? nil
+        bundles = try container?.decodeIfPresent([Game].self, forKey: .bundles) ?? nil
         category = try container?.decodeIfPresent(Category.self, forKey: .category) ?? nil
         collection = try container?.decodeIfPresent(Collection.self, forKey: .collection) ?? nil
         cover = try container?.decodeIfPresent(Cover.self, forKey: .cover) ?? nil
-        dlcs = try container?.decodeIfPresent([Game.Identifier].self, forKey: .dlcs) ?? nil
-        expansions = try container?.decodeIfPresent([Game.Identifier].self, forKey: .expansions) ?? nil
+        dlcs = try container?.decodeIfPresent([Game].self, forKey: .dlcs) ?? nil
+        expansions = try container?.decodeIfPresent([Game].self, forKey: .expansions) ?? nil
         externalGames = try container?.decodeIfPresent([ExternalGame].self, forKey: .externalGames) ?? nil
         firstReleaseDate = try container?.decodeIfPresent(Date.self, forKey: .firstReleaseDate) ?? nil
         follows = try container?.decodeIfPresent(Int.self, forKey: .follows) ?? nil
@@ -265,7 +265,7 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
         keywords = try container?.decodeIfPresent([Keyword].self, forKey: .keywords) ?? nil
         multiplayerModes = try container?.decodeIfPresent([MultiplayerMode].self, forKey: .multiplayerModes) ?? nil
         name = try container?.decodeIfPresent(String.self, forKey: .name) ?? nil
-        parentGame = try container?.decodeIfPresent(Game.Identifier.self, forKey: .parentGame) ?? nil
+        parentGame = try container?.decodeIfPresent(Game.self, forKey: .parentGame) ?? nil
         platforms = try container?.decodeIfPresent([Platform].self, forKey: .platforms) ?? nil
         playerPerspectives = try container?.decodeIfPresent([PlayerPerspective].self, forKey: .playerPerspectives) ?? nil
         popularity = try container?.decodeIfPresent(Double.self, forKey: .popularity) ?? nil
@@ -274,9 +274,9 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
         ratingCount = try container?.decodeIfPresent(Int.self, forKey: .ratingCount) ?? nil
         releaseDates = try container?.decodeIfPresent([ReleaseDate].self, forKey: .releaseDates) ?? nil
         screenshots = try container?.decodeIfPresent([Screenshot].self, forKey: .screenshots) ?? nil
-        similarGames = try container?.decodeIfPresent([Game.Identifier].self, forKey: .similarGames) ?? nil
+        similarGames = try container?.decodeIfPresent([Game].self, forKey: .similarGames) ?? nil
         slug = try container?.decodeIfPresent(String.self, forKey: .slug) ?? nil
-        standaloneExpansions = try container?.decodeIfPresent([Game.Identifier].self, forKey: .standaloneExpansions) ?? nil
+        standaloneExpansions = try container?.decodeIfPresent([Game].self, forKey: .standaloneExpansions) ?? nil
         status = try container?.decodeIfPresent(Status.self, forKey: .status) ?? nil
         storyline = try container?.decodeIfPresent(String.self, forKey: .storyline) ?? nil
         summary = try container?.decodeIfPresent(String.self, forKey: .summary) ?? nil
@@ -286,7 +286,7 @@ public final class Game: Identifiable, Updatable, Searchable, Codable {
         totalRating = try container?.decodeIfPresent(Double.self, forKey: .totalRating) ?? nil
         totalRatingCount = try container?.decodeIfPresent(Int.self, forKey: .totalRatingCount) ?? nil
         url = try container?.decodeIfPresent(String.self, forKey: .url) ?? nil
-        versionParent = try container?.decodeIfPresent(Game.Identifier.self, forKey: .versionParent) ?? nil
+        versionParent = try container?.decodeIfPresent(Game.self, forKey: .versionParent) ?? nil
         versionTitle = try container?.decodeIfPresent(String.self, forKey: .versionTitle) ?? nil
         videos = try container?.decodeIfPresent([Video].self, forKey: .videos) ?? nil
         websites = try container?.decodeIfPresent([Website].self, forKey: .websites) ?? nil

@@ -13,10 +13,10 @@ public final class GameVersionFeatureValue: Identifiable, Codable {
     public let identifier: UInt64
 
     /// The version/edition this value refers to
-    public let game: Game.Identifier?
+    public let game: Game?
 
     /// The id of the game feature
-    public let gameFeature: GameVersionFeature.Identifier?
+    public let gameFeature: GameVersionFeature?
 
     /// The boole value of this feature
     public let includedFeature: Included?
@@ -53,8 +53,8 @@ public final class GameVersionFeatureValue: Identifiable, Codable {
             container = nil
         }
         // Extended decoding - any other property than identifier is optional
-        game = try container?.decodeIfPresent(Game.Identifier.self, forKey: .game) ?? nil
-        gameFeature = try container?.decodeIfPresent(GameVersionFeature.Identifier.self, forKey: .gameFeature) ?? nil
+        game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
+        gameFeature = try container?.decodeIfPresent(GameVersionFeature.self, forKey: .gameFeature) ?? nil
         includedFeature = try container?.decodeIfPresent(Included.self, forKey: .includedFeature) ?? nil
         note = try container?.decodeIfPresent(String.self, forKey: .note) ?? nil
     }

@@ -24,6 +24,12 @@ extension PlatformVersionReleaseDate: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `PlatformVersion`
+        if type(of: keyPath).rootType is PlatformVersion.Type {
+            return try PlatformVersionReleaseDate.codingPath(for: \PlatformVersionReleaseDate.platformVersion)
+                + PlatformVersion.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

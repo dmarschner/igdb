@@ -28,7 +28,7 @@ public final class PlatformVersionReleaseDate: Identifiable, Updatable, Codable 
     public let human: String?
 
     /// The game this release date is for
-    public let platformVersion: PlatformVersion.Identifier?
+    public let platformVersion: PlatformVersion?
 
     /// The region of the release
     public let region: Region?
@@ -80,7 +80,7 @@ public final class PlatformVersionReleaseDate: Identifiable, Updatable, Codable 
         category = try container?.decodeIfPresent(DateCategory.self, forKey: .category) ?? nil
         date = try container?.decodeIfPresent(Date.self, forKey: .date) ?? nil
         human = try container?.decodeIfPresent(String.self, forKey: .human) ?? nil
-        platformVersion = try container?.decodeIfPresent(PlatformVersion.Identifier.self, forKey: .platformVersion) ?? nil
+        platformVersion = try container?.decodeIfPresent(PlatformVersion.self, forKey: .platformVersion) ?? nil
         region = try container?.decodeIfPresent(Region.self, forKey: .region) ?? nil
         month = try container?.decodeIfPresent(Int.self, forKey: .month) ?? nil
         year = try container?.decodeIfPresent(Int.self, forKey: .year) ?? nil
