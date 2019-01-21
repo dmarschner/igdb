@@ -7,9 +7,8 @@ final class IGDBTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         XCTAssertTrue(true)
 
-        let query = try? Query<Game>()
+        _ = try? Query<Game>()
             .include(fields: [\Game.category, \Game.Cover.imageId])
-        
     }
 
     static var allTests = [
