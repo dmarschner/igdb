@@ -7,15 +7,9 @@ final class IGDBTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         XCTAssertTrue(true)
 
-        let accountOwnerPath: PartialKeyPath<Achievement> = \.icon
-        let namePath: PartialKeyPath<Achievement.Icon> = \Image.animated
-
-        let test = accountOwnerPath.appending(path: namePath)
-
-//        var query = Query(entity: Game.self)
-//        query.search(for: "Zelda")
-//        let test: Client? = nil
-//        let request = try? test?.send(query: query)
+        let query = try? Query<Game>()
+            .include(fields: [\Game.category, \Game.Cover.imageId])
+        
     }
 
     static var allTests = [
