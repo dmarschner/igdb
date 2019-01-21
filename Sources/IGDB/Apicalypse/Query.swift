@@ -13,7 +13,7 @@ public final class Query<Entity> where Entity: Identifiable & Composable {
     private var sort: (path: String, order: Order)?
 
     /// The filter parameters to attach to the query
-    private var filters: [String]?
+    private var filters: [Filter<Entity>]?
 
     /// The limit parameter to attach to the query
     private var limit: Int?
@@ -123,7 +123,11 @@ extension Query {
             queries.append(sort)
         }
         if let filters = self.filters { // where rating >= 80 & release_dates.date > 631152000;
-            let value = filters.joined(separator: "&")
+            let stringFilters = filters.map { (filter) -> String in
+                let property = rawCodingPath(for: filter.codingPath)
+                return "\(property) \(filter.operation) \(filter.value)"
+            }
+            let value = stringFilters.joined(separator: "&")
             let filter = query(for: "where", of: value)
             queries.append(filter)
         }
@@ -140,6 +144,14 @@ extension Query {
             queries.append(field)
         }
         return queries
+    }
+
+    /// Returns the raw coding path to given `codingPath`. For example: "game", "game.title", ...
+    ///
+    /// - Parameter codingPath: The `codingPath` to look up
+    /// - Returns: The raw coding key path it takes to get to given `codingPath`
+    private func rawCodingPath(for codingPath: [CodingKey]) -> String {
+        return codingPath.map({ $0.stringValue }).joined(separator: ".")
     }
 
     private func query(for key: String, of value: String) -> String {

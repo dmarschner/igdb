@@ -1,6 +1,8 @@
 // swift-tools-version:4.2
 import PackageDescription
 
+// TODO: Allow .includeAll() with expandable values
+
 let package = Package(
     name: "IGDB",
     products: [

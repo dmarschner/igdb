@@ -9,6 +9,7 @@ final class IGDBTests: XCTestCase {
 
         _ = try? Query<Game>()
             .include(fields: [\Game.category, \Game.Cover.imageId])
+            .where(\.category == .mainGame)
     }
 
     static var allTests = [
