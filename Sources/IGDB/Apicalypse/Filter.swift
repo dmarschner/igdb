@@ -17,7 +17,24 @@ public struct Filter<Entity> where Entity: Composable {
     public init(lhs: [CodingKey], operation: String, rhs value: String?) throws {
         self.codingPath = lhs
         self.operation = operation
-        self.value = value ?? "null"
+
+        // Check if existing, otherwise continue with null
+        guard let value = value else {
+            self.value = "null"
+            return
+        }
+
+        // TODO: Find reason for as to why optional is actually given
+        // Sanitize input string
+        let sanitizedString: String
+        if value.contains("Optional(") {
+            let strippedValue = value.dropLast() // Trailing ")"
+                .replacingOccurrences(of: "Optional(", with: "")
+            sanitizedString = strippedValue.isEmpty ? "null" : strippedValue
+        } else {
+            sanitizedString = value
+        }
+        self.value = sanitizedString
     }
 
     public init<Value>(lhs: KeyPath<Entity, Value>, operation: String, rhs: Value?) throws {
