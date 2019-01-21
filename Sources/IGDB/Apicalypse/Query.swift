@@ -40,32 +40,32 @@ public final class Query<Entity> where Entity: Identifiable & Composable {
 extension Query {
 
     /// Example: `.include(fields: [\.name, \.platform])`
-    public func include(fields: [AnyKeyPath]) throws -> Query {
+    @discardableResult public func include(fields: [AnyKeyPath]) throws -> Query {
         try includes = fields.map(Entity.rawCodingPath(for:))
         return self
     }
 
     /// Wildcard. Includes all fields of the Query Entity
-    public func includeAll() -> Query {
+    @discardableResult public func includeAll() -> Query {
         includes = ["*"] // Wildcard
         return self
     }
 
     /// Example: `.exclude(fields: [\.releaseDate, \.rating])`
-    public func exclude(fields: [AnyKeyPath]) throws -> Query {
+    @discardableResult public func exclude(fields: [AnyKeyPath]) throws -> Query {
         try excludes = fields.map(Entity.rawCodingPath(for:))
         return self
     }
 
     /// Example: `.sort(by: \.rating, order: .descending)`
     /// Defaults to `.descending`.
-    public func sort(by field: PartialKeyPath<Entity>, order: Order = .descending) throws -> Query {
+    @discardableResult public func sort(by field: PartialKeyPath<Entity>, order: Order = .descending) throws -> Query {
         try sort = (Entity.rawCodingPath(for: field), order)
         return self
     }
 
     /// Example: `.where(\.platform == 48))`, `.where(\.identifier != [3, 6, 19])`
-    public func `where`(_ filter: Filter<Entity>) -> Query {
+    @discardableResult public func `where`(_ filter: Filter<Entity>) -> Query {
         filters = filters ?? []
         filters?.append(filter)
         return self
@@ -74,13 +74,13 @@ extension Query {
     /// Default limit is 10. The maximum limit is 50, for pro it is 500, and the above tiers, the maximum limit is 5000.
     ///
     /// Example: `.limit(by: 10)`
-    public func limit(by value: Int) -> Query {
+    @discardableResult public func limit(by value: Int) -> Query {
         limit = value
         return self
     }
 
     /// Example: `.offset(by: 0)`
-    public func offset(by value: Int) -> Query {
+    @discardableResult public func offset(by value: Int) -> Query {
         offset = value
         return self
     }
@@ -95,7 +95,7 @@ extension Query where Entity: Searchable {
     /// - Game: `.search(for: "Combat Evolved")`
     /// - Platform: `.search(for: "Xbox")`
     /// - Theme: `.search(for: "Survival")`
-    public func search(for value: String) -> Query {
+    @discardableResult public func search(for value: String) -> Query {
         search = value
         return self
     }
