@@ -7,7 +7,9 @@ extension Company.Logo: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Company.Logo>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Company.Logo.identifier: return [CodingKeys.identifier]
         case \Company.Logo.isTransparent: return [CodingKeys.isTransparent]

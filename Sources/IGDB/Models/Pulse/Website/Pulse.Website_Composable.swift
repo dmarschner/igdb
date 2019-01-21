@@ -7,7 +7,9 @@ extension Pulse.Website: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Pulse.Website>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Pulse.Website.identifier: return [CodingKeys.identifier]
         case \Pulse.Website.trusted: return [CodingKeys.trusted]

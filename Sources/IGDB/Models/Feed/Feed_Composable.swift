@@ -7,7 +7,14 @@ extension Feed: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Feed>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        if type(of: keyPath).rootType is Video.Type {
+            return try Feed.codingPath(for: \Feed.feedVideo)
+                + Video.codingPath(for: keyPath)
+        }
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Feed.identifier: return [CodingKeys.identifier]
         case \Feed.createdAt: return [CodingKeys.createdAt]

@@ -2,3 +2,4 @@ sources:
     - Sources
 templates:
     - Templates
+output: Sources/Generated

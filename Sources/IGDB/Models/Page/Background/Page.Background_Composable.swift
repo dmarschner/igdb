@@ -7,7 +7,9 @@ extension Page.Background: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Page.Background>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Page.Background.identifier: return [CodingKeys.identifier]
         case \Page.Background.isTransparent: return [CodingKeys.isTransparent]

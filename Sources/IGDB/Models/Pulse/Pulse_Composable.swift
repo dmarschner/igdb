@@ -7,7 +7,14 @@ extension Pulse: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Pulse>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        if type(of: keyPath).rootType is PulseSource.Type {
+            return try Pulse.codingPath(for: \Pulse.pulseSource)
+                + PulseSource.codingPath(for: keyPath)
+        }
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Pulse.identifier: return [CodingKeys.identifier]
         case \Pulse.createdAt: return [CodingKeys.createdAt]
@@ -22,14 +29,6 @@ extension Pulse: Composable {
         case \Pulse.uid: return [CodingKeys.uid]
         case \Pulse.videos: return [CodingKeys.videos]
         case \Pulse.website: return [CodingKeys.website]
-        case \Pulse.website?.identifier:
-            return [CodingKeys.website, Pulse.Website.CodingKeys.identifier]
-        case \Pulse.website?.trusted:
-            return [CodingKeys.website, Pulse.Website.CodingKeys.trusted]
-        case \Pulse.website?.category:
-            return [CodingKeys.website, Pulse.Website.CodingKeys.category]
-        case \Pulse.website?.url:
-            return [CodingKeys.website, Pulse.Website.CodingKeys.url]
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }

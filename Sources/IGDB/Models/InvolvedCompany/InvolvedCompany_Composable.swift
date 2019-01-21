@@ -7,7 +7,19 @@ extension InvolvedCompany: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<InvolvedCompany>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        if type(of: keyPath).rootType is Company.Type {
+            return try InvolvedCompany.codingPath(for: \InvolvedCompany.company)
+                + Company.codingPath(for: keyPath)
+        }
+
+        if type(of: keyPath).rootType is Game.Type {
+            return try InvolvedCompany.codingPath(for: \InvolvedCompany.game)
+                + Game.codingPath(for: keyPath)
+        }
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \InvolvedCompany.identifier: return [CodingKeys.identifier]
         case \InvolvedCompany.createdAt: return [CodingKeys.createdAt]

@@ -7,7 +7,9 @@ extension Title: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Title>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Title.identifier: return [CodingKeys.identifier]
         case \Title.createdAt: return [CodingKeys.createdAt]

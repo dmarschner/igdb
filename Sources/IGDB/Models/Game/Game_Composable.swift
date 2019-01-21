@@ -7,7 +7,24 @@ extension Game: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Game>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        if type(of: keyPath).rootType is Collection.Type {
+            return try Game.codingPath(for: \Game.collection)
+                + Collection.codingPath(for: keyPath)
+        }
+
+        if type(of: keyPath).rootType is Franchise.Type {
+            return try Game.codingPath(for: \Game.franchise)
+                + Franchise.codingPath(for: keyPath)
+        }
+
+        if type(of: keyPath).rootType is TimeToBeat.Type {
+            return try Game.codingPath(for: \Game.timeToBeat)
+                + TimeToBeat.codingPath(for: keyPath)
+        }
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Game.identifier: return [CodingKeys.identifier]
         case \Game.createdAt: return [CodingKeys.createdAt]
@@ -20,20 +37,6 @@ extension Game: Composable {
         case \Game.category: return [CodingKeys.category]
         case \Game.collection: return [CodingKeys.collection]
         case \Game.cover: return [CodingKeys.cover]
-        case \Game.cover?.identifier:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.identifier]
-        case \Game.cover?.isTransparent:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.isTransparent]
-        case \Game.cover?.animated:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.animated]
-        case \Game.cover?.url:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.url]
-        case \Game.cover?.height:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.height]
-        case \Game.cover?.width:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.width]
-        case \Game.cover?.imageId:
-            return [CodingKeys.cover, Game.Cover.CodingKeys.imageId]
         case \Game.dlcs: return [CodingKeys.dlcs]
         case \Game.expansions: return [CodingKeys.expansions]
         case \Game.externalGames: return [CodingKeys.externalGames]

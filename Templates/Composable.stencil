@@ -5,23 +5,25 @@
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<{{ type.name }}>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+        {# Check if there is a Composable Type used as variable in `Self`  #}
+        {% for subType in types.based.Composable %} {# All Composable types #}
+        {% for variable in type.storedVariables %}  {# All stored variables #}
+        {% if subType.name == variable.typeName|replace:"?","" %} {# Match! Extend the Composable type query #}
+
+        if type(of: keyPath).rootType is {{ subType.name }}.Type {
+            return try {{ type.name }}.codingPath(for: \{{ type.name }}.{{ variable.name }})
+                + {{ subType.name }}.codingPath(for: keyPath)
+        }
+        {% endif %} {# Match! Extend the Composable type query #}
+        {% endfor %} {# All stored variables #}
+        {% endfor %} {# All Composable types #}
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         {% for variable in type.storedVariables %}
-        {# Handle the variable itself first #}
         case \{{ type.name }}.{{ variable.name }}: return [CodingKeys.{{ variable.name }}]
-        {# If it is of composable type, than add these keys as well #}
-        {% set TypeName %}{{ type.name }}.{{ variable.typeName|replace:"?","" }}{% endset %}
-        {% for subtype in types.based.Composable %} {# Composable types #}
-        {% if TypeName == subtype.name %} {# and fits the name, so extend with its values #}
-        {% for subvariable in subtype.storedVariables %}
-        {# Handle the variable itself first #}
-        case \{{ type.name }}.{{ variable.name }}?.{{ subvariable.name }}:
-            return [CodingKeys.{{ variable.name }}, {{ TypeName }}.CodingKeys.{{ subvariable.name }}]
-        {% endfor %}{# Subvar extensions #}
-        {% endif %}{# If subvar extensions necessary #}
-        {% endfor %}{# Composable types #}
-        {% endfor %}{# Variables on self #}
+        {% endfor %}
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }

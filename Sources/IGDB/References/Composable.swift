@@ -5,11 +5,14 @@ import Foundation
 /// It allows to define what properties of an entity should be returned upon requesting an entity (or multiple entities)
 public protocol Composable {
 
+    /// Composable requires the keys for encoding & decoding to be `CaseIterable`
+    associatedtype CodingKeys
+
     /// Returns the path of coding keys it takes to get to given `keyPath`
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    static func codingPath(for keyPath: PartialKeyPath<Self>) throws -> [CodingKey]
+    static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey]
 }
 
 extension Composable {
@@ -18,7 +21,7 @@ extension Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The raw coding key path it takes to get to given `keyPath`
-    internal static func rawCodingPath(for keyPath: PartialKeyPath<Self>) throws -> String {
+    internal static func rawCodingPath(for keyPath: AnyKeyPath) throws -> String {
         return try codingPath(for: keyPath).map({ $0.stringValue }).joined(separator: ".")
     }
 }

@@ -7,7 +7,9 @@ extension Game.Screenshot: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Game.Screenshot>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Game.Screenshot.identifier: return [CodingKeys.identifier]
         case \Game.Screenshot.isTransparent: return [CodingKeys.isTransparent]

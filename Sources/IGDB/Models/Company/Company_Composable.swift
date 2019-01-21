@@ -7,7 +7,9 @@ extension Company: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<Company>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \Company.identifier: return [CodingKeys.identifier]
         case \Company.createdAt: return [CodingKeys.createdAt]
@@ -19,20 +21,6 @@ extension Company: Composable {
         case \Company.description: return [CodingKeys.description]
         case \Company.developed: return [CodingKeys.developed]
         case \Company.logo: return [CodingKeys.logo]
-        case \Company.logo?.identifier:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.identifier]
-        case \Company.logo?.isTransparent:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.isTransparent]
-        case \Company.logo?.animated:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.animated]
-        case \Company.logo?.url:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.url]
-        case \Company.logo?.height:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.height]
-        case \Company.logo?.width:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.width]
-        case \Company.logo?.imageId:
-            return [CodingKeys.logo, Company.Logo.CodingKeys.imageId]
         case \Company.name: return [CodingKeys.name]
         case \Company.parent: return [CodingKeys.parent]
         case \Company.published: return [CodingKeys.published]

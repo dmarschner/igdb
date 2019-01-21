@@ -7,7 +7,9 @@ extension GameMode: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<GameMode>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \GameMode.identifier: return [CodingKeys.identifier]
         case \GameMode.createdAt: return [CodingKeys.createdAt]

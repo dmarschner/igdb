@@ -7,7 +7,14 @@ extension ReleaseDate: Composable {
     ///
     /// - Parameter keyPath: The `keyPath` to look up
     /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: PartialKeyPath<ReleaseDate>) throws -> [CodingKey] {
+    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
+
+        if type(of: keyPath).rootType is Platform.Type {
+            return try ReleaseDate.codingPath(for: \ReleaseDate.platform)
+                + Platform.codingPath(for: keyPath)
+        }
+
+        // Each single `keyPath` in `Self`
         switch keyPath {
         case \ReleaseDate.identifier: return [CodingKeys.identifier]
         case \ReleaseDate.createdAt: return [CodingKeys.createdAt]
