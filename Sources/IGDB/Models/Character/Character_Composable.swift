@@ -28,12 +28,6 @@ extension Character: Composable {
         default: break
         }
 
-        // Evaluate the `keyPath`s in `Character`
-        if type(of: keyPath).rootType is Character.Type {
-            return try Character.codingPath(for: \Character.people)
-                + Character.codingPath(for: keyPath)
-        }
-
         // Evaluate the `keyPath`s in `Game`
         if type(of: keyPath).rootType is Game.Type {
             return try Character.codingPath(for: \Character.games)

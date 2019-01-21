@@ -101,48 +101,6 @@ extension Game: Composable {
                 + Franchise.codingPath(for: keyPath)
         }
 
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.bundles)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.dlcs)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.expansions)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.parentGame)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.similarGames)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.standaloneExpansions)
-                + Game.codingPath(for: keyPath)
-        }
-
-        // Evaluate the `keyPath`s in `Game`
-        if type(of: keyPath).rootType is Game.Type {
-            return try Game.codingPath(for: \Game.versionParent)
-                + Game.codingPath(for: keyPath)
-        }
-
         // Evaluate the `keyPath`s in `GameEngine`
         if type(of: keyPath).rootType is GameEngine.Type {
             return try Game.codingPath(for: \Game.gameEngines)

@@ -20,6 +20,7 @@
         {% for variable in type.storedVariables %}  {# All stored variables #}
         {% set UnwrappedType %}{{ variable.typeName|replace:"?","" }}{% endset %} {# Remove Otional "?" suffix #}
         {% set SanitizedType %}{{ UnwrappedType|replace:"[",""|replace:"]","" }}{% endset %} {# Remove array. We need the actual type #}
+        {% if subType.name != type.name %} {# Make sure this is not the same type - recursive #}
         {% if subType.name == SanitizedType %} {# Match! Extend the Composable type query #}
 
         // Evaluate the `keyPath`s in `{{ subType.name }}`
@@ -28,6 +29,7 @@
                 + {{ subType.name }}.codingPath(for: keyPath)
         }
         {% endif %} {# Match! Extend the Composable type query #}
+        {% endif %} {# Make sure this is not the same type - recursive #}
         {% endfor %} {# All stored variables #}
         {% endfor %} {# All Composable types #}
 
