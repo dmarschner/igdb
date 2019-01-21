@@ -1,5 +1,8 @@
 import Foundation
 
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
+
 /// [Game](https://api-docs.igdb.com/#game)
 ///
 /// Video Games!

@@ -3,6 +3,6 @@ force_cast: error
 excluded:
     - .build
 disabled_rules: # Because they mess up with sourcery
-    - nesting
-    - cyclomatic_complexity
-    - function_body_length
+    - cyclomatic_complexity # Composable
+    - function_body_length # Composable
+    - nesting # CodingKeys in Parten.Child props

@@ -1,6 +1,4 @@
 sources:
-    - Sources/IGDB/Models
-    - Sources/IGDB/References
+    - Sources
 templates:
     - Templates
-output: Sources/IGDB/Generated
