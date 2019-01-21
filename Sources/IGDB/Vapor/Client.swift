@@ -31,6 +31,7 @@ public final class Client: Service {
     /// The `URLSession` powering this client.
     private let urlSession: URLSession
 
+    /// The headers to send with every request
     private let additionalHeaders: [String: String]
 
     /// The JSON decoder used to decode requested entities

@@ -5,7 +5,7 @@
 ///// [Search](https://api-docs.igdb.com/#search)
 /////
 ///// Request Path: https://api-v3.igdb.com/searches
-//public struct Search: Identifiable, Composable, Codable {
+//public final class Search: Identifiable, Composable, Codable {
 //
 //    /// The unique resource identifier to this specific entry
 //    public let identifier: UInt64
@@ -36,4 +36,7 @@
 //
 //    /// The date this item was initially published by the third party
 //    public let publishedAt: Date?
+//
+//    // sourcery:inline:Search.Codable
+//    // sourcery:end
 //}

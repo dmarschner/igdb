@@ -88,7 +88,7 @@ extension Image {
     public func url(for size: ImageSize, ratio: ImagePixelRatio = .normal, of format: ImageRasterFormat = .jpg) throws -> URL {
         let baseUrl = "//images.igdb.com/igdb/image/upload"
         guard let url = URL(string: baseUrl) else { throw Error.malformedBaseUrl(baseUrl) }
-        guard let identifier = imageHash else { throw Error.unknownHash  }
+        guard let identifier = imageId else { throw Error.unknownHash  }
         return url.appendingPathComponent("t_\(size.rawValue)\(ratio.rawValue)")  // Size           (t_thumb_2x)
             .appendingPathComponent(identifier)                                   // Cloudinary Id  (kjsdhfjhd..)
             .appendingPathExtension(format.rawValue)                              // Raster Format  (.jpg, .png)
