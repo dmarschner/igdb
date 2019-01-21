@@ -37,12 +37,12 @@ public final class Client: Service {
     /// The JSON decoder used to decode requested entities
     private let decoder: JSONDecoder
 
-    /// <#Description#>
+    /// Initializes a new instance of `Self`.
     ///
     /// - Parameters:
-    ///   - key: <#key description#>
-    ///   - container: <#container description#>
-    /// - Throws: <#throws value description#>
+    ///   - key: The IGDB API key to use for each request.
+    ///   - container: The container to spawn new promises
+    /// - Throws: An `Error` if `baseUrl` is malformed.
     public init(key: String, on container: Container, baseUrl: String = "https://api-v3.igdb.com") throws {
 
         // Make sure the input is valid

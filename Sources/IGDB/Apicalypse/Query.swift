@@ -31,7 +31,7 @@ public final class Query<Entity> where Entity: Identifiable & Composable {
     ///
     /// - Parameter entity: The Entity to query for
     public init(entity: Entity.Type = Entity.self) {
-        includes = ["*"] // Wildcard
+        includes = []
     }
 }
 
@@ -42,6 +42,12 @@ extension Query {
     /// Example: `.include(fields: [\.name, \.platform])`
     public func include(fields: [AnyKeyPath]) throws -> Query {
         try includes = fields.map(Entity.rawCodingPath(for:))
+        return self
+    }
+
+    /// Wildcard. Includes all fields of the Query Entity
+    public func includeAll() -> Query {
+        includes = ["*"] // Wildcard
         return self
     }
 
