@@ -30,6 +30,12 @@ extension GameEngine: Composable {
                 + Company.codingPath(for: keyPath)
         }
 
+        // Evaluate the `keyPath`s in `Logo`
+        if type(of: keyPath).rootType is Logo.Type {
+            return try GameEngine.codingPath(for: \GameEngine.logo)
+                + Logo.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `Platform`
         if type(of: keyPath).rootType is Platform.Type {
             return try GameEngine.codingPath(for: \GameEngine.platforms)

@@ -29,6 +29,18 @@ extension Platform: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Logo`
+        if type(of: keyPath).rootType is Logo.Type {
+            return try Platform.codingPath(for: \Platform.platformLogo)
+                + Logo.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Website`
+        if type(of: keyPath).rootType is Website.Type {
+            return try Platform.codingPath(for: \Platform.websites)
+                + Website.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `PlatformVersion`
         if type(of: keyPath).rootType is PlatformVersion.Type {
             return try Platform.codingPath(for: \Platform.versions)

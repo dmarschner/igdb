@@ -27,6 +27,12 @@ extension Pulse: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Website`
+        if type(of: keyPath).rootType is Website.Type {
+            return try Pulse.codingPath(for: \Pulse.website)
+                + Website.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `PulseSource`
         if type(of: keyPath).rootType is PulseSource.Type {
             return try Pulse.codingPath(for: \Pulse.pulseSource)

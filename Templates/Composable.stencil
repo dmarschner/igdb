@@ -17,16 +17,18 @@
         
         {# Check if there is a Composable Type used as variable in `Self`  #}
         {% for subType in types.based.Composable %} {# All Composable types #}
+        {% set ParentType %}{{ type.name }}.{% endset %} {# Create parent type, e.g. "Game." #}
+        {% set SubTypeName %}{{ subType.name|replace:ParentType,"" }}{% endset %} {# Remove parent type, e.g. "Game." #}
         {% for variable in type.storedVariables %}  {# All stored variables #}
         {% set UnwrappedType %}{{ variable.typeName|replace:"?","" }}{% endset %} {# Remove Otional "?" suffix #}
         {% set SanitizedType %}{{ UnwrappedType|replace:"[",""|replace:"]","" }}{% endset %} {# Remove array. We need the actual type #}
-        {% if subType.name != type.name %} {# Make sure this is not the same type - recursive #}
-        {% if subType.name == SanitizedType %} {# Match! Extend the Composable type query #}
+        {% if SubTypeName != type.name %} {# Make sure this is not the same type - recursive #}
+        {% if SubTypeName == SanitizedType %} {# Match! Extend the Composable type query #}
 
-        // Evaluate the `keyPath`s in `{{ subType.name }}`
-        if type(of: keyPath).rootType is {{ subType.name }}.Type {
+        // Evaluate the `keyPath`s in `{{ SubTypeName }}`
+        if type(of: keyPath).rootType is {{ SubTypeName }}.Type {
             return try {{ type.name }}.codingPath(for: \{{ type.name }}.{{ variable.name }})
-                + {{ subType.name }}.codingPath(for: keyPath)
+                + {{ SubTypeName }}.codingPath(for: keyPath)
         }
         {% endif %} {# Match! Extend the Composable type query #}
         {% endif %} {# Make sure this is not the same type - recursive #}

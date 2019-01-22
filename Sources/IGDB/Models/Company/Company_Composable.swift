@@ -32,6 +32,18 @@ extension Company: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Logo`
+        if type(of: keyPath).rootType is Logo.Type {
+            return try Company.codingPath(for: \Company.logo)
+                + Logo.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Website`
+        if type(of: keyPath).rootType is Website.Type {
+            return try Company.codingPath(for: \Company.websites)
+                + Website.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `Game`
         if type(of: keyPath).rootType is Game.Type {
             return try Company.codingPath(for: \Company.developed)

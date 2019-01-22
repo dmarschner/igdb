@@ -53,6 +53,24 @@ extension Page: Composable {
                 + Game.codingPath(for: keyPath)
         }
 
+        // Evaluate the `keyPath`s in `Background`
+        if type(of: keyPath).rootType is Background.Type {
+            return try Page.codingPath(for: \Page.background)
+                + Background.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Logo`
+        if type(of: keyPath).rootType is Logo.Type {
+            return try Page.codingPath(for: \Page.pageLogo)
+                + Logo.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Website`
+        if type(of: keyPath).rootType is Website.Type {
+            return try Page.codingPath(for: \Page.websites)
+                + Website.codingPath(for: keyPath)
+        }
+
         // No matching coding key found.
         throw Error.unexpectedKeyPath(keyPath)
     }

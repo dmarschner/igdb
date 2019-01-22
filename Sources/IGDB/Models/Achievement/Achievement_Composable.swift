@@ -28,6 +28,12 @@ extension Achievement: Composable {
         default: break
         }
 
+        // Evaluate the `keyPath`s in `Icon`
+        if type(of: keyPath).rootType is Icon.Type {
+            return try Achievement.codingPath(for: \Achievement.icon)
+                + Icon.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `Game`
         if type(of: keyPath).rootType is Game.Type {
             return try Achievement.codingPath(for: \Achievement.game)

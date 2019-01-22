@@ -101,6 +101,24 @@ extension Game: Composable {
                 + Franchise.codingPath(for: keyPath)
         }
 
+        // Evaluate the `keyPath`s in `Cover`
+        if type(of: keyPath).rootType is Cover.Type {
+            return try Game.codingPath(for: \Game.cover)
+                + Cover.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Screenshot`
+        if type(of: keyPath).rootType is Screenshot.Type {
+            return try Game.codingPath(for: \Game.screenshots)
+                + Screenshot.codingPath(for: keyPath)
+        }
+
+        // Evaluate the `keyPath`s in `Website`
+        if type(of: keyPath).rootType is Website.Type {
+            return try Game.codingPath(for: \Game.websites)
+                + Website.codingPath(for: keyPath)
+        }
+
         // Evaluate the `keyPath`s in `GameEngine`
         if type(of: keyPath).rootType is GameEngine.Type {
             return try Game.codingPath(for: \Game.gameEngines)
