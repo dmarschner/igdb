@@ -43,7 +43,7 @@ public struct Filter<Entity> where Entity: Composable {
 
     public init<Value>(lhs: KeyPath<Entity, Value>, operation: String, rhs: [Value]) throws {
         let multipleValues = rhs.map({ String(describing: $0) }).joined(separator: ",")
-        try self.init(lhs: Entity.codingPath(for: lhs), operation: operation, rhs: multipleValues)
+        try self.init(lhs: Entity.codingPath(for: lhs), operation: operation, rhs: "(" + multipleValues + ")")
     }
 }
 
