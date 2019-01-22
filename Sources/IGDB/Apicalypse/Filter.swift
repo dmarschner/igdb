@@ -47,7 +47,7 @@ public struct Filter<Entity> where Entity: Composable {
     }
 }
 
-/// MARK: - Global Filter
+// MARK: - Global Filter
 
 /// = Equal: Exact match equal. Examples: `try \.identifier == 4`, `try \.parentGame == nil`
 public func ==<Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value?) throws -> Filter<Entity> where Entity: Composable {
@@ -59,7 +59,7 @@ public func !=<Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value?) throws -
     return try Filter(lhs: lhs, operation: "!=", rhs: rhs)
 }
 
-/// MARK: - Numeric Filter
+// MARK: - Numeric Filter
 
 /// > Greater than (works only on numbers). Examples: `try \.rating > 79.9`,
 public func ><Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value) throws -> Filter<Entity> where Entity: Composable, Value: Numeric {
@@ -81,7 +81,7 @@ public func <=<Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value) throws ->
     return try Filter(lhs: lhs, operation: "<=", rhs: rhs)
 }
 
-/// MARK: - String Filter
+// MARK: - String Filter
 
 infix operator =^*: AdditionPrecedence
 /// = "Your input string"* Prefix: Exact match on the beginning of the string, can end with anything. (Case sensitive).
