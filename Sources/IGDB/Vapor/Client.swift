@@ -37,9 +37,10 @@ public final class Client: Service {
     /// Initializes a new instance of `Self`.
     ///
     /// - Parameters:
-    ///   - key: The IGDB API key to use for each request.
+    ///   - key: The IGDB API key to use for each request
     ///   - container: The container to spawn new promises
-    /// - Throws: An `Error` if `baseUrl` is malformed.
+    ///   - baseUrl: The API URL to send request against
+    /// - Throws: An `Error` if `baseUrl` is malformed
     public init(key: String, on container: Container, baseUrl: String = "https://api-v3.igdb.com") throws {
 
         // Make sure the input is valid
@@ -70,11 +71,15 @@ extension Client {
     /// - Returns: The Future holding the resulting entities of the request
     /// - Throws: An Error if request is invalid or networking fails
     public func send<E>(query: Query<E> = .init()) throws -> Future<[E]> where E: Identifiable & Composable & Decodable {
-        let promise = container.eventLoop.newPromise([E].self) // The request/response promise
-        var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath)) // The request against the entity endpoint
-        request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false) // The query attached as body data
-        request.httpMethod = "POST" // POST, to attach body data
+
+        // Create a proper request for given query
+        var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath))
+        request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false)
+        request.httpMethod = "POST" // POST, to allow body data
         request.allHTTPHeaderFields = additionalHeaders
+
+        // Create a new promise and wrap the following URL session task within that promise
+        let promise = container.eventLoop.newPromise([E].self)
         urlSession.dataTask(with: request) { (data, _, error) in
             if let error = error { // Fail directly on an error
                 return promise.fail(error: error)
