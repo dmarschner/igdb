@@ -3,12 +3,18 @@ import Foundation
 extension Character {
 
     /// The species of a game character, actor (LUL), ...
-    public enum Species: Int, Codable, CustomStringConvertible {
+    public enum Species: Int, Codable, LosslessStringConvertible {
         case human = 1
         case alien
         case animal
         case android
         case unknown
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

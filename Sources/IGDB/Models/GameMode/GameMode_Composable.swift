@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension GameMode: Composable {
     // sourcery:inline:GameMode.Composable

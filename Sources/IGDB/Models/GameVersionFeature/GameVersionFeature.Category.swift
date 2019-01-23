@@ -3,9 +3,15 @@ import Foundation
 extension GameVersionFeature {
 
     /// Game Version Feature Category
-    public enum Category: Int, Codable, CustomStringConvertible {
+    public enum Category: Int, Codable, LosslessStringConvertible {
         case boolean
         case description
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

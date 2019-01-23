@@ -12,13 +12,19 @@ extension Feed {
     ///     | 5     | User Contributed Item   | New feed item created by a user              |
     ///     | 6     | User contributions item | User has changed a game release date         |
     ///     | 7     | Page Contributed Item   | New feed item created by a page              |
-    public enum Category: Int, Codable, CustomStringConvertible {
+    public enum Category: Int, Codable, LosslessStringConvertible {
         case pulseArticle = 1
         case comingSoon
         case newTrailer
         case userContributedItem
         case userContributionsItem
         case pageContributedItem
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

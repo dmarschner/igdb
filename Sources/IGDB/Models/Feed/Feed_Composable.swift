@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Feed: Composable {
     // sourcery:inline:Feed.Composable

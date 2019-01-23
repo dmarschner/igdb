@@ -9,10 +9,16 @@ extension Achievement {
     ///     | 1     | Playstation  |
     ///     | 2     | Xbox         |
     ///     | 3     | Steam        |
-    public enum Category: Int, Codable, CustomStringConvertible {
+    public enum Category: Int, Codable, LosslessStringConvertible {
         case playstation = 1
         case xbox
         case steam
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

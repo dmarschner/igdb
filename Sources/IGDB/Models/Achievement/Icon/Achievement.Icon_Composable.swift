@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Achievement.Icon: Composable {
     // sourcery:inline:Achievement.Icon.Composable

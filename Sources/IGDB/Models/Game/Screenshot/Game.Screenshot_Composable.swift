@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Game.Screenshot: Composable {
     // sourcery:inline:Game.Screenshot.Composable

@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension TimeToBeat: Composable {
     // sourcery:inline:TimeToBeat.Composable

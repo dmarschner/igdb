@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 /// [Theme](https://api-docs.igdb.com/#theme)
 ///

@@ -2,13 +2,19 @@ import Foundation
 
 extension Page {
 
-    public enum Color: Int, Codable, CustomStringConvertible {
+    public enum Color: Int, Codable, LosslessStringConvertible {
         case green
         case blue
         case red
         case orange
         case pink
         case yellow
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

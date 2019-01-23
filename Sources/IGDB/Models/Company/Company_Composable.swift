@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Company: Composable {
     // sourcery:inline:Company.Composable

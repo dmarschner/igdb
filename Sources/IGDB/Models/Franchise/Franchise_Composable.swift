@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Franchise: Composable {
     // sourcery:inline:Franchise.Composable

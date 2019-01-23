@@ -12,13 +12,19 @@ extension Game {
     ///     | 4     | Early access      |
     ///     | 5     | Offline expansion |
     ///     | 6     | Cancelled         |
-    public enum Status: Int, Codable, CustomStringConvertible {
+    public enum Status: Int, Codable, LosslessStringConvertible {
         case released = 0
         case alpha = 2
         case beta
         case earlyAccess
         case offlineExpansion
         case cancelled
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

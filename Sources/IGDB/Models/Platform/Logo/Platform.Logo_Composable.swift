@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Platform.Logo: Composable {
     // sourcery:inline:Platform.Logo.Composable

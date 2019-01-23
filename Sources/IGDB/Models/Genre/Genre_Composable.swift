@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Genre: Composable {
     // sourcery:inline:Genre.Composable

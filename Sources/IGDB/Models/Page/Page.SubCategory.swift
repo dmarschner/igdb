@@ -2,13 +2,19 @@ import Foundation
 
 extension Page {
 
-    public enum SubCategory: Int, Codable, CustomStringConvertible {
+    public enum SubCategory: Int, Codable, LosslessStringConvertible {
         case user = 1
         case game
         case company
         case consumer
         case industry
         case eSports
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Video: Composable {
     // sourcery:inline:Video.Composable

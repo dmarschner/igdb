@@ -10,11 +10,17 @@ extension Achievement {
     ///     | 2     | Silver    |
     ///     | 3     | Gold      |
     ///     | 4     | Platinum  |
-    public enum Rank: Int, Codable, CustomStringConvertible {
+    public enum Rank: Int, Codable, LosslessStringConvertible {
         case bronze = 1
         case silver
         case gold
         case platinum
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension PlatformVersionCompany: Composable {
     // sourcery:inline:PlatformVersionCompany.Composable

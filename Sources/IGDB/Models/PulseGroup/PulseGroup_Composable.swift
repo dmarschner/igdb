@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension PulseGroup: Composable {
     // sourcery:inline:PulseGroup.Composable

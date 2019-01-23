@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 /// Video Game [Characters](https://api-docs.igdb.com/#character)
 public final class Character: Identifiable, Updatable, Searchable, Codable {

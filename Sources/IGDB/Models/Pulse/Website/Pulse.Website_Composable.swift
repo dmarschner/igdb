@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Pulse.Website: Composable {
     // sourcery:inline:Pulse.Website.Composable

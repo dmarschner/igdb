@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Achievement: Composable {
     // sourcery:inline:Achievement.Composable

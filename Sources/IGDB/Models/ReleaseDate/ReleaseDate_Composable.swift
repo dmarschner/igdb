@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension ReleaseDate: Composable {
     // sourcery:inline:ReleaseDate.Composable

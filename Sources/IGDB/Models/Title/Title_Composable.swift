@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Title: Composable {
     // sourcery:inline:Title.Composable

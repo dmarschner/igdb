@@ -11,12 +11,18 @@ extension Game {
     ///     | 2     | Expansion            |
     ///     | 3     | Bundle               |
     ///     | 4     | Standalone expansion |
-    public enum Category: Int, Codable, CustomStringConvertible {
+    public enum Category: Int, Codable, LosslessStringConvertible {
         case mainGame
         case addon
         case expansion
         case bundle
         case standaloneExpansion
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

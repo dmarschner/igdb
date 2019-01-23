@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension GameEngine: Composable {
     // sourcery:inline:GameEngine.Composable

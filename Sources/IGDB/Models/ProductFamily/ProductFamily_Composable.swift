@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension ProductFamily: Composable {
     // sourcery:inline:ProductFamily.Composable

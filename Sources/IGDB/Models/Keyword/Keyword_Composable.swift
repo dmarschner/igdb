@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Keyword: Composable {
     // sourcery:inline:Keyword.Composable

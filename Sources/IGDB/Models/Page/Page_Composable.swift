@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Page: Composable {
     // sourcery:inline:Page.Composable

@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 /// [Collection](https://api-docs.igdb.com/#collection)
 ///

@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension PlayerPerspective: Composable {
     // sourcery:inline:PlayerPerspective.Composable

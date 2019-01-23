@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Game.Cover: Composable {
     // sourcery:inline:Game.Cover.Composable

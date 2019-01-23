@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Character.MugShot: Composable {
     // sourcery:inline:Character.MugShot.Composable

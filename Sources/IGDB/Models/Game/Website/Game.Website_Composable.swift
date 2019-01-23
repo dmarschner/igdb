@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Game.Website: Composable {
     // sourcery:inline:Game.Website.Composable

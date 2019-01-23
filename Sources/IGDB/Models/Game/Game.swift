@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length

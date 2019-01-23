@@ -3,7 +3,7 @@ import Foundation
 extension AgeRating {
 
     /// The title of an age rating
-    public enum Rating: Int, Codable, CustomStringConvertible {
+    public enum Rating: Int, Codable, LosslessStringConvertible {
         // PEGI
         case three = 1
         case seven
@@ -18,6 +18,12 @@ extension AgeRating {
         case teen
         case mature
         case adultsOnly
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

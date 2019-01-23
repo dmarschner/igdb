@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension MultiplayerMode: Composable {
     // sourcery:inline:MultiplayerMode.Composable

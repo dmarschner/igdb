@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension Character: Composable {
     // sourcery:inline:Character.Composable

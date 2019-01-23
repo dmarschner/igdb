@@ -1,4 +1,5 @@
 import Service
+import Apicalypse
 
 /// `Vapor.Service` wrapper around the IGDB API, allowing all of the
 /// [endpoint](https://api-docs.igdb.com/#endpoints) definitions to be requested.

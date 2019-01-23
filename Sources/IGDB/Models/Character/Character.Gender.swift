@@ -3,10 +3,16 @@ import Foundation
 extension Character {
 
     /// The gender of an actor, character, ...
-    public enum Gender: Int, Codable, CustomStringConvertible {
+    public enum Gender: Int, Codable, LosslessStringConvertible {
         case male = 1
         case female
         case unknown
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

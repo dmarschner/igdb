@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension ExternalGame: Composable {
     // sourcery:inline:ExternalGame.Composable

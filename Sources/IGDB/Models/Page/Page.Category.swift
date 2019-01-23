@@ -2,11 +2,17 @@ import Foundation
 
 extension Page {
 
-    public enum Category: Int, Codable, CustomStringConvertible {
+    public enum Category: Int, Codable, LosslessStringConvertible {
         case personality = 1
         case mediaOrganization
         case contentCreator
         case clanTeam
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///

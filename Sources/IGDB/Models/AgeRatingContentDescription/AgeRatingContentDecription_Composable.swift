@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension AgeRatingContentDescription: Composable {
     // sourcery:inline:AgeRatingContentDescription.Composable

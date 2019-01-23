@@ -1,4 +1,5 @@
 import Foundation
+import Apicalypse
 
 extension AlternativeName: Composable {
     // sourcery:inline:AlternativeName.Composable

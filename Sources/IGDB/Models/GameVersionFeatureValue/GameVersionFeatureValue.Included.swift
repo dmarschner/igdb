@@ -3,10 +3,16 @@ import Foundation
 extension GameVersionFeatureValue {
 
     /// Game Version Feature Value Included
-    public enum Included: Int, Codable, CustomStringConvertible {
+    public enum Included: Int, Codable, LosslessStringConvertible {
         case notIncluded
         case included
         case preOrderOnly
+
+        /// Instantiates an instance of the conforming type from a string representation.
+        public init?(_ description: String) {
+            guard let integer = Int(description) else { return nil }
+            self.init(rawValue: integer)
+        }
 
         /// A textual representation of this instance.
         ///
