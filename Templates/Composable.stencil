@@ -1,42 +1,18 @@
 {% for type in types.all %}
 // sourcery:inline:{{ type.name }}.Composable
 
-    /// Returns the path of coding keys it takes to get to given `keyPath`
+    /// Returns the coding key of given `keyPath`
     ///
     /// - Parameter keyPath: The `keyPath` to look up
-    /// - Returns: The coding keys, or path, it takes to get to given `keyPath`
-    public static func codingPath(for keyPath: AnyKeyPath) throws -> [CodingKey] {
-
-        // Evaluate the `keyPath`s in `Self`
-        switch keyPath {
+    /// - Returns: The coding keys of given `keyPath`
+    public static func codingPath(for keyPath: PartialKeyPath<{{ type.name }}>) throws -> CodingKey {
+        switch keyPath { // Evaluate the `keyPath`s in `Self`
         {% for variable in type.storedVariables %}
-        case \{{ type.name }}.{{ variable.name }}: return [CodingKeys.{{ variable.name }}]
+        case \{{ type.name }}.{{ variable.name }}: return CodingKeys.{{ variable.name }}
         {% endfor %}
-        default: break
-        }
-        
-        {# Check if there is a Composable Type used as variable in `Self`  #}
-        {% for subType in types.based.Composable %} {# All Composable types #}
-        {% set ParentType %}{{ type.name }}.{% endset %} {# Create parent type, e.g. "Game." #}
-        {% set SubTypeName %}{{ subType.name|replace:ParentType,"" }}{% endset %} {# Remove parent type, e.g. "Game." #}
-        {% for variable in type.storedVariables %}  {# All stored variables #}
-        {% set UnwrappedType %}{{ variable.typeName|replace:"?","" }}{% endset %} {# Remove Otional "?" suffix #}
-        {% set SanitizedType %}{{ UnwrappedType|replace:"[",""|replace:"]","" }}{% endset %} {# Remove array. We need the actual type #}
-        {% if SubTypeName != type.name %} {# Make sure this is not the same type - recursive #}
-        {% if SubTypeName == SanitizedType %} {# Match! Extend the Composable type query #}
-
-        // Evaluate the `keyPath`s in `{{ SubTypeName }}`
-        if type(of: keyPath).rootType is {{ SubTypeName }}.Type {
-            return try {{ type.name }}.codingPath(for: \{{ type.name }}.{{ variable.name }})
-                + {{ SubTypeName }}.codingPath(for: keyPath)
-        }
-        {% endif %} {# Match! Extend the Composable type query #}
-        {% endif %} {# Make sure this is not the same type - recursive #}
-        {% endfor %} {# All stored variables #}
-        {% endfor %} {# All Composable types #}
-
         // No matching coding key found.
-        throw Error.unexpectedKeyPath(keyPath)
+        default: throw Error.unexpectedKeyPath(keyPath)
+        }
     }
 // sourcery:end
 {% endfor %}

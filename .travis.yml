@@ -12,4 +12,4 @@ install:
 script:
     - swift build
     - swift build -c release
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then swift test; fi
+    - swift test

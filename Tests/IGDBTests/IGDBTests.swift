@@ -9,10 +9,8 @@ final class IGDBTests: XCTestCase {
         XCTAssertTrue(true) // Best test
 
         _ = try? Query(entity: Game.self)
-            .include(field: \.category)
-            .include(subField: \GameEngine.name)
-            .include(subFields: [\Game.Cover.imageId, \Game.Cover.isTransparent])
-            .where(\.platforms == 3)
+            .include(\.category)
+            .where(\Game.platforms == [3])
     }
 
     static var allTests = [

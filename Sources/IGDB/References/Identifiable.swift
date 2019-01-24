@@ -38,36 +38,90 @@ public protocol Identifiable {
     static var requestPath: String { get }
 }
 
-// MARK: - Identifiable Filter
+// MARK: One to One.Identifier
 
-/// Allows direct Identifier counterpart comparison, like \IGDB.Game.parentGame == 5, \IGDB.Game.platforms == [4,3,7], ...
-public func ==<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: Value.Identifier)
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable {
-        return try Filter(field: lhs, comparison: EquatableOperator.equal, value: String(describing: rhs))
+public func == <Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value.Identifier)
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: EquatableOperator.equal, value: String(describing: rhs))
 }
 
-/// Allows direct Identifier counterpart comparison, like \IGDB.Game.parentGame != 5, \IGDB.Game.platforms != [4,3,7], ...
-public func !=<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: Value.Identifier)
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable {
-        return try Filter(field: lhs, comparison: EquatableOperator.notEqual, value: String(describing: rhs))
+public func != <Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: Value.Identifier)
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: EquatableOperator.notEqual, value: String(describing: rhs))
 }
 
-public func ==<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable & Swift.Collection {
-        return try Filter(field: lhs, comparison: CollectionOperator.containsExclusively, value: String(describing: rhs))
+// MARK: One to Many.Identifier
+
+public func == <Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: EquatableOperator.equal, value: String(describing: rhs))
 }
 
-public func ~=<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable & Swift.Collection {
-        return try Filter(field: lhs, comparison: CollectionOperator.containsAll, value: String(describing: rhs))
+public func != <Entity, Value>(lhs: KeyPath<Entity, Value>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: EquatableOperator.notEqual, value: String(describing: rhs))
 }
 
-public func *=<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable & Swift.Collection {
-        return try Filter(field: lhs, comparison: CollectionOperator.containsAtLeastOne, value: String(describing: rhs))
+// MARK: Many to Many.Identifier
+
+public func == <Entity, Value>(lhs: KeyPath<Entity, [Value]>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsAll, value: value)
 }
 
-public func !=<Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
-    throws -> Filter<Entity> where Entity: Composable, Value: Identifiable & Swift.Collection {
-        return try Filter(field: lhs, comparison: CollectionOperator.containsNone, value: String(describing: rhs))
+public func === <Entity, Value>(lhs: KeyPath<Entity, [Value]>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsExclusively, value: value)
+}
+
+public func ~= <Entity, Value>(lhs: KeyPath<Entity, [Value]>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsAtLeastOne, value: value)
+}
+
+public func != <Entity, Value>(lhs: KeyPath<Entity, [Value]>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsNone, value: value)
+}
+
+// MARK: Many? to Many.Identifier
+
+public func == <Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsAll, value: value)
+}
+
+public func === <Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsExclusively, value: value)
+}
+
+public func ~= <Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsAtLeastOne, value: value)
+}
+
+public func != <Entity, Value>(lhs: KeyPath<Entity, [Value]?>, rhs: [Value.Identifier])
+    throws -> Filter where Entity: Composable, Value: Identifiable {
+        let value = rhs.map(String.init(describing:)).joined(separator: ",")
+        return try Filter(property: Entity.codingPath(for: lhs),
+            operator: CollectionOperator.containsNone, value: value)
 }

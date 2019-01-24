@@ -7,7 +7,7 @@ let package = Package(
         .library(name: "IGDB", targets: ["IGDB"])
     ],
     dependencies: [
-        .package(url: "https://github.com/markuswntr/apicalypse.git", .branch("master")),
+        .package(url: "https://github.com/markuswntr/apicalypse.git", from: "1.0.0"),
         .package(url: "https://github.com/vapor/service.git", from: "1.0.0")
     ],
     targets: [

@@ -5,9 +5,9 @@
         "package": "Apicalypse",
         "repositoryURL": "https://github.com/markuswntr/apicalypse.git",
         "state": {
-          "branch": "master",
-          "revision": "d705ade0c074eab1d09d7fd8a0ea692913592e74",
-          "version": null
+          "branch": null,
+          "revision": "15deb345b84cfced9a6ab84440f86f2050a1c201",
+          "version": "1.0.0"
         }
       },
       {
