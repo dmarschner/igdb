@@ -1,17 +1,24 @@
-<!-- markdownlint-disable MD033 -->
-<p align="center">
-    <svg space="preserve" style="margin-left:-9px;margin-top:-7px;" version="1.1" viewBox="0 0 419.3 482.7" width="300px" xmlns="http://www.w3.org/2000/svg"><g><polygon fill="#00A552" points="210,228.7 416.4,121.1 210,478.7"></polygon><polygon fill="#009345" points="210,228.7 3.6,121.1 210,478.7"></polygon><polygon fill="#01DF6B" points="416.4,121.1 3.6,121.1 210,228.7"></polygon><polygon fill="#01DF6B" points="3.6,361 211.2,4.1 416.4,361"></polygon><polygon fill="#00A552" points="210,228.7 310.3,176.4 210,361"></polygon><polygon fill="#009345" points="110.6,176.9 210,361 210,228.7"></polygon></g></svg>
-</p>
+<!-- markdownlint-disable MD002 MD033 MD041 -->
+<h1 align="center">
+  <a href="https://github.com/markuswntr/igdb">
+    <img src="https://www.igdb.com/mstile-310x310.png" width="300" max-width="50%" alt="IGDB" />
+  </a>
+  <br>IGDB: Video Game Database API<br>
+</h1>
+
+<h4 align="center">
+    A wrapper around the <a href="https://www.igdb.com/api">IGDB API</a> in pure Swift.
+</h4>
 
 <p align="center">
+    <a href="https://github.com/markuswntr/igdb/releases">
+        <img src="https://img.shields.io/github/release/markuswntr/igdb.svg" alt="Release Version" />
+    </a>
     <a href="https://travis-ci.com/markuswntr/igdb">
         <img src="https://travis-ci.com/markuswntr/igdb.svg?branch=master" alt="Build Status" />
     </a>
     <a href="https://www.codacy.com/app/markuswntr/igdb">
         <img src="https://api.codacy.com/project/badge/Grade/d17a7b58072f420ea719f27c94957cc0" alt="Codacy" />
-    </a>
-    <a href="https://github.com/markuswntr/igdb/releases">
-        <img src="https://img.shields.io/github/release/markuswntr/igdb.svg" alt="Release Version" />
     </a>
     <a href="https://swift.org">
         <img src="https://img.shields.io/badge/Swift-4.2-red.svg" alt="Swift Version" />
@@ -22,10 +29,6 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
-#
-
-A wrapper around the [IGDB](https://igdb.com) API in pure Swift.
-
 ## Installation
 
 ### Swift Package Manager
@@ -35,7 +38,7 @@ it's as simple as adding a `dependencies` clause to your `Package.swift`:
 
 ``` swift
 dependencies: [
-    .package(url: "https://github.com/markuswntr/igdb.git", from: "1.0.0")
+    .package(url: "https://github.com/markuswntr/igdb.git", .branch("1.0.0"))
 ]
 ```
 
