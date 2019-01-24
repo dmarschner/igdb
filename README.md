@@ -27,13 +27,14 @@
         <img src="https://img.shields.io/badge/contact-@markuswntr-5AA9E7.svg" alt="Twitter: @markuswntr" />
     </a>
 </p>
+<br>
 <!-- markdownlint-enable MD033 -->
 
 ## Installation
 
 ### Swift Package Manager
 
-If you want to use Apicalypse in a project that uses [SPM](https://swift.org/package-manager/),
+If you want to use IGDB in a project that uses [SPM](https://swift.org/package-manager/),
 it's as simple as adding a `dependencies` clause to your `Package.swift`:
 
 ``` swift
