@@ -71,29 +71,30 @@ extension Client {
     /// - Parameter query: The query to send against the IGDB API
     /// - Returns: The Future holding the resulting entities of the request
     /// - Throws: An Error if request is invalid or networking fails
-    public func send<E>(query: Query<E> = .init()) throws -> Future<[E]> where E: Identifiable & Composable & Decodable {
+    public func send<E>(query: Query<E> = .init())
+        throws -> Future<[E]> where E: Identifiable & Composable & Decodable {
 
-        // Create a proper request for given query
-        var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath))
-        request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false)
-        request.httpMethod = "POST" // POST, to allow body data
-        request.allHTTPHeaderFields = additionalHeaders
+            // Create a proper request for given query
+            var request = URLRequest(url: baseUrl.appendingPathComponent(E.requestPath))
+            request.httpBody = query.build().data(using: .utf8, allowLossyConversion: false)
+            request.httpMethod = "POST" // POST, to allow body data
+            request.allHTTPHeaderFields = additionalHeaders
 
-        // Create a new promise and wrap the following URL session task within that promise
-        let promise = container.eventLoop.newPromise([E].self)
-        urlSession.dataTask(with: request) { (data, _, error) in
-            if let error = error { // Fail directly on an error
-                return promise.fail(error: error)
-            }
-            guard let data = data else { // Fail if no data to decode
-                return promise.fail(error: Error.invalidResponseData)
-            }
-            do { // Try decoding, finish successfully on success and fail on error
-                try promise.succeed(result: self.decoder.decode([E].self, from: data))
-            } catch let error {
-                promise.fail(error: error)
-            }
-        }.resume() // Send right away
-        return promise.futureResult
+            // Create a new promise and wrap the following URL session task within that promise
+            let promise = container.eventLoop.newPromise([E].self)
+            urlSession.dataTask(with: request) { (data, _, error) in
+                if let error = error { // Fail directly on an error
+                    return promise.fail(error: error)
+                }
+                guard let data = data else { // Fail if no data to decode
+                    return promise.fail(error: Error.invalidResponseData)
+                }
+                do { // Try decoding, finish successfully on success and fail on error
+                    try promise.succeed(result: self.decoder.decode([E].self, from: data))
+                } catch let error {
+                    promise.fail(error: error)
+                }
+            }.resume() // Send right away
+            return promise.futureResult
     }
 }

@@ -20,7 +20,6 @@ extension Feed {
         case userContributionsItem
         case pageContributedItem
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

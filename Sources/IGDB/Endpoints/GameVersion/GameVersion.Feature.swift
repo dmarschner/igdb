@@ -7,17 +7,6 @@ extension GameVersion {
     /// Features and descriptions of what makes each version/edition different from the main game
     public final class Feature: Identifiable, Codable {
 
-        /// Game Version Feature Category
-        public enum Category: Int, Codable, CustomStringConvertible {
-            case boolean
-            case description
-
-            /// A textual representation of this instance.
-            public var description: String {
-                return String(self.rawValue)
-            }
-        }
-
         /// The API endpoint to request these entities from.
         /// Path: [/game_version_features](https://api-v3.igdb.com/game_version_features)
         public static let requestPath: String = "game_version_features"
@@ -26,7 +15,7 @@ extension GameVersion {
         public let identifier: UInt64
 
         /// The category of the feature description
-        public let category: Category?
+        public let category: FeatureCategory?
 
         /// The description of the feature
         public let description: String?
@@ -41,6 +30,7 @@ extension GameVersion {
         public let values: [GameVersion.FeatureValue]?
 
         // sourcery:inline:GameVersion.Feature.Codable
+    // swiftlint:disable all
 
         /// A type that can be used as a key for encoding and decoding.
         public enum CodingKeys: String, CodingKey {
@@ -70,7 +60,7 @@ extension GameVersion {
                 container = nil
             }
             // Extended decoding - any other property than identifier is optional
-            category = try container?.decodeIfPresent(Category.self, forKey: .category) ?? nil
+            category = try container?.decodeIfPresent(FeatureCategory.self, forKey: .category) ?? nil
             description = try container?.decodeIfPresent(String.self, forKey: .description) ?? nil
             position = try container?.decodeIfPresent(Int.self, forKey: .position) ?? nil
             title = try container?.decodeIfPresent(String.self, forKey: .title) ?? nil
@@ -110,6 +100,7 @@ extension GameVersion {
                 values == nil &&
                 true // Have not found a way to trim the last && with sourcery
         }
+    // swiftlint:enable all
         // sourcery:end
     }
 }

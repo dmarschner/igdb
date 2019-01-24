@@ -3,6 +3,7 @@ import Apicalypse
 
 extension PlatformVersion.ReleaseDate: Composable {
     // sourcery:inline:PlatformVersion.ReleaseDate.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -24,5 +25,6 @@ extension PlatformVersion.ReleaseDate: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

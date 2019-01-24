@@ -56,6 +56,7 @@ public final class Achievement: Identifiable, Updatable, Codable {
     public let tags: [Tag]?
 
     // sourcery:inline:Achievement.Codable
+    // swiftlint:disable all
 
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
@@ -157,5 +158,6 @@ public final class Achievement: Identifiable, Updatable, Codable {
             tags == nil &&
             true // Have not found a way to trim the last && with sourcery
     }
+    // swiftlint:enable all
     // sourcery:end
 }

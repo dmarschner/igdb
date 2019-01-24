@@ -10,7 +10,6 @@ extension Character {
         case android
         case unknown
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

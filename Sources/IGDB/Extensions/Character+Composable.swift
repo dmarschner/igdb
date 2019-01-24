@@ -3,6 +3,7 @@ import Apicalypse
 
 extension Character: Composable {
     // sourcery:inline:Character.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -28,5 +29,6 @@ extension Character: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

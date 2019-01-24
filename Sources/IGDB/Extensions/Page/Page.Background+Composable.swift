@@ -3,6 +3,7 @@ import Apicalypse
 
 extension Page.Background: Composable {
     // sourcery:inline:Page.Background.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -21,5 +22,6 @@ extension Page.Background: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

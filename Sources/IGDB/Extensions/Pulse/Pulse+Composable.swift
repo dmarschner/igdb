@@ -3,6 +3,7 @@ import Apicalypse
 
 extension Pulse: Composable {
     // sourcery:inline:Pulse.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -27,5 +28,6 @@ extension Pulse: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

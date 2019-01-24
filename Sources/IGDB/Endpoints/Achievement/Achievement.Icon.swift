@@ -33,6 +33,7 @@ extension Achievement {
         public let imageId: String?
 
         // sourcery:inline:Achievement.Icon.Codable
+    // swiftlint:disable all
 
         /// A type that can be used as a key for encoding and decoding.
         public enum CodingKeys: String, CodingKey {
@@ -106,6 +107,7 @@ extension Achievement {
                 imageId == nil &&
                 true // Have not found a way to trim the last && with sourcery
         }
+    // swiftlint:enable all
         // sourcery:end
     }
 }

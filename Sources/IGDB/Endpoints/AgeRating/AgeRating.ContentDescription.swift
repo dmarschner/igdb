@@ -19,6 +19,7 @@ extension AgeRating {
         public let description: String?
 
         // sourcery:inline:AgeRating.ContentDescription.Codable
+    // swiftlint:disable all
 
         /// A type that can be used as a key for encoding and decoding.
         public enum CodingKeys: String, CodingKey {
@@ -76,6 +77,7 @@ extension AgeRating {
                 description == nil &&
                 true // Have not found a way to trim the last && with sourcery
         }
+    // swiftlint:enable all
         // sourcery:end
     }
 }

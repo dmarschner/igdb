@@ -3,6 +3,7 @@ import Apicalypse
 
 extension Game.Artwork: Composable {
     // sourcery:inline:Game.Artwork.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -21,5 +22,6 @@ extension Game.Artwork: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

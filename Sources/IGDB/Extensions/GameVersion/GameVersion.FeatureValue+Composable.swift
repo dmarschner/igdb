@@ -3,6 +3,7 @@ import Apicalypse
 
 extension GameVersion.FeatureValue: Composable {
     // sourcery:inline:GameVersion.FeatureValue.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -19,5 +20,6 @@ extension GameVersion.FeatureValue: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

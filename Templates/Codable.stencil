@@ -1,6 +1,7 @@
 {% for type in types.all %}
 {% set spacing %}{% if type.parentName %}    {% endif %}{% endset %}
 // sourcery:inline:{{ type.name }}.Codable
+    // swiftlint:disable all
 
 {{spacing}}    /// A type that can be used as a key for encoding and decoding.
 {{spacing}}    {{ type.accessLevel }} enum CodingKeys: String, CodingKey {
@@ -71,5 +72,6 @@
 {{spacing}}        {% endfor %}
 {{spacing}}            true // Have not found a way to trim the last && with sourcery
 {{spacing}}    }
+    // swiftlint:enable all
 // sourcery:end
 {% endfor %}

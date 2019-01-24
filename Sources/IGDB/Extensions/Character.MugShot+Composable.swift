@@ -3,6 +3,7 @@ import Apicalypse
 
 extension Character.MugShot: Composable {
     // sourcery:inline:Character.MugShot.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -21,5 +22,6 @@ extension Character.MugShot: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

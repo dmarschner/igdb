@@ -10,7 +10,6 @@ extension Page {
         case industry
         case eSports
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

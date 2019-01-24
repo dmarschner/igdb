@@ -23,6 +23,7 @@ extension Game {
         public let url: String?
 
         // sourcery:inline:Game.Website.Codable
+    // swiftlint:disable all
 
         /// A type that can be used as a key for encoding and decoding.
         public enum CodingKeys: String, CodingKey {
@@ -84,6 +85,7 @@ extension Game {
                 url == nil &&
                 true // Have not found a way to trim the last && with sourcery
         }
+    // swiftlint:enable all
         // sourcery:end
     }
 }

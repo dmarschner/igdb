@@ -3,6 +3,7 @@ import Apicalypse
 
 extension InvolvedCompany: Composable {
     // sourcery:inline:InvolvedCompany.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -23,5 +24,6 @@ extension InvolvedCompany: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

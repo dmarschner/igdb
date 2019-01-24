@@ -8,7 +8,6 @@ extension Page {
         case contentCreator
         case clanTeam
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

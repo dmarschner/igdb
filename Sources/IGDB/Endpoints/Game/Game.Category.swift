@@ -18,7 +18,6 @@ extension Game {
         case bundle
         case standaloneExpansion
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

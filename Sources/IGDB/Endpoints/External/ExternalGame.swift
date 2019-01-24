@@ -40,6 +40,7 @@ public final class ExternalGame: Identifiable, Updatable, Codable {
     public let year: Int?
 
     // sourcery:inline:ExternalGame.Codable
+    // swiftlint:disable all
 
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
@@ -121,5 +122,6 @@ public final class ExternalGame: Identifiable, Updatable, Codable {
             year == nil &&
             true // Have not found a way to trim the last && with sourcery
     }
+    // swiftlint:enable all
     // sourcery:end
 }

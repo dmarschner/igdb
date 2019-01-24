@@ -1,5 +1,6 @@
 {% for type in types.all %}
 // sourcery:inline:{{ type.name }}.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -14,5 +15,6 @@
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
 // sourcery:end
 {% endfor %}

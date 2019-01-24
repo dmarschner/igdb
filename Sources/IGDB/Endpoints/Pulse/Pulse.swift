@@ -49,6 +49,7 @@ public final class Pulse: Identifiable, Updatable, Codable {
     public let website: Website?
 
     // sourcery:inline:Pulse.Codable
+    // swiftlint:disable all
 
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
@@ -146,5 +147,6 @@ public final class Pulse: Identifiable, Updatable, Codable {
             website == nil &&
             true // Have not found a way to trim the last && with sourcery
     }
+    // swiftlint:enable all
     // sourcery:end
 }

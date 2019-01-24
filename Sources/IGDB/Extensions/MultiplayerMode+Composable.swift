@@ -3,6 +3,7 @@ import Apicalypse
 
 extension MultiplayerMode: Composable {
     // sourcery:inline:MultiplayerMode.Composable
+    // swiftlint:disable all
 
     /// Returns the coding key of given `keyPath`
     ///
@@ -27,5 +28,6 @@ extension MultiplayerMode: Composable {
         default: throw Error.unexpectedKeyPath(keyPath)
         }
     }
+    // swiftlint:enable all
     // sourcery:end
 }

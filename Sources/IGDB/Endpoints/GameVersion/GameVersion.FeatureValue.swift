@@ -7,18 +7,6 @@ extension GameVersion {
     /// The bool/text value of the feature
     public final class FeatureValue: Identifiable, Codable {
 
-        /// Game Version Feature Value Included
-        public enum Included: Int, Codable, CustomStringConvertible {
-            case notIncluded
-            case included
-            case preOrderOnly
-
-            /// A textual representation of this instance.
-            public var description: String {
-                return String(self.rawValue)
-            }
-        }
-
         /// The API endpoint to request these entities from.
         /// Path: [/game_version_feature_values](https://api-v3.igdb.com/game_version_feature_values)
         public static let requestPath: String = "game_version_feature_values"
@@ -33,12 +21,13 @@ extension GameVersion {
         public let gameFeature: GameVersion.Feature?
 
         /// The boole value of this feature
-        public let includedFeature: Included?
+        public let includedFeature: FeatureValueIncluded?
 
         /// The text value of this feature
         public let note: String?
 
         // sourcery:inline:GameVersion.FeatureValue.Codable
+    // swiftlint:disable all
 
         /// A type that can be used as a key for encoding and decoding.
         public enum CodingKeys: String, CodingKey {
@@ -69,7 +58,7 @@ extension GameVersion {
             // Extended decoding - any other property than identifier is optional
             game = try container?.decodeIfPresent(Game.self, forKey: .game) ?? nil
             gameFeature = try container?.decodeIfPresent(GameVersion.Feature.self, forKey: .gameFeature) ?? nil
-            includedFeature = try container?.decodeIfPresent(Included.self, forKey: .includedFeature) ?? nil
+            includedFeature = try container?.decodeIfPresent(FeatureValueIncluded.self, forKey: .includedFeature) ?? nil
             note = try container?.decodeIfPresent(String.self, forKey: .note) ?? nil
         }
 
@@ -104,6 +93,7 @@ extension GameVersion {
                 note == nil &&
                 true // Have not found a way to trim the last && with sourcery
         }
+    // swiftlint:enable all
         // sourcery:end
     }
 }

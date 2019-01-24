@@ -10,7 +10,6 @@ extension Page {
         case pink
         case yellow
 
-
         /// A textual representation of this instance.
         ///
         /// Calling this property directly is discouraged. Instead, convert an

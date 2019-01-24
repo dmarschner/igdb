@@ -19,6 +19,7 @@ public final class ProductFamily: Identifiable, Codable {
     public let slug: String?
 
     // sourcery:inline:ProductFamily.Codable
+    // swiftlint:disable all
 
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
@@ -76,5 +77,6 @@ public final class ProductFamily: Identifiable, Codable {
             slug == nil &&
             true // Have not found a way to trim the last && with sourcery
     }
+    // swiftlint:enable all
     // sourcery:end
 }

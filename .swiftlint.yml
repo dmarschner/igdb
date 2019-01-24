@@ -1,1 +1,5 @@
 force_cast: error
+excluded:
+    - .build
+disabled_rules:
+    - cyclomatic_complexity # Composable Extensions

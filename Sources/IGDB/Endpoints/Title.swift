@@ -34,6 +34,7 @@ public final class Title: Identifiable, Updatable, Codable {
     public let url: String?
 
     // sourcery:inline:Title.Codable
+    // swiftlint:disable all
 
     /// A type that can be used as a key for encoding and decoding.
     public enum CodingKeys: String, CodingKey {
@@ -111,5 +112,6 @@ public final class Title: Identifiable, Updatable, Codable {
             url == nil &&
             true // Have not found a way to trim the last && with sourcery
     }
+    // swiftlint:enable all
     // sourcery:end
 }
